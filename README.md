@@ -1,2 +1,2 @@
 # HKU-Courses
-本仓库用于存放香港大学计算机硕士课程的学习资料、课堂笔记、作业代码与实验报告，方便归档、版本管理与复习查阅。
+This repository holds my HKU MSc Computer Science learning resources, lecture notes, assignment code and lab reports for archiving, version control and easy reference.
