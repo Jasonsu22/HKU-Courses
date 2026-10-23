@@ -64,3 +64,9 @@ __pypackages__/
 .ipynb_checkpoints/
 .pdm-python
 .pdm-build/
+
+# COMP7503: local-only files (archived, restricted, private, or belonging to others)
+COMP7503 Multimedia technologies/_archive/
+COMP7503 Multimedia technologies/Exam-Prep/Past-Papers/
+COMP7503 Multimedia technologies/Exam-Prep/Transcripts/
+COMP7503 Multimedia technologies/COMP7503_*_2026-10-21/
