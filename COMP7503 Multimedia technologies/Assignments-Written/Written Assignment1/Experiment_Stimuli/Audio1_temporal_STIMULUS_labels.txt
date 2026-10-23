@@ -1,0 +1,14 @@
+0.500	0.600	SHORT masker: 1 kHz
+0.600	0.620	Gap: 20 ms
+0.620	0.660	Probe: 1 kHz
+1.500	1.600	LONG masker: 1 kHz
+1.600	1.800	Gap: 200 ms
+1.800	1.840	Probe: 1 kHz
+2.500	2.540	Probe alone: 1 kHz
+3.500	3.600	LONG masker: 1 kHz
+3.600	3.800	Gap: 200 ms
+3.800	3.840	Probe: 1 kHz
+4.500	4.600	SHORT masker: 1 kHz
+4.600	4.620	Gap: 20 ms
+4.620	4.660	Probe: 1 kHz
+5.500	5.540	Probe alone: 1 kHz
