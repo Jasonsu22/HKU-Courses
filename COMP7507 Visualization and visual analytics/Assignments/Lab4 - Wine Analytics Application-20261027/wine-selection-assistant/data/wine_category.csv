@@ -1,0 +1,709 @@
+variety,category
+White Blend,white
+Portuguese Red,red
+Pinot Gris,white
+Riesling,white
+Pinot Noir,red
+Tempranillo-Merlot,red
+Frappato,red
+Gewürztraminer,white
+Cabernet Sauvignon,red
+Nerello Mascalese,red
+Chardonnay,white
+Malbec,red
+Tempranillo Blend,red
+Meritage,red
+Red Blend,red
+Merlot,red
+Nero d'Avola,red
+Chenin Blanc,white
+Gamay,red
+Sauvignon Blanc,white
+Viognier-Chardonnay,white
+Primitivo,red
+Catarratto,white
+Inzolia,white
+Petit Verdot,red
+Monica,red
+Bordeaux-style White Blend,white
+Grillo,white
+Sangiovese,red
+Cabernet Franc,red
+Champagne Blend,sparkling
+Bordeaux-style Red Blend,red
+Aglianico,red
+Petite Sirah,red
+Touriga Nacional,red
+Carmenère,red
+Albariño,white
+Petit Manseng,white
+Rosé,rose
+Zinfandel,red
+Vernaccia,white
+Rosato,rose
+Grüner Veltliner,white
+Viognier,white
+Vermentino,white
+Grenache Blanc,white
+Syrah,red
+Nebbiolo,red
+Shiraz-Cabernet Sauvignon,red
+Pinot Blanc,white
+Alsace white blend,white
+Barbera,red
+Rhône-style Red Blend,red
+Portuguese White,white
+Graciano,red
+Tannat-Cabernet,red
+Sauvignon,white
+Sangiovese Grosso,red
+Torrontés,white
+Prugnolo Gentile,red
+G-S-M,red
+Verdejo,white
+Fumé Blanc,white
+Furmint,white
+Pinot Bianco,red
+Bonarda,red
+Shiraz,red
+Montepulciano,red
+Moscato,white
+Grenache,red
+Ugni Blanc-Colombard,white
+Syrah-Viognier,white
+Blaufränkisch,red
+Friulano,white
+Assyrtico,white
+Carignan-Grenache,red
+Sagrantino,red
+Savagnin,white
+Cabernet Sauvignon-Syrah,red
+Prosecco,sparkling
+Vignoles,white
+Sparkling Blend,sparkling
+Muscat,white
+Muscadelle,white
+Shiraz-Viognier,white
+Garganega,white
+Pinot Grigio,white
+Tempranillo,red
+Zierfandler,white
+Cortese,white
+Mencía,red
+Zweigelt,red
+Melon,white
+Rhône-style White Blend,white
+Vidal,white
+Cannonau,red
+Verdelho,white
+Marsanne,white
+Scheurebe,white
+Kerner,white
+Syrah-Grenache,red
+Dolcetto,red
+Vilana,white
+Glera,sparkling
+Viura,white
+Garnacha Tintorera,red
+Pinot Nero,red
+Roter Veltliner,white
+Pinotage,red
+Sémillon,white
+Pinot Noir-Gamay,red
+Antão Vaz,white
+Cabernet Sauvignon-Carmenère,red
+Verdejo-Viura,white
+Verduzzo,white
+Verdicchio,white
+Silvaner,white
+Colombard,white
+Carricante,white
+Sylvaner,white
+Fiano,white
+Früburgunder,other
+Sousão,red
+Roussanne,white
+Avesso,white
+Cinsault,red
+Chinuri,white
+Tinta Miúda,red
+Muscat Blanc à Petits Grains,white
+Portuguese Sparkling,sparkling
+Monastrell,red
+Xarel-lo,white
+Greco,white
+Trebbiano,white
+"Corvina, Rondinella, Molinara",red
+Port,dessert
+Chenin Blanc-Chardonnay,white
+Insolia,white
+Merlot-Malbec,red
+Ribolla Gialla,white
+Cabernet Sauvignon-Merlot,red
+Duras,red
+Weissburgunder,white
+Roditis,white
+Traminer,white
+Papaskarasi,other
+Tannat-Syrah,red
+Marsanne-Roussanne,white
+Charbono,red
+Merlot-Argaman,red
+Prié Blanc,white
+Sherry,dessert
+Provence red blend,red
+Tannat,red
+Zibibbo,white
+Falanghina,white
+Garnacha,red
+Negroamaro,red
+Mourvèdre,red
+Syrah-Cabernet,red
+Müller-Thurgau,white
+Pinot Meunier,red
+Cabernet Sauvignon-Sangiovese,red
+Austrian Red Blend,red
+Teroldego,red
+Pansa Blanca,white
+Muskat Ottonel,white
+Sauvignon Blanc-Semillon,white
+Claret,other
+Semillon-Sauvignon Blanc,white
+Bical,white
+Moscatel,white
+Rosado,rose
+Viura-Chardonnay,white
+Baga,red
+Malvasia Bianca,white
+Gelber Muskateller,white
+Malbec-Merlot,red
+Monastrell-Syrah,red
+Malbec-Tannat,red
+Malbec-Cabernet Franc,red
+Turbiana,white
+Refosco,red
+Alvarinho,other
+Manzoni,other
+Aragonês,other
+Agiorgitiko,other
+Malagousia,other
+Assyrtiko,other
+Ruché,other
+Welschriesling,white
+Tinta de Toro,other
+Cabernet Moravia,red
+Rieslaner,other
+Traminette,other
+Chambourcin,other
+Nero di Troia,other
+Lambrusco di Sorbara,other
+Cesanese,other
+Feteasca Neagra,other
+Lagrein,other
+Tinta Fina,other
+St. Laurent,other
+Marsanne-Viognier,white
+Cabernet Sauvignon-Shiraz,red
+Syrah-Cabernet Sauvignon,red
+Gewürztraminer-Riesling,white
+Pugnitello,other
+Cerceal,other
+Touriga Nacional Blend,red
+Austrian white blend,white
+Tocai,other
+Tinta Roriz,other
+Chardonnay-Viognier,white
+Fernão Pires,other
+Cabernet Franc-Cabernet Sauvignon,red
+Grenache-Syrah,red
+Seyval Blanc,white
+Muscat Canelli,white
+Cabernet Merlot,red
+Tempranillo-Cabernet Sauvignon,red
+Arinto,other
+Aragonez,other
+Merlot-Cabernet Franc,red
+Syrah-Petite Sirah,red
+Cabernet Blend,red
+Maturana,other
+Pecorino,other
+Rotgipfler,other
+Kinali Yapincak,other
+Cabernet Franc-Carmenère,red
+Magliocco,other
+Gamay Noir,red
+Sauvignon Gris,white
+Spätburgunder,other
+Picpoul,other
+Vidal Blanc,white
+Albanello,other
+White Port,white
+Arneis,other
+Malvasia,other
+Plavac Mali,other
+Lemberger,other
+Saperavi,other
+Altesse,other
+Blanc du Bois,white
+Provence white blend,white
+Nosiola,other
+Dornfelder,other
+Roussanne-Viognier,white
+Ojaleshi,other
+Godello,other
+Mondeuse,other
+Perricone,other
+Pedro Ximénez,other
+Auxerrois,other
+Syrah-Merlot,red
+Albana,other
+Muskat,other
+Lambrusco,other
+Cabernet Sauvignon-Malbec,red
+Tinto Fino,other
+Malbec-Cabernet Sauvignon,red
+Moschofilero,other
+Grechetto,other
+Encruzado,other
+Carignano,other
+Cabernet Franc-Merlot,red
+Torbato,other
+Syrah-Petit Verdot,red
+Garnacha Blanca,white
+Pallagrello,other
+Morava,other
+Syrah-Mourvèdre,red
+Aleatico,other
+Carcajolu,other
+Kisi,other
+Shiraz-Grenache,red
+Palomino,other
+Grenache-Carignan,red
+Nascetta,other
+Siria,other
+Malbec-Syrah,red
+Asprinio,other
+Feteascǎ Regalǎ,other
+Lambrusco Grasparossa,other
+Marselan,other
+Tocai Friulano,white
+Schiava,other
+Alfrocheiro,other
+Chardonnay-Semillon,white
+Corvina,red
+Norton,other
+Alicante Bouschet,other
+Tokaji,dessert
+Moscadello,other
+Cabernet Sauvignon-Tempranillo,red
+Carignan,other
+Loureiro-Arinto,other
+Cabernet-Syrah,red
+Sauvignon Blanc-Chardonnay,white
+Symphony,other
+Edelzwicker,other
+Madeira Blend,dessert
+Black Muscat,white
+Grenache Noir,red
+Durella,other
+Xinomavro,other
+Tinto del Pais,other
+Merlot-Cabernet Sauvignon,red
+Cercial,other
+Johannisberg Riesling,white
+Petite Verdot,other
+Passerina,other
+Valdiguié,other
+Colombard-Sauvignon Blanc,white
+Kangoun,other
+Loureiro,other
+Posip,other
+Uva di Troia,other
+Gros and Petit Manseng,white
+Jacquère,other
+Kalecik Karasi,other
+Karasakiz,other
+Mourvèdre-Syrah,red
+Negrette,other
+Zierfandler-Rotgipfler,white
+Clairette,other
+Raboso,other
+País,other
+Mauzac,other
+Pinot Auxerrois,red
+Chenin Blanc-Sauvignon Blanc,white
+Diamond,other
+Marzemino,other
+Tinta Barroca,other
+Chardonnay-Sauvignon Blanc,white
+Castelão,other
+Trebbiano Spoletino,white
+Teran,other
+Trepat,other
+Freisa,other
+Neuburger,other
+Sämling,other
+Chasselas,other
+Hárslevelü,other
+Trincadeira,other
+Merlot-Tannat,red
+Rkatsiteli,other
+Melnik,other
+Siegerrebe,other
+Trousseau Gris,other
+Grenache Blend,red
+Gros Manseng,other
+Portuguese Rosé,rose
+Brachetto,other
+Mantonico,other
+Ekigaïna,other
+Muskateller,other
+Aligoté,other
+Sangiovese Cabernet,red
+Touriga Nacional-Cabernet Sauvignon,red
+Muscat Blanc,white
+Argaman,other
+Viognier-Roussanne,white
+Pallagrello Bianco,other
+Bobal,other
+Malvasia Istriana,other
+Cabernet Sauvignon-Cabernet Franc,red
+Baco Noir,other
+Veltliner,other
+Tempranillo-Tannat,red
+Morillon,other
+Touriga Franca,other
+Picolit,other
+Barbera-Nebbiolo,red
+Prieto Picudo,other
+Gaglioppo,other
+Tokay,other
+Sacy,other
+Piedirosso,other
+Piquepoul Blanc,white
+Mansois,other
+Chardonnay-Sauvignon,white
+Tempranillo-Garnacha,red
+Carmenère-Cabernet Sauvignon,red
+Chenin Blanc-Viognier,white
+Susumaniello,other
+Vitovska,other
+Orange Muscat,white
+Grauburgunder,other
+Carignane,other
+Moscatel Roxo,white
+Tannat-Merlot,red
+Nerello Cappuccio,other
+Counoise,other
+Macabeo,sparkling
+Mazuelo,other
+Sauvignon-Sémillon,white
+Tinta del Pais,other
+Vranec,other
+Mavrud,other
+Cesanese d'Affile,other
+Moscato Giallo,white
+Debit,other
+Verdil,other
+Cabernet,red
+Verduzzo Friulano ,white
+Treixadura,other
+Loin de l'Oeil,other
+Coda di Volpe,other
+Grenache-Mourvèdre,red
+Forcallà,other
+Viura-Verdejo,white
+Bombino Bianco,other
+Pinot-Chardonnay,white
+Syrah-Tempranillo,red
+Cabernet Sauvignon-Barbera,red
+Merlot-Cabernet,red
+Muscat d'Alexandrie,white
+Jaen,other
+Tinta del Toro,other
+Timorasso,other
+Pigato,other
+Sangiovese-Cabernet Sauvignon,red
+Shiraz-Cabernet,red
+Viognier-Gewürztraminer,white
+Prunelard,other
+Sauvignon Blanc-Chenin Blanc,white
+Gros Plant,other
+Malbec-Petit Verdot,red
+Colombard-Ugni Blanc,white
+Grignolino,other
+Garnacha-Syrah,red
+Rufete,other
+Tempranillo-Shiraz,red
+Mtsvane,other
+Chardonnay-Pinot Gris,white
+Marawi,other
+Chardonnay-Pinot Blanc,white
+Mataro,other
+Tinta Cao,other
+Blauer Portugieser,dessert
+Ugni Blanc,white
+Groppello,other
+Semillon-Chardonnay,white
+Irsai Oliver,other
+Alvarelhão,other
+Poulsard,other
+Grenache-Shiraz,red
+Baga-Touriga Nacional,red
+Carineña,other
+Pignoletto,other
+Muscatel,white
+Mavrodaphne,other
+Ciliegiolo,other
+Viognier-Grenache Blanc,white
+Greco Bianco,white
+Cabernet Sauvignon-Merlot-Shiraz,red
+Sciaccerellu,other
+Zelen,other
+Alicante,other
+Emir,other
+Rosenmuskateller,other
+Tsolikouri,other
+Narince,other
+Malbec-Cabernet,red
+Touriga,other
+Grecanico,other
+Carmenère-Syrah,red
+Madeleine Angevine,other
+Mavroudi,other
+Pinot Blanc-Pinot Noir,white
+Muscat Hamburg,white
+Tempranillo Blanco,white
+Casavecchia,other
+Pinot Gris-Gewürztraminer,white
+White Riesling,white
+Tinto Velasco,other
+Hondarrabi Zuri,other
+Nuragus,other
+Xynisteri,other
+Kadarka,other
+Sauvignon Musqué,white
+Roussanne-Marsanne,white
+Incrocio Manzoni,other
+Terrantez,other
+Bual,other
+Okuzgozu,other
+Rivaner,other
+Doña Blanca,white
+Graševina,other
+Lambrusco Salamino,other
+Sangiovese-Syrah,red
+Tannat-Cabernet Franc,red
+Thrapsathiri,other
+Fer Servadou,other
+Mission,other
+Kekfrankos,other
+Cococciola,other
+Blauburgunder,other
+Marquette,other
+Romorantin,other
+Verdejo-Sauvignon Blanc,white
+Braucol,other
+Malvasia-Viura,white
+Savatiano,other
+Cabernet Franc-Malbec,red
+Pallagrello Nero,other
+Rebula,other
+Vespolina,other
+Shiraz-Malbec,red
+Rebo,other
+Macabeo-Chardonnay,white
+Tempranillo-Malbec,red
+Tamjanika,other
+Trousseau,other
+Bacchus,other
+Syrah-Malbec,red
+Syrah-Cabernet Franc,red
+Macabeo-Moscatel,white
+Cariñena-Garnacha,red
+Plyto,other
+Códega do Larinho,other
+Sideritis,other
+Çalkarası,other
+Azal,other
+Moscatel Graúdo,white
+Viosinho,other
+Moschofilero-Chardonnay,white
+Paralleda,other
+Rara Neagra,other
+Malvasia di Candia,other
+Maria Gomes,other
+Molinara,red
+Malvar,other
+Airen,other
+Erbaluce,other
+Muscat of Alexandria,white
+Verdosilla,other
+Abouriou,other
+Pinot Noir-Syrah,red
+Nielluciu,other
+Malbec-Bonarda,red
+Vespaiolo,other
+Malbec-Carménère,red
+Biancolella,other
+Sauvignon Blanc-Verdejo,white
+Aidani,other
+Garnacha-Monastrell,red
+Vinhão,other
+Souzao,other
+Roter Traminer,white
+Moscatel de Alejandría,white
+Rolle,other
+Tinta Francisca,other
+Malvasia Nera,other
+Orangetraube,other
+Riesling-Chardonnay,white
+Žilavka,other
+Portuguiser,dessert
+Listán Negro,other
+Pinotage-Merlot,red
+Muscadine,other
+Maria Gomes-Bical,white
+Grolleau,other
+Zlahtina,other
+Syrah-Grenache-Viognier,white
+Jacquez,other
+Gouveio,other
+Canaiolo,other
+Carignan-Syrah,red
+Bombino Nero,other
+Chardonnay-Riesling,white
+Malagouzia-Chardonnay,white
+Mavrotragano,other
+Bovale,other
+Frankovka,other
+Shiraz-Roussanne,red
+Cabernet-Shiraz,red
+Syrah-Carignan,red
+Elbling,other
+Gragnano,other
+Garnacha Blend,red
+Pinot Blanc-Chardonnay,white
+Schwartzriesling,white
+Petit Meslier,other
+Bastardo,other
+Vidadillo,other
+Misket,other
+Chardonnay Weissburgunder,white
+Other,other
+Robola,other
+Merlot-Shiraz,red
+Malagouzia,other
+Folle Blanche,white
+Malbec Blend,red
+Merlot-Syrah,red
+Tamianka,other
+Cabernet Pfeffer,red
+Morio Muskat,other
+Rabigato,other
+Babić,other
+Roviello,other
+Yapincak,other
+Sauvignonasse,white
+Viognier-Marsanne,white
+Mandilaria,other
+Meseguera,other
+Alvarinho-Chardonnay,white
+Saperavi-Merlot,red
+Pinot Blanc-Viognier,white
+Teroldego Rotaliano,red
+Biancu Gentile,other
+Garnacha-Tempranillo,red
+Xinisteri,other
+Sauvignon Blanc-Sauvignon Gris,white
+Trebbiano di Lugana,white
+Albarossa,other
+Ryzlink Rýnský,other
+Verdeca,other
+Cabernet Sauvignon Grenache,red
+Tămâioasă Românească,other
+Black Monukka,other
+Merlot-Grenache,red
+Vranac,other
+Tempranillo-Syrah,red
+Chardonel,other
+Silvaner-Traminer,white
+Uvalino,other
+Merseguera-Sauvignon Blanc,white
+Cabernet-Malbec,red
+Boğazkere,other
+Gelber Traminer,white
+Vermentino Nero,white
+Cayuga,other
+Tinta Amarela,other
+Tinta Negra Mole,other
+Moscato Rosa,white
+Chelois,other
+Sauvignon Blanc-Assyrtiko,white
+,other
+Muscadel,other
+Shiraz-Tempranillo,red
+Roussanne-Grenache Blanc,white
+Biancale,other
+Ansonica,other
+Syrah-Bonarda,red
+Durif,other
+Franconia,other
+Malbec-Tempranillo,red
+Nasco,other
+Monastrell-Petit Verdot,red
+Sirica,other
+Vital,other
+Espadeiro,other
+Apple,other
+Pinot Grigio-Sauvignon Blanc,white
+Blatina,other
+Karalahna,other
+Feteasca,other
+Sercial,other
+Valvin Muscat,white
+Malvasia Fina,other
+Roditis-Moschofilero,white
+St. Vincent,other
+Chancellor,other
+Premsal,other
+Jampal,other
+Tokay Pinot Gris,white
+Colorino,other
+Picapoll,other
+Blauburger,other
+Tinta Madeira,dessert
+Centesimino,other
+Grenache Gris,red
+Trajadura,other
+Merlot-Petite Verdot,red
+Ramisco,other
+Catalanesca,other
+Garnacha-Cabernet,red
+Garnacha-Cariñena,red
+Gamza,other
+Cabernet Franc-Lemberger,red
+Chardonnay-Albariño,white
+Shiraz-Mourvèdre,red
+Mavrokalavryta,other
+Favorita,other
+Babosa Negro,other
+Tintilia ,other
+Dafni,other
+Petit Courbu,other
+Kotsifali,other
+Parraleta,other
+Moscato di Noto,white
+Roscetto,other
+Torontel,other
+Otskhanuri Sapere,other
+Viognier-Valdiguié,white
+Trollinger,other
+Tsapournakos,other
+Francisa,other
+Kuntra,other
+Pignolo,other
+Caprettone,other
+Ondenc,other
+Athiri,other
+Bobal-Cabernet Sauvignon,red
