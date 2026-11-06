@@ -64,6 +64,10 @@
       D.camps.south.every((c, i, a) => i === 0 || c.elev >= a[i - 1].elev),
       D.camps.south.map((c) => fmt.int(c.elev)).join(" → "));
 
+    add("terrain", "3D texture is embedded, so it loads from a double-clicked file",
+      typeof window.TERRAIN_TEXTURE === "string" && window.TERRAIN_TEXTURE.startsWith("data:image/"),
+      window.TERRAIN_TEXTURE ? `${fmt.int(window.TERRAIN_TEXTURE.length)} characters` : "missing");
+
     // ---- new views: browser recomputes from rows; expected values come from Python ----
     const E = window.EVEREST_PLAN.expect;
     const PD = window.PD;

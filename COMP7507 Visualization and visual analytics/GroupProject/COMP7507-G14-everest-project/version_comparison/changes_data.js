@@ -22,7 +22,7 @@ window.CHANGES = [
   { view: "routes", type: "UPGRADED", title: "Route families and treemap", before: "#m2-routes", after: "#m2-card-routes", note: "Intervals on bars, plus a treemap that drills into raw route names and sets a filter.", beforeNote: "No intervals; colour wrongly implied a side for mixed families." },
   { view: "routes", type: "NEW", title: "Altitude funnel", after: "#m2-card-funnel", note: "Share of expeditions reaching each altitude. Hover to light up the profile, map and 3D. Tests H6." },
   { view: "routes", type: "UPGRADED", title: "Camp profile is linked", before: "#m2-camps", after: "#m2-card-camps", note: "Hovering links with the funnel, map and 3D view.", beforeNote: "Stood alone, linked to nothing." },
-  { view: "routes", type: "UPGRADED", title: "Map and 3D follow the filters", before: "#geo-card", after: "#geo-card", note: "Route width and camp percentages show the share reaching that altitude. Contour plot added. Exaggeration note corrected to ×1.7.", beforeNote: "Ignored all filters. Footnote said ×1.9; the code uses ×1.7." },
+  { view: "routes", type: "UPGRADED", title: "Map and 3D follow the filters", before: "#geo-card", after: "#geo-card", note: "Route width and camp percentages show the share reaching that altitude. Contour plot added. 3D terrain now renders when the page is double-clicked. Exaggeration note corrected to ×1.7.", beforeNote: "Ignored all filters. 3D terrain renders black when the page is double-clicked. Footnote said ×1.9; the code uses ×1.7." },
   { view: "routes", type: "NEW", title: "Summit calendar", after: "#m2-card-calendar", note: "Heat map of day × year by side, showing the summit window." },
   { view: "routes", type: "NEW", title: "Base camp arrival", after: "#m2-card-bc", note: "Success by arrival window, which tests and rejects H5." },
   { view: "routes", type: "UPGRADED", title: "2026 layer", before: "#m2-current", after: "#m2-current", note: "Adds a yearly chart with 2026 as a hollow marker. Still separate from the data.", beforeNote: "Numbers only, with no history to compare." },
@@ -52,5 +52,5 @@ window.CHANGE_NUMBERS = [
   ["Default plan estimate", "74.5%", "74.6%"],
   ["60+, no oxygen estimate", "0.9%", "2.8%"],
   ["Task T5 plan (40–49, no oxygen) estimate", "about 3%", "about 10%"],
-  ["Self-test checks", "23", "52"],
+  ["Self-test checks", "23", "53"],
 ];

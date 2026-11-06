@@ -34,7 +34,7 @@ That line matters because the rubric gives B+ and above for "mostly explorative 
 
 **The day before**
 - [ ] Open `everest-app/index.html` on the presenting laptop by double-clicking it. It needs no internet.
-- [ ] Open `everest-app/index.html?selftest=1` and confirm **52 of 52 checks passed**.
+- [ ] Open `everest-app/index.html?selftest=1` and confirm **53 of 53 checks passed**.
 - [ ] Go to Routes and check the 3D terrain appears. If it shows a WebGL message, the map still works, so say "the 2D map shows the same data".
 - [ ] Record the full run as a backup video. The requirements allow video clips.
 - [ ] Rehearse with a timer at projector resolution, and check text is readable from the back. The rubric assesses this.
@@ -167,7 +167,7 @@ Each step has a **Do** (what to click) and a **Say** (what to say).
 **Do:** Switch to Tab 2, showing the self-test panel.
 
 **Say:**
-> "We checked ourselves. This self-test recomputes numbers in the browser and compares them with Python: 52 checks, all passing. We also audited the dataset against the proposal. These are associations in historical records, not causes, and not a promise anyone will summit. Oxygen and hired staff are recorded during the expedition, not before it, so this describes comparable expeditions rather than forecasting yours. Thank you."
+> "We checked ourselves. This self-test recomputes numbers in the browser and compares them with Python: 53 checks, all passing. We also audited the dataset against the proposal. These are associations in historical records, not causes, and not a promise anyone will summit. Oxygen and hired staff are recorded during the expedition, not before it, so this describes comparable expeditions rather than forecasting yours. Thank you."
 
 ---
 
@@ -208,7 +208,7 @@ Each step has a **Do** (what to click) and a **Say** (what to say).
 | Why these chart types? | Each answers a specific question. We also rejected some: spiral graphs because the season is already explicit, and Chernoff faces because they read poorly and are in bad taste with data on deaths. |
 | Why is the network layout fixed? | The slides raise predictability. A fixed layout means a change in the picture is a change in the data. |
 | Do well-connected agencies do better? | We show the association, but agencies differ in clients and routes, so it's not a quality ranking. |
-| How do you know numbers are right? | A 28-check audit against the proposal, and a 52-check browser-vs-Python self-test. |
+| How do you know numbers are right? | A 28-check audit against the proposal, and a 53-check browser-vs-Python self-test. |
 | What would you do next? | Run the user test, evaluate over rolling periods, and add new seasons as a separate layer. |
 
 **Avoid saying**

@@ -151,7 +151,7 @@ separator, so oxygen-free estimates are unstable and are flagged; the expedition
 oxygen-free case, and the UI shows the observed comparable group next to it with a caution.
 
 ### 7.4 Reproducibility check
-The browser ↔ Python self-test: 52/52 checks (`?selftest=1`), including 8 model predictions, 6
+The browser ↔ Python self-test: 53/53 checks (`?selftest=1`), including 8 model predictions, 6
 cohort counts and the numbers behind every finding. Appendix B holds the 28-row audit table and the file checksums.
 
 ## 8. Evaluation (≈600 words — fill after the six sessions)

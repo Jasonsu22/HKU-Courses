@@ -215,7 +215,11 @@ def main():
     (OUT / "terrain.js").write_text(
         "window.TERRAIN = " + json.dumps(bundle, separators=(",", ":")) + ";\n",
         encoding="utf-8")
-    for f in ("terrain-shade.jpg", "terrain-color.jpg", "terrain.js"):
+    # WebGL 不能在 file:// 下读取图片文件，所以把 3D 贴图内嵌成 data URL
+    texture = base64.b64encode((OUT / "terrain-color.jpg").read_bytes()).decode()
+    (OUT / "terrain-texture.js").write_text(
+        f'window.TERRAIN_TEXTURE = "data:image/jpeg;base64,{texture}";\n', encoding="utf-8")
+    for f in ("terrain-shade.jpg", "terrain-color.jpg", "terrain.js", "terrain-texture.js"):
         print(f"{f:20s} { (OUT/f).stat().st_size/1024:7.0f} KB")
 
 

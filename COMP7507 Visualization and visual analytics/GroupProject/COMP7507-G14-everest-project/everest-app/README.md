@@ -71,7 +71,8 @@ everest-app/
 │     ├─ terrain.js           heightfield grid (260×300, base64 int16)
 │     ├─ features.js          camps / cols / peaks from OpenStreetMap
 │     ├─ terrain-shade.jpg    2D hillshade + hypsometric tint
-│     └─ terrain-color.jpg    3D texture (no baked shading)
+│     ├─ terrain-color.jpg    3D texture (no baked shading)
+│     └─ terrain-texture.js   same texture embedded for WebGL, so double-click opening works
 ├─ pipeline/
 │  ├─ prepare.py              loading, cleaning, derived fields
 │  ├─ build_data.py           aggregates + camps + 2026 layer → data/
@@ -203,7 +204,7 @@ comparable historical expeditions rather than forecasting a future one.
   (summit, both base camps, cols) before integrating it.
 - Module 03's model predictions were cross-checked in Python against the browser
   (default profile: 74.6% model vs 75.0% observed in the exact cohort). The same comparison is now
-  automated: open `?selftest=1` for 52 browser-vs-Python checks (counts, predictions, cohort sizes,
+  automated: open `?selftest=1` for 53 browser-vs-Python checks (counts, predictions, cohort sizes,
   camp ordering, plan data, every finding's numbers).
 - Insufficient-evidence path tested with a winter / north / non-standard / no-oxygen
   profile.

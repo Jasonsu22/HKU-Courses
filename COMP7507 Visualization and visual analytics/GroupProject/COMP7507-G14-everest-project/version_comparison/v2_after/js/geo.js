@@ -379,7 +379,8 @@
     geo.setIndex(idx);
     geo.computeVertexNormals();
 
-    const tex = new THREE.TextureLoader().load("data/terrain/terrain-color.jpg");
+    // Embedded as a data URL: WebGL can't read image files when the page is opened by double-click.
+    const tex = new THREE.TextureLoader().load(window.TERRAIN_TEXTURE);
     if ("encoding" in tex) tex.encoding = THREE.sRGBEncoding;
     tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
     const surface = new THREE.Mesh(geo, new THREE.MeshLambertMaterial({ map: tex, color: 0xe9e9e9 }));
@@ -405,7 +406,7 @@
         const isSummit = c.id === "SUM";
         const m = new THREE.Mesh(
           isSummit ? summitGeo : markerGeo,
-          new THREE.MeshBasicMaterial({ color: isSummit ? 0xffffff : (side === "south" ? 0xb4552d : 0x1e4a5f) })
+          new THREE.MeshBasicMaterial({ color: isSummit ? 0xffffff : (side === "south" ? 0xeb6834 : 0x2a78d6) })
         );
         m.position.set(x, y, z);
         scene.add(m);
