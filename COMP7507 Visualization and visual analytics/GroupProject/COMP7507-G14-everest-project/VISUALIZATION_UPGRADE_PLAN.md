@@ -1,7 +1,9 @@
 # Everest project: visualization upgrade plan
 
-**Status: for review. No app code has been changed.**
-Baseline commit: `8e6b16f` on local branch `comp7507-everest-viz` (not pushed).
+**Status: approved and built.** Baseline commit: `8e6b16f` on local branch `comp7507-everest-viz` (not pushed).
+
+Decisions taken: model retrained without the closures (using a rule from the dataset's `termnote` field), operator network included, one local commit per page.
+Numbers below are the planning estimates. A few moved slightly when recomputed (for example H8 is 794, not 802, and the factor is about 22×); `DEMO_AND_STORY_GUIDE.md` has the final figures.
 
 This plan covers all three pages of the HTML app. It answers your three questions:
 

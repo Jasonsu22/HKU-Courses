@@ -6,10 +6,12 @@
 |---|---|---|---|
 | T1 Historical change | names a change **with** a number/visual | names a change without evidence | cannot find a change |
 | T2 Compare sides | both rates **and** both n; comments on n=13 | both rates, no n | wrong side or no rates |
-| T3 Route panel | correct camp **and** “schematic / not a map” | camp or caveat only | takes it as a real map |
+| T3 Terrain view | meaning of the percentage **and** “schematic line” | one of the two | takes it as a real map |
 | T4 Profile | estimate, cohort n, observed rate | estimate + one of the two | cannot get a number |
 | T5 Interpretation | notices the drop **and** gives a reason to distrust precision | notices the drop only | reads 3% as precise |
 | T6 Limitation | one concrete limitation in own words | repeats a label without meaning | none |
+| T7 Through time | describes the change **and** compares with the model | describes the change only | calls it stable |
+| T8 Connections | names a linked pair **and** reads success | pair only | no pair, or reads a link as a cause |
 
 Uncompleted tasks are counted as **N** for completion rate, even if the participant ran out of time.
 

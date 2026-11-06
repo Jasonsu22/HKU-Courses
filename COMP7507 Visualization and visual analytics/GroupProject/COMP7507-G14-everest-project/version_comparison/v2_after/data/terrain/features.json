@@ -1,0 +1,227 @@
+{
+  "attribution": "Camps, peaks and cols: © OpenStreetMap contributors (ODbL), elevations from OSM tags; terrain from Mapzen / AWS Open Data.",
+  "sources": [
+    {
+      "name": "OpenStreetMap · Overpass API",
+      "url": "https://www.openstreetmap.org/",
+      "query": "node[natural~peak|saddle](27.90,86.75,28.20,87.00); node[tourism=camp_site](27.90,86.75,28.20,87.00); out;"
+    },
+    {
+      "name": "Mapzen Terrain Tiles",
+      "url": "https://registry.opendata.aws/terrain-tiles/"
+    }
+  ],
+  "camps": {
+    "south": [
+      {
+        "id": "BC-S",
+        "label": "South BC",
+        "short": "BC",
+        "kind": "bc",
+        "side": "south",
+        "lat": 27.999665,
+        "lon": 86.848795,
+        "elev": 5364,
+        "dx": 10,
+        "dy": 4,
+        "anchor": "start"
+      },
+      {
+        "id": "C1-S",
+        "label": "Camp 1",
+        "short": "C1",
+        "kind": "camp",
+        "side": "south",
+        "lat": 27.986417,
+        "lon": 86.876522,
+        "elev": 6060,
+        "dx": 12,
+        "dy": 4,
+        "anchor": "start"
+      },
+      {
+        "id": "C2-S",
+        "label": "Camp 2",
+        "short": "C2",
+        "kind": "camp",
+        "side": "south",
+        "lat": 27.981564,
+        "lon": 86.899141,
+        "elev": 6400,
+        "dx": 12,
+        "dy": 14,
+        "anchor": "start"
+      },
+      {
+        "id": "C3-S",
+        "label": "Camp 3",
+        "short": "C3",
+        "kind": "camp",
+        "side": "south",
+        "lat": 27.968888,
+        "lon": 86.91781,
+        "elev": 7100,
+        "dx": -12,
+        "dy": 16,
+        "anchor": "end"
+      },
+      {
+        "id": "C4-S",
+        "label": "Camp 4 · South Col",
+        "short": "C4",
+        "kind": "camp",
+        "side": "south",
+        "lat": 27.973365,
+        "lon": 86.930251,
+        "elev": 7920,
+        "dx": 12,
+        "dy": -2,
+        "anchor": "start"
+      },
+      {
+        "id": "SUM",
+        "label": "Summit",
+        "short": "Summit",
+        "kind": "summit",
+        "lat": 27.98806,
+        "lon": 86.92521,
+        "elev": 8849,
+        "side": "south",
+        "dx": 10,
+        "dy": -10,
+        "anchor": "start"
+      }
+    ],
+    "north": [
+      {
+        "id": "BC-N",
+        "label": "North BC",
+        "short": "BC",
+        "kind": "bc",
+        "side": "north",
+        "lat": 28.136531,
+        "lon": 86.855474,
+        "elev": 5200,
+        "dx": 12,
+        "dy": 4,
+        "anchor": "start"
+      },
+      {
+        "id": "ABC-N",
+        "label": "ABC",
+        "short": "ABC",
+        "kind": "camp",
+        "side": "north",
+        "lat": 28.030457,
+        "lon": 86.940358,
+        "elev": 6500,
+        "dx": 12,
+        "dy": -2,
+        "anchor": "start"
+      },
+      {
+        "id": "C1-N",
+        "label": "Camp 1 · North Col",
+        "short": "C1",
+        "kind": "camp",
+        "side": "north",
+        "lat": 28.016369,
+        "lon": 86.923316,
+        "elev": 7028,
+        "dx": -12,
+        "dy": -6,
+        "anchor": "end"
+      },
+      {
+        "id": "C2-N",
+        "label": "Camp 2",
+        "short": "C2",
+        "kind": "camp",
+        "side": "north",
+        "lat": 28.006237,
+        "lon": 86.929898,
+        "elev": 7790,
+        "dx": 12,
+        "dy": -4,
+        "anchor": "start"
+      },
+      {
+        "id": "C3-N",
+        "label": "Camp 3",
+        "short": "C3",
+        "kind": "camp",
+        "side": "north",
+        "lat": 27.999024,
+        "lon": 86.932191,
+        "elev": 8300,
+        "dx": 12,
+        "dy": -4,
+        "anchor": "start"
+      },
+      {
+        "id": "SUM",
+        "label": "Summit",
+        "short": "Summit",
+        "kind": "summit",
+        "lat": 27.98806,
+        "lon": 86.92521,
+        "elev": 8849,
+        "side": "north",
+        "dx": 10,
+        "dy": -10,
+        "anchor": "start"
+      }
+    ]
+  },
+  "peaks": [
+    {
+      "id": "LHOTSE",
+      "label": "Lhotse 8,516",
+      "lat": 27.96199,
+      "lon": 86.9325,
+      "elev": 8516,
+      "dx": 6,
+      "dy": 16,
+      "anchor": "middle",
+      "hideLabel": true
+    },
+    {
+      "id": "NUPTSE",
+      "label": "Nuptse 7,861",
+      "lat": 27.96737,
+      "lon": 86.88696,
+      "elev": 7861,
+      "dx": -8,
+      "dy": 18,
+      "anchor": "end"
+    },
+    {
+      "id": "PUMORI",
+      "label": "Pumori 7,138",
+      "lat": 28.01585,
+      "lon": 86.82735,
+      "elev": 7138,
+      "dx": -10,
+      "dy": 4,
+      "anchor": "end"
+    }
+  ],
+  "routes": {
+    "south": [
+      "BC-S",
+      "C1-S",
+      "C2-S",
+      "C3-S",
+      "C4-S",
+      "SUM"
+    ],
+    "north": [
+      "BC-N",
+      "ABC-N",
+      "C1-N",
+      "C2-N",
+      "C3-N",
+      "SUM"
+    ]
+  }
+}

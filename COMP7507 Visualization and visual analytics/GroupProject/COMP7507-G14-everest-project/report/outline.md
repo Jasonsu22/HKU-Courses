@@ -1,7 +1,23 @@
 # Report outline — Everest climbing decision support
 
-Suggested length: 8–10 pages plus appendix (course reports are usually 6,000–7,000 words).
-Every figure below already exists in the repository; the numbers are the ones the app and the audit use.
+Required format: one PDF. **Part I** up to 20 pages (excluding title page and references), **Part II**
+up to 5 pages per member. Every figure below can be captured from the app; the numbers are the ones the
+app and the audit use.
+
+## Required items checklist (from the project requirements)
+
+- [ ] Project title and objectives; group number, names, student IDs
+- [ ] **Highlights of the work in THREE bullet points** (draft below)
+- [ ] Visualizations created, and their effectiveness for developing hypotheses
+- [ ] Methods tried and why we chose them (including rejected techniques; see the upgrade plan, Section 6)
+- [ ] Difficulties; things not done and why; limitations; references
+- [ ] **Part II: individual contributions** for each of the five members (tasks, results or findings)
+
+### Three highlights (draft)
+
+1. An audited data layer, including a rule based on the dataset's own notes that removes cancelled 2014–15 expeditions and cuts an inflated oxygen effect from about 69× to about 22× the odds.
+2. Coordinated views across three pages, using temporal, network, tree and multivariate techniques, where filters and brushes drive every chart, the map and the 3D terrain.
+3. Eight hypotheses tested visually, each reproducible in one click, ending in a plan estimate that shows its uncertainty, its behaviour through time and when evidence is insufficient.
 
 ---
 
@@ -26,7 +42,7 @@ the estimate must be read as a historical association with wide uncertainty); on
 - The Himalayan Database as the reference archive; Maven Analytics distribution.
 - Visual analytics for outdoor/expedition decisions (small multiples, linked views, uncertainty).
 - Calibration and proper scoring rules (Brier, log loss) versus accuracy.
-- Why we did **not** use MapLibre/3D: no coordinates in the source; cite the proposal's fallback clause.
+- Why three.js rather than MapLibre: fully offline, and the expedition CSV has no coordinates, so terrain comes from SRTM tiles and camps from OpenStreetMap.
 
 ## 4. Data (≈900 words)
 
@@ -69,7 +85,7 @@ like-for-like panel, route families (≥20 expeditions), camp altitude cross-sec
 A dedicated **route & terrain** card adds the geographic layer the CSV lacks:
 
 - SRTM 30 m elevation model (Mapzen / AWS Open Data tiles) rendered as a hillshade map
-  and as an interactive WebGL terrain mesh (three.js, vertical exaggeration ×1.9).
+  and as an interactive WebGL terrain mesh (three.js, vertical exaggeration ×1.7).
 - Camp chains, cols and peaks mapped from OpenStreetMap (ODbL), with OSM elevations
   cross-checked against the database medians in the tooltip; a dashed line connects the
   camps (schematic, not a surveyed track); graticule, scale bar, north arrow and
@@ -93,6 +109,7 @@ missing data; empty states instead of zeros; URL-encoded scenarios for sharing/r
 - Predictors (8), all known before the expedition in principle; caveat that “oxygen used” and “hired
   above BC” are recorded during the expedition.
 - Time split 1990–2014 / 2015–2019 / 2020–2024; deployment refit 2005–2024; λ = 1 chosen on validation.
+- Closure rule: 130 expeditions abandoned in 2014–15 per `termnote` excluded from fitting; oxygen factor about 69× → 22×. Show before and after values.
 - Baselines: constant rate, side × season.
 - Metrics: Brier, log loss, AUC, 10-bin calibration; 95% intervals from 300 bootstrap refits.
 - Comparable cohorts: exact / mid / broad matching; sparse → insufficient evidence.
@@ -101,17 +118,19 @@ Table 2 — held-out 2020–2024 performance (from the model card):
 
 | Member model | Brier | Log loss | AUC |
 |---|---|---|---|
-| Constant | 0.292 | 0.780 | 0.500 |
-| Side × season | 0.262 | 0.718 | 0.476 |
-| Logistic | 0.221 | 0.627 | 0.651 |
+| Constant | 0.286 | 0.766 | 0.500 |
+| Side × season | 0.253 | 0.699 | 0.476 |
+| Logistic | 0.220 | 0.628 | 0.651 |
 
 | Expedition model | Brier | Log loss | AUC |
 |---|---|---|---|
-| Constant | 0.167 | 0.524 | 0.500 |
-| Side × season | 0.125 | 0.429 | 0.593 |
-| Logistic | 0.042 | 0.188 | 0.941 |
+| Constant | 0.156 | 0.500 | 0.500 |
+| Side × season | 0.109 | 0.387 | 0.593 |
+| Logistic | 0.044 | 0.188 | 0.942 |
 
 ## 7. Results (≈1,000 words)
+
+Organise this section around hypotheses H1 to H8 (`DEMO_AND_STORY_GUIDE.md` has the current numbers).
 
 ### 7.1 What changed
 Expedition success 29.1% in the 1980s → 88.9% in 2020–2024; median BC→summit 44 → 28 days; hired staff
@@ -132,8 +151,8 @@ separator, so oxygen-free estimates are unstable and are flagged; the expedition
 oxygen-free case, and the UI shows the observed comparable group next to it with a caution.
 
 ### 7.4 Reproducibility check
-The browser ↔ Python self-test: 23/23 checks (`?selftest=1`), including 8 model predictions and 6
-cohort counts. Appendix B holds the 28-row audit table and the file checksums.
+The browser ↔ Python self-test: 52/52 checks (`?selftest=1`), including 8 model predictions, 6
+cohort counts and the numbers behind every finding. Appendix B holds the 28-row audit table and the file checksums.
 
 ## 8. Evaluation (≈600 words — fill after the six sessions)
 
@@ -158,7 +177,7 @@ cohort counts. Appendix B holds the 28-row audit table and the file checksums.
 - Future: verified waypoint/DEM layer, per-expedition drill-down, rolling-origin calibration,
   live season ingestion with a clear separation from microdata.
 
-## 11. References
+## 11. References (Part I ends here)
 
 The proposal's [1]–[10] plus the two 2026 news sources; cite the Himalayan Database download and the
 Maven Analytics page with access dates.
@@ -169,6 +188,13 @@ A. 28-row claim audit (`proposal_check/claim_checks.csv`, condensed).
 B. File checksums (`data/everest_data.js` → `meta.checksums`).
 C. Participant task sheet (PDF).
 D. Model feature list and coefficients (`data/model.json`).
+
+---
+
+## Part II — individual contributions (up to 5 pages per member)
+
+One section per member: name, details of tasks completed, results or findings (referencing Part I figures).
+Each member writes their own. The module ownership in the proposal's Part C is a starting point.
 
 ---
 

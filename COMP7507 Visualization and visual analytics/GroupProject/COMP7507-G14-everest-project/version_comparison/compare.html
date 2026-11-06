@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Everest · before and after</title>
+<style>
+:root{--ink:#1b1e22;--muted:#6f6a62;--line:#e6e0d6;--bg:#f7f5f1;--NEW:#1b7837;--UPGRADED:#1c5cab;--FIXED:#b8430f;}
+*{box-sizing:border-box}html,body{height:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;display:flex;flex-direction:column}
+header{display:flex;gap:18px;align-items:center;flex-wrap:wrap;padding:10px 16px;background:#fff;border-bottom:1px solid var(--line)}
+h1{font-size:16px;margin:0}
+.seg{display:inline-flex;border:1px solid #d6cfc3;border-radius:99px;padding:2px;background:#fbfaf7}
+.seg button{border:0;background:none;padding:5px 12px;border-radius:99px;font:inherit;font-size:13px;color:var(--muted);cursor:pointer}
+.seg button.on{background:var(--ink);color:#fff}
+.lbl{font-size:12px;color:var(--muted)}
+main{flex:1;min-height:0;display:flex}
+aside{width:310px;flex:none;overflow-y:auto;background:#fff;border-right:1px solid var(--line);padding:12px}
+aside h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+aside h2:first-child{margin-top:0}
+.summary{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.summary span{font-size:12px;padding:2px 8px;border-radius:99px;color:#fff}
+.item{display:block;width:100%;text-align:left;border:1px solid var(--line);background:#fff;border-radius:8px;padding:8px 10px;margin-bottom:6px;cursor:pointer;font:inherit}
+.item:hover,.item:focus-visible{border-color:var(--ink);outline:none}
+.item b{display:block;font-size:13px}.item p{margin:2px 0 0;font-size:12px;color:#3c4046}
+.tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.06em;color:#fff;border-radius:4px;padding:1px 6px;margin-bottom:3px}
+table{width:100%;border-collapse:collapse;font-size:12px}td,th{padding:5px 3px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{color:var(--muted);font-weight:600}
+.panes{flex:1;min-width:0;display:flex;gap:8px;padding:8px}
+.pane{flex:1;min-width:0;display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.pane h3{margin:0;padding:7px 12px;font-size:13px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:8px}
+.pane h3 span{font-weight:400;color:var(--muted);font-size:12px}
+.pane a{font-weight:400;font-size:12px;color:#1e4a5f}
+.frame{flex:1;min-height:0;position:relative;overflow:hidden}
+iframe{border:0;position:absolute;left:0;top:0;transform-origin:0 0;background:var(--bg)}
+body.only-before #pane-after,body.only-after #pane-before{display:none}
+@media (max-width:900px){main{flex-direction:column}aside{width:100%;max-height:34%;border-right:0;border-bottom:1px solid var(--line)}.panes{flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Everest app: before and after</h1>
+  <span class="lbl">Page</span>
+  <div class="seg" id="page"><button data-v="history" class="on">1 History</button><button data-v="routes">2 Routes</button><button data-v="plan">3 Your plan</button></div>
+  <span class="lbl">Show</span>
+  <div class="seg" id="layout"><button data-v="both" class="on">Side by side</button><button data-v="before">Before</button><button data-v="after">After</button></div>
+  <span class="lbl">Differences</span>
+  <div class="seg" id="hl"><button data-v="on" class="on">Highlighted</button><button data-v="off">Hidden</button></div>
+</header>
+<main>
+  <aside>
+    <h2 id="list-title"></h2>
+    <div class="summary" id="summary"></div>
+    <div id="list"></div>
+    <h2>Numbers that changed</h2>
+    <table><thead><tr><th>Item</th><th>Before</th><th>After</th></tr></thead><tbody id="nums"></tbody></table>
+  </aside>
+  <div class="panes">
+    <section class="pane" id="pane-before"><h3>Before <span>baseline commit 8e6b16f · <a href="v1_before/index.html" target="_blank">open alone</a></span></h3><div class="frame"><iframe id="f-before" title="Before" src="v1_before/index.html"></iframe></div></section>
+    <section class="pane" id="pane-after"><h3>After <span>upgraded app · <a href="v2_after/index.html" target="_blank">open alone</a></span></h3><div class="frame"><iframe id="f-after" title="After" src="v2_after/index.html"></iframe></div></section>
+  </div>
+</main>
+<script src="changes_data.js"></script>
+<script>
+(function(){
+  "use strict";
+  const C=window.CHANGES, DESIGN_WIDTH=1280;
+  const frames={before:document.getElementById("f-before"),after:document.getElementById("f-after")};
+  const state={view:"history",hl:true};
+  const TITLE={history:"Page 1 · History",routes:"Page 2 · Routes",plan:"Page 3 · Your plan"};
+  const send=(which,msg)=>frames[which].contentWindow.postMessage(msg,"*");
+  const both=(msg)=>{send("before",msg);send("after",msg);};
+
+  // Keep the app's desktop layout and scale it to fit each pane.
+  function fit(){
+    Object.values(frames).forEach((f)=>{
+      const box=f.parentElement; const w=box.clientWidth,h=box.clientHeight;
+      if(!w) return;
+      const s=Math.min(1,w/DESIGN_WIDTH);
+      f.style.width=DESIGN_WIDTH+"px"; f.style.height=(h/s)+"px"; f.style.transform=`scale(${s})`;
+    });
+  }
+  new ResizeObserver(fit).observe(document.querySelector(".panes"));
+
+  function renderList(){
+    const items=C.map((c,i)=>({c,i})).filter((x)=>x.c.view===state.view);
+    document.getElementById("list-title").textContent=`${TITLE[state.view]} · ${items.length} differences`;
+    const count=(t)=>items.filter((x)=>x.c.type===t).length;
+    document.getElementById("summary").innerHTML=["NEW","UPGRADED","FIXED"].filter(count).map((t)=>`<span style="background:var(--${t})">${count(t)} ${t.toLowerCase()}</span>`).join("");
+    const list=document.getElementById("list"); list.innerHTML="";
+    items.forEach(({c,i})=>{
+      const b=document.createElement("button"); b.className="item"; b.type="button";
+      b.innerHTML=`<span class="tag" style="background:var(--${c.type})">${c.type}</span><b>${c.title}</b><p>${c.note}</p>`;
+      b.addEventListener("click",()=>both({cmd:"goto",index:i}));
+      list.appendChild(b);
+    });
+  }
+  function seg(id,fn){
+    const box=document.getElementById(id);
+    box.querySelectorAll("button").forEach((b)=>b.addEventListener("click",()=>{
+      box.querySelectorAll("button").forEach((x)=>x.classList.toggle("on",x===b)); fn(b.dataset.v);
+    }));
+  }
+  seg("page",(v)=>{state.view=v;renderList();both({cmd:"view",view:v});});
+  seg("layout",(v)=>{document.body.classList.toggle("only-before",v==="before");document.body.classList.toggle("only-after",v==="after");fit();});
+  seg("hl",(v)=>{state.hl=v==="on";both({cmd:"highlight",on:state.hl});});
+  window.addEventListener("message",(e)=>{
+    const m=e.data||{};
+    if(m.ready){send(m.ready,{cmd:"view",view:state.view});send(m.ready,{cmd:"highlight",on:state.hl});}
+  });
+  document.getElementById("nums").innerHTML=window.CHANGE_NUMBERS.map((r)=>`<tr><td>${r[0]}</td><td>${r[1]}</td><td><b>${r[2]}</b></td></tr>`).join("");
+  renderList(); fit();
+})();
+</script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-# Moderator guide — 25 minutes, 6 participants
+# Moderator guide — 30 minutes, 6 participants
 
 > Read the consent line, run the six tasks, close with five statements. Keep help to a minimum.
 > The point is to find misunderstandings, not to make the tool look good.
@@ -8,7 +8,7 @@
 ## 0. Consent and setup (3 min)
 
 > “Thanks for helping. This is a course project: we are testing an Everest planning interface, not you.
-> The session takes about 25 minutes. I will ask you to think aloud — say what you are looking for,
+> The session takes about 30 minutes. I will ask you to think aloud — say what you are looking for,
 > what you notice, what confuses you. There are no wrong answers. We record only an anonymous
 > participant ID, and you can stop at any time. May I take notes and start?”
 
@@ -53,16 +53,16 @@ The point is the tiny north sample — a good answer says “north has only 13, 
 Success = both rates **and** both n. Watch for: quoting 91% vs 85% without n; treating the difference
 as real.
 
-### T3 · Inspect the route panel (2 min)
+### T3 · Inspect the terrain view (2 min)
 
-> “Scroll to the camp altitude profile. On the south side, which camp is listed by the smallest share
-> of expeditions? And read me the note under the chart — what does it say this panel is?”
+> “Stay in **Routes**. On the map in ‘Route and terrain’, what do the percentages next to the camps mean?
+> Now set the route group to **Other**. What changes? Is the line between camps a surveyed track?”
 
-**Answer key**: the **summit** has the smallest share on the south side (69%);
-the note says it is a **schematic cross-section built from the campsite field, with no georeferencing**
-(not a map).
-Success = correct camp + correctly identifies it as schematic. Watch for: assuming it is a real map;
-believing the summit is “reached by 69% of expeditions” rather than “listed in the schedule field”.
+**Answer key**: percentages are the share of filtered expeditions whose high point reached that camp's
+altitude; they and the route width change with the filters (they fall sharply for Other routes); the
+footnote says the connecting line is **schematic, not a surveyed track**.
+Success = meaning of the percentage + notices the change + identifies the line as schematic. Watch for:
+reading the percentage as “share who summited”; assuming the line is an exact path.
 
 ### T4 · Enter a profile (4 min)
 
@@ -70,7 +70,7 @@ believing the summit is “reached by 69% of expeditions” rather than “liste
 > 20 members, 30 hired staff, oxygen yes**. Then tell me: the estimate, the comparable sample size,
 > and what the comparable group actually did.”
 
-**Answer key**: model **≈ 69%** (69.2%), comparable members **626**, observed **402 / 626 = 64.2%**;
+**Answer key**: model **≈ 69%** (69.4%), comparable members **626**, observed **402 / 626 = 64.2%**;
 expedition-level **≈ 97%**, comparable expeditions 191, observed 189 (98.9%).
 Success = reads the big number + the cohort n/rate without help. Watch for: reading 95% interval as
 “range of individual outcomes”; confusing member and expedition rows.
@@ -80,19 +80,40 @@ Success = reads the big number + the cohort n/rate without help. Watch for: read
 > “Now switch **oxygen to No**. What happens to the number, and what would you tell a friend about how
 > much to trust it?”
 
-**Answer key**: the estimate collapses to about **3%**; the status shows few comparable records; a
-cautious answer mentions that oxygen-free cases are rare and self-selected, and that the model smooths
-an extreme group.
-Success = notices the drop **and** gives a reason to distrust the precision. Watch for: treating 3%
+**Answer key**: the estimate collapses to about **10%** (9.5%); the status shows 16 exact matches, flagged
+low, and 0 of those 16 summited; a cautious answer mentions that oxygen-free cases are rare and
+self-selected, and that the model smooths an extreme group.
+Success = notices the drop **and** gives a reason to distrust the precision. Watch for: treating 10%
 as a precise personal prediction.
 
 ### T6 · Find a limitation (2 min)
 
 > “Open **Data & methods** and read me one limitation of the model.”
 
-**Answer key** (any one): 2020–2024 runs higher than the model average (under-prediction in calibration);
-oxygen is a near-perfect separator; associations not causal; sparse cells return insufficient evidence.
+**Answer key** (any one): the model has no time term, so success changes over time aren't in the number;
+oxygen is a near-perfect separator; oxygen and hired staff are recorded during the expedition; associations
+not causal; sparse cells return insufficient evidence.
 Success = one concrete limitation in their own words.
+
+### T7 · A plan through time (3 min)
+
+> “Press **Reset**, then open **Over time**. Has this plan's success stayed stable? How does the most
+> recent period compare with the model's number?”
+
+**Answer key**: no. It rose from about **54%** (1990–94) to **82%** (2010–14) and is **71%** in 2020–24, below the
+model's **75%**.
+Success = describes the change + compares the last point with the model. Watch for: reading the band as
+individual outcomes; missing that the model line is flat by construction.
+
+### T8 · Connections (3 min)
+
+> “Open **Connections**. Name two choices that often occur together. How did people with both do,
+> compared with the average?”
+
+**Answer key**: any linked pair read from the network or matrix, for example **No oxygen + Other route**
+or **Autumn + Other route**, both far below average. Success = names a linked pair + reads colour or
+tooltip against the average. Watch for: reading a link as “one causes the other”; treating node size as
+success.
 
 ---
 
@@ -121,14 +142,16 @@ Then open questions:
 |---|---|---|
 | T1 | success 29% → 89%; days 44 → 28 | change + number |
 | T2 | south 90.8% (n=173), north 84.6% (n=13) | both rates + both n, warns about n |
-| T3 | summit 69%; “schematic, no georeferencing” | camp + caveat |
+| T3 | share reaching that altitude; changes with filters; line is schematic | meaning + change + caveat |
 | T4 | 69%, n=626, observed 64.2%; expedition 97% | number + cohort |
-| T5 | ~3%, few comparable records | drop + reason |
-| T6 | era drift / oxygen separability / associations | one concrete limitation |
+| T5 | ~10%, 16 matches, 0 summited | drop + reason |
+| T6 | no time term / oxygen separability / associations | one concrete limitation |
+| T7 | 54% → 82% → 71%, model 75% | change + comparison |
+| T8 | a linked pair, far below average | pair + colour |
 
 ## 5. Moderator's own checklist after each session
 
-- [ ] record sheet filled (all six tasks, times, prompts)
+- [ ] record sheet filled (all eight tasks, times, prompts)
 - [ ] confidence ratings and five closing statements entered
 - [ ] 2–3 verbatim quotes captured
 - [ ] one-line “biggest misunderstanding” written while it is fresh
