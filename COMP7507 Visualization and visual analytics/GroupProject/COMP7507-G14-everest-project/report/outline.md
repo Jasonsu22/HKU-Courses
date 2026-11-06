@@ -1,0 +1,186 @@
+# Report outline — Everest climbing decision support
+
+Suggested length: 8–10 pages plus appendix (course reports are usually 6,000–7,000 words).
+Every figure below already exists in the repository; the numbers are the ones the app and the audit use.
+
+---
+
+## 1. Abstract (≈180 words)
+
+One paragraph: the decision problem; the three linked views; the data audit; the two models and their
+held-out performance; the main finding (side/season differences survive like-for-like comparison, but
+the estimate must be read as a historical association with wide uncertainty); one line on limitations.
+
+## 2. Introduction (≈600 words)
+
+- Everest planning is a decision under uncertainty, not a single “go / no-go”.
+- Three questions a planner actually asks: *what changed? how do the sides compare? what did people
+  like me achieve?*
+- Why existing dashboards are not enough: totals without denominators; maps without coordinates;
+  predictions without calibration.
+- Contributions, stated as four bullets: (1) audited data layer, (2) linked historical/route explorer,
+  (3) calibrated profile estimate with an insufficient-evidence rule, (4) open offline implementation.
+
+## 3. Related work (≈450 words)
+
+- The Himalayan Database as the reference archive; Maven Analytics distribution.
+- Visual analytics for outdoor/expedition decisions (small multiples, linked views, uncertainty).
+- Calibration and proper scoring rules (Brier, log loss) versus accuracy.
+- Why we did **not** use MapLibre/3D: no coordinates in the source; cite the proposal's fallback clause.
+
+## 4. Data (≈900 words)
+
+Table 1 — snapshot and audit summary (from `proposal_check/claim_checks.csv`):
+
+| Item | Value |
+|---|---|
+| expeditions / member records / peaks / references | 11,425 / 89,000 / 480 / 15,586 |
+| Everest subset | 2,347 expeditions, 25,274 participation records, 1921–2024 |
+| successful expeditions (route 1) | 1,479 (63.0%) |
+| recorded deaths | 208 members + 132 hired = 340 |
+
+Three traps that shaped the implementation (each with the number from the audit):
+
+1. **`expid` collides across centuries** — `EVER21101` is 1921 *and* 2021; joins use
+   `(peakid, year, expid)`; 49 member rows are assigned by rule.
+2. **`members.myear` is wrong before 2000** — 96.1% of pre-2000 rows disagree with their expedition;
+   year is taken from the expedition record. `mseason` matches 89,000/89,000.
+3. **Hired staff are only half listed** — 8,323 of 15,533 on Everest; hired rates use expedition fields.
+
+Also: rates always carry numerator, denominator, unit and n; counts and rates are never mixed in one
+axis; the schematic panel is labelled because no coordinates exist (2,319 campsite strings, 0 with
+coordinates).
+
+## 5. Design (≈1,100 words)
+
+### 5.1 Story and product path
+History → Routes → Your plan; one offline page, three tabs, shared definitions.
+
+### 5.2 Module 01 — history
+Figure 1 (screenshot `docs/screens/history.png`): annual scale (two aligned panels, no dual axis),
+decade success with Wilson intervals, season × decade heatmap (sqrt colour for skewed counts),
+duration quantiles, support structure, oxygen, deaths with rate per 1,000.
+Interaction: decade highlighting across three charts; year-range chips.
+
+### 5.3 Module 02 — routes and terrain
+Figure 2 (`docs/screens/routes.png`): filter bar (side, season, period, route group), six-metric
+like-for-like panel, route families (≥20 expeditions), camp altitude cross-section.
+
+A dedicated **route & terrain** card adds the geographic layer the CSV lacks:
+
+- SRTM 30 m elevation model (Mapzen / AWS Open Data tiles) rendered as a hillshade map
+  and as an interactive WebGL terrain mesh (three.js, vertical exaggeration ×1.9).
+- Camp chains, cols and peaks mapped from OpenStreetMap (ODbL), with OSM elevations
+  cross-checked against the database medians in the tooltip; a dashed line connects the
+  camps (schematic, not a surveyed track); graticule, scale bar, north arrow and
+  attribution are drawn on the map.
+
+The 2026 layer remains separate and never merged.
+
+### 5.4 Module 03 — plan
+Figure 3 (`docs/screens/plan.png`): form, probability with bootstrap interval, comparable cohort
+ladder, closest historical expeditions, drivers, calibration, model card.
+The “insufficient evidence” path (exact cell < 10) is a design decision, not an error state.
+
+### 5.5 Encoding and interaction choices
+Small multiples over dual axes; interval marks for every rate; sample size visible; dimming for
+missing data; empty states instead of zeros; URL-encoded scenarios for sharing/reproduction.
+
+## 6. Method (≈800 words)
+
+- Two regularised logistic regressions; member model is the headline because age and sex only exist
+  at member level; expedition model as context.
+- Predictors (8), all known before the expedition in principle; caveat that “oxygen used” and “hired
+  above BC” are recorded during the expedition.
+- Time split 1990–2014 / 2015–2019 / 2020–2024; deployment refit 2005–2024; λ = 1 chosen on validation.
+- Baselines: constant rate, side × season.
+- Metrics: Brier, log loss, AUC, 10-bin calibration; 95% intervals from 300 bootstrap refits.
+- Comparable cohorts: exact / mid / broad matching; sparse → insufficient evidence.
+
+Table 2 — held-out 2020–2024 performance (from the model card):
+
+| Member model | Brier | Log loss | AUC |
+|---|---|---|---|
+| Constant | 0.292 | 0.780 | 0.500 |
+| Side × season | 0.262 | 0.718 | 0.476 |
+| Logistic | 0.221 | 0.627 | 0.651 |
+
+| Expedition model | Brier | Log loss | AUC |
+|---|---|---|---|
+| Constant | 0.167 | 0.524 | 0.500 |
+| Side × season | 0.125 | 0.429 | 0.593 |
+| Logistic | 0.042 | 0.188 | 0.941 |
+
+## 7. Results (≈1,000 words)
+
+### 7.1 What changed
+Expedition success 29.1% in the 1980s → 88.9% in 2020–2024; median BC→summit 44 → 28 days; hired staff
+outnumber members more than 2:1 in recent seasons; oxygen use 76.3% overall and near-universal recently.
+Figure 1 again or a cropped panel.
+
+### 7.2 Do side and season differences survive like-for-like comparison?
+Spring 2020–2024: south 157/173 = **90.8%**, north 11/13 = **84.6%** — the gap is small and the north
+sample is tiny. All-season and all-period: south 68% vs north 55%, with the gap concentrated in autumn
+(south 42.9% vs north 7.8%) and in the pre-2000 period.
+The visual-analytics question from the proposal is answered with the cohort comparison in module 03:
+same age band, sex, season, side and oxygen — the observed rates converge (e.g. exact cohort 75.0% vs
+broad cohort 62.2% for the default profile), which is why the app shows both.
+
+### 7.3 Model behaviour and where it fails
+Calibration points sit above the diagonal for 2020–2024 (under-prediction); oxygen is a near-perfect
+separator, so oxygen-free estimates are unstable and are flagged; the expedition model smooths the
+oxygen-free case, and the UI shows the observed comparable group next to it with a caution.
+
+### 7.4 Reproducibility check
+The browser ↔ Python self-test: 23/23 checks (`?selftest=1`), including 8 model predictions and 6
+cohort counts. Appendix B holds the 28-row audit table and the file checksums.
+
+## 8. Evaluation (≈600 words — fill after the six sessions)
+
+- Protocol in `evaluation/README.md`; tasks T1–T6; metrics completion, time, prompts, confidence.
+- Table 3: task, Y/P/N, median time, mean confidence.
+- Two verbatim quotes illustrating the most common misunderstandings.
+- Revisions made (revision log) and what was intentionally not changed.
+- Threats: 6 participants, convenience sample, one moderator, no audio recording.
+
+## 9. Discussion and limitations (≈500 words)
+
+- Observational data; associations only; no causal claim for oxygen, support or route choice.
+- The expedition CSV itself has no coordinates; the terrain layer is therefore assembled from public
+  sources (SRTM tiles, OpenStreetMap camps), and the route line between camps remains schematic.
+- Era drift: the deployed model averages 2005–2024 and still under-predicts 2021–2024.
+- Small cells and self-selection (who attempts without oxygen).
+- Offline, static 2024 snapshot; 2026 layer is aggregate only.
+
+## 10. Conclusion and future work (≈300 words)
+
+- What a planner can do with the tool; what it deliberately refuses to do.
+- Future: verified waypoint/DEM layer, per-expedition drill-down, rolling-origin calibration,
+  live season ingestion with a clear separation from microdata.
+
+## 11. References
+
+The proposal's [1]–[10] plus the two 2026 news sources; cite the Himalayan Database download and the
+Maven Analytics page with access dates.
+
+## Appendix
+
+A. 28-row claim audit (`proposal_check/claim_checks.csv`, condensed).
+B. File checksums (`data/everest_data.js` → `meta.checksums`).
+C. Participant task sheet (PDF).
+D. Model feature list and coefficients (`data/model.json`).
+
+---
+
+### Figures checklist
+
+| Fig | Source | Status |
+|---|---|---|
+| 1 History view | `everest-app/docs/screens/history.png` | ready |
+| 2 Routes view | `everest-app/docs/screens/routes.png` | ready |
+| 3 Plan view | `everest-app/docs/screens/plan.png` | ready |
+| 4 Data audit figures | `proposal_check/figs/` | ready |
+| 4b 2D map / 3D terrain close-up | `everest-app/data/terrain/` render or screenshot | capture |
+| 4c Route & terrain card | crop of `docs/screens/routes.png` | ready |
+| 5 Self-test panel | screenshot `?selftest=1` | capture before submission |
+| 6 Evaluation results | after the six sessions | pending |

@@ -1,0 +1,2031 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-10-17T07:50:21Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 164979149,
+  "lat": 27.9880614,
+  "lon": 86.9252100,
+  "tags": {
+    "alt_name": "圣母峰",
+    "alt_name:be": "гара Эверэст",
+    "alt_name:en": "Mount Qomolangma",
+    "alt_name:ja": "聖母峰",
+    "alt_name:ko": "주무랑마봉;성모봉",
+    "alt_name:pl": "Czomolungma",
+    "alt_name:ru": "гора Эверест",
+    "alt_name:uk": "гора Еверест",
+    "alt_name:vi": "Thánh Mẫu Phong",
+    "alt_name:zh": "圣母峰",
+    "alt_name:zh-Hans": "圣母峰",
+    "alt_name:zh-Hant": "聖母峰",
+    "alt_name:zh-Latn-pinyin": "Shèngmǔfēng",
+    "check_date": "2024-10-16",
+    "ele": "8848.86",
+    "importance": "international",
+    "int_name": "Everest",
+    "isolation": "20000",
+    "landmark": "1",
+    "loc_name": "珠峰",
+    "loc_name:be": "гара Сагарматха",
+    "loc_name:en": "Chomolungma",
+    "loc_name:ru": "гора Сагарматха",
+    "loc_name:uk": "гора Саґарматха",
+    "loc_name:zh": "珠峰",
+    "loc_name:zh-Hans": "珠峰",
+    "loc_name:zh-Hant": "珠峰",
+    "name": "珠穆朗玛峰 ཇོ་མོ་གླང་མ། सगरमाथा",
+    "name:am": "ኤቨረስት ተራራ",
+    "name:an": "Everest",
+    "name:ar": "جبل إفرست",
+    "name:ast": "Everest",
+    "name:az": "Everest dağı",
+    "name:ba": "Джомолунгма",
+    "name:be": "Джамалунгма (Сагарматха)",
+    "name:bg": "Еверест",
+    "name:bh": "सगरमाथा",
+    "name:bn": "মাউন্ট এভারেস্ট",
+    "name:bo": "ཇོ་མོ་གླང་མ།",
+    "name:br": "Menez Everest",
+    "name:ca": "Everest",
+    "name:cs": "Everest",
+    "name:cy": "Mynydd Everest",
+    "name:de": "Mount Everest",
+    "name:dv": "އެވަރެސްޓް ފަރުބަދަ",
+    "name:el": "Έβερεστ",
+    "name:en": "Mount Everest",
+    "name:eo": "Ĉomolungmo",
+    "name:es": "Monte Everest",
+    "name:et": "Džomolungma",
+    "name:eu": "Everest",
+    "name:fa": "قله اورست",
+    "name:fr": "Everest",
+    "name:ga": "Sliabh Everest (Teomólungma)",
+    "name:gd": "Beinn Everest",
+    "name:gl": "Everest",
+    "name:gn": "Éverest",
+    "name:gu": "માઉન્ટ એવરેસ્ટ",
+    "name:he": "אוורסט",
+    "name:hi": "एवरेस्ट पर्वत",
+    "name:hu": "Csomolungma",
+    "name:hy": "Էվերեստ",
+    "name:id": "Gunung Everest",
+    "name:io": "Monto Everest",
+    "name:is": "Everestfjall",
+    "name:it": "Everest",
+    "name:ja": "エベレスト",
+    "name:ka": "ევერესტი",
+    "name:kk": "Джомолунгма",
+    "name:kn": "ಮೌಂಟ್ ಎವರೆಸ್ಟ್",
+    "name:ko": "에베레스트산",
+    "name:ku": "Çiyayê Everest",
+    "name:kw": "Menydh Everest",
+    "name:la": "Everestius mons",
+    "name:lt": "Džomolungma",
+    "name:lv": "Everests",
+    "name:mk": "Монт Еверест",
+    "name:ml": "ചോമോലുങ്മ കൊടുമുടി",
+    "name:mn": "Жомолунгма",
+    "name:mr": "एव्हरेस्ट",
+    "name:ms": "Gunung Everest",
+    "name:my": "ဧဝရတ်တောင်",
+    "name:ne": "सगरमाथा चुचुरो",
+    "name:nl": "Mount Everest",
+    "name:oc": "Mont Everest",
+    "name:or": "ମାଉଣ୍ଟ ଏଭରେଷ୍ଟ",
+    "name:os": "Джомолунгмæ",
+    "name:pa": "ਮਾਊਂਟ ਐਵਰੈਸਟ",
+    "name:pl": "Mount Everest",
+    "name:pt": "Monte Everest",
+    "name:qu": "Chomolungma",
+    "name:ro": "Everest",
+    "name:ru": "гора Джомолунгма (Сагарматха)",
+    "name:sa": "देवगिरि पर्वतः",
+    "name:si": "එවරස්ට් කන්ද",
+    "name:sk": "Mount Everest",
+    "name:sl": "Everest",
+    "name:sr": "Монт Еверест",
+    "name:sw": "Everest (mlima)",
+    "name:ta": "எவரெசுட்டு சிகரம்",
+    "name:te": "ఎవరెస్టు పర్వతం",
+    "name:th": "ยอดเขาเอเวอเรสต์",
+    "name:tk": "Jomolungma",
+    "name:tl": "Bundok Everest",
+    "name:tr": "Everest Dağı",
+    "name:tt": "Джомолунгма",
+    "name:ug": "ئېۋېرېست",
+    "name:uk": "гора Джомолунґма (Саґарматха)",
+    "name:ur": "ماؤنٹ ایورسٹ",
+    "name:vi": "Everest",
+    "name:yi": "עווערעסט",
+    "name:zh": "珠穆朗玛峰",
+    "name:zh-Hans": "珠穆朗玛峰",
+    "name:zh-Hant": "珠穆朗瑪峰",
+    "name:zh-Latn-pinyin": "Zhūmùlǎngmǎ Fēng",
+    "natural": "peak",
+    "note:ele": "2020-12-08 Height recently recalculated as 8848.86 meters. Rounded up to 8849.",
+    "note:position": "Location based on the average value of the 1992 and 2004 surveys carried out by Ev-K2-CNR. Accuracy is limited by the flatness of the summit and the fact that it is snow.",
+    "old_name": "朱母朗马阿林",
+    "prominence": "8848.86",
+    "sorting_name:ru": "Джомолунгма (Сагарматха) гора",
+    "source:position": "Poretti, G. & Mandler, R. & Lipizer, M.. (2007). The GPS station at the Pyramid Geodetic Laboratory. Bollettino di Geofisica Teorica ed Applicata. 48. 25-32.",
+    "source:position:url": "https://bgo.ogs.it/sites/default/files/pdf/bgta48.1_PORETTI.pdf",
+    "source:prominence": "Highest point on Earth",
+    "summit:cross": "no",
+    "wikidata": "Q513",
+    "wikipedia": "zh:珠穆朗瑪峰",
+    "wikipedia:es": "Monte Everest",
+    "wikipedia:fr": "Everest"
+  }
+},
+{
+  "type": "node",
+  "id": 335376854,
+  "lat": 27.9619855,
+  "lon": 86.9325045,
+  "tags": {
+    "alt_name": "Lhotse",
+    "alt_name:de": "Lhozê",
+    "alt_name:en": "South Peak",
+    "ele": "8516",
+    "name": "洛子峰 ལྷོ་རྩེ ल्होत्से",
+    "name:be": "Лходзэ",
+    "name:bo": "ལྷོ་རྩེ",
+    "name:en": "Lhotse",
+    "name:ja": "ローツェ",
+    "name:ml": "ലോത്സെ കൊടുമുടി",
+    "name:ne": "ल्होत्से",
+    "name:ru": "гора Лхоцзе",
+    "name:sk": "Lhoce",
+    "name:zh": "洛子峰",
+    "name:zh-Latn-pinyin": "Luòzǐ Fēng",
+    "natural": "peak",
+    "prominence": "609",
+    "sorting_name:ru": "Лхоцзе гора",
+    "source:position": "SRTM-Version 3.0-SRTMGL1-Void Filled-10m",
+    "source:prominence": "8516-7907 (South Col)",
+    "wikidata": "Q168702",
+    "wikipedia": "en:Lhotse"
+  }
+},
+{
+  "type": "node",
+  "id": 477904053,
+  "lat": 27.9200139,
+  "lon": 86.9346463,
+  "tags": {
+    "alt_name": "Island Peak",
+    "ele": "6165",
+    "name": "इम्जा छे",
+    "name:en": "Imja Tse",
+    "name:ja": "アイランドピーク",
+    "name:ne": "इम्जा छे",
+    "name:zh": "岛峰",
+    "natural": "peak",
+    "wikidata": "Q619781"
+  }
+},
+{
+  "type": "node",
+  "id": 477904804,
+  "lat": 27.9309956,
+  "lon": 86.8045634,
+  "tags": {
+    "ele": "4830",
+    "mountain_pass": "yes",
+    "name": "ठोक ला",
+    "name:en": "Thok La Pass",
+    "name:ja": "トゥクラ峠",
+    "name:ne": "ठोक ला",
+    "name:ru": "Тхок",
+    "natural": "saddle"
+  }
+},
+{
+  "type": "node",
+  "id": 564117511,
+  "lat": 27.9958000,
+  "lon": 86.8284407,
+  "tags": {
+    "alt_name": "Kalapatthar",
+    "alt_name:en": "Kalapatthar",
+    "ele": "5645",
+    "name": "Kala Patthar",
+    "name:bn": "কালা পাথার",
+    "name:en": "Kala Patthar",
+    "name:ja": "カラパタール",
+    "name:mr": "कालापत्थर",
+    "name:ru": "Кала-Патхар",
+    "name:zh": "卡拉帕塔",
+    "name:zh-Hans": "卡拉帕塔",
+    "name:zh-Hant": "卡拉帕塔",
+    "natural": "peak",
+    "wikidata": "Q1511454",
+    "wikipedia": "en:Kala Patthar"
+  }
+},
+{
+  "type": "node",
+  "id": 576713400,
+  "lat": 27.9733654,
+  "lon": 86.9302508,
+  "tags": {
+    "ele": "7920",
+    "fee": "no",
+    "name": "Camp 4S South Col",
+    "name:en": "Camp 4S South Col",
+    "name:ja": "エベレスト キャンプ4S",
+    "name:ka": "მე-4 ბანაკი",
+    "name:ko": "에베레스트 캠프 4S",
+    "name:zh": "南线4号营地 - 南坳",
+    "name:zh-Hans": "南线4号营地 - 南坳",
+    "name:zh-Hant": "南線4號營地 - 南坳",
+    "source:position": "SRTM-Version 3.0-SRTMGL1-Void Filled-10m",
+    "tourism": "camp_site"
+  }
+},
+{
+  "type": "node",
+  "id": 1326607409,
+  "lat": 27.9850323,
+  "lon": 86.9251632,
+  "tags": {
+    "check_date": "2024-10-16",
+    "ele": "8749",
+    "importance": "local",
+    "int_name": "South Summit",
+    "name": "珠穆朗玛南峰",
+    "name:be": "Паўднёвы пік",
+    "name:bo": "ཇོ་མོ་གླང་མལྷོ།",
+    "name:en": "Everest South Peak",
+    "name:ja": "エベレスト南峰",
+    "name:ko": "에베레스트 산 남쪽 봉우리",
+    "name:ne": "सगरमाथा दक्षिण",
+    "name:ru": "гора Джомолунгма (Южный пик)",
+    "name:uk": "Південний пік",
+    "name:zh": "珠穆朗玛南峰",
+    "name:zh-Hans": "珠穆朗玛南峰",
+    "name:zh-Hant": "珠穆朗瑪南峰",
+    "natural": "peak",
+    "summit:cross": "no",
+    "wikidata": "Q21298740",
+    "wikipedia": "en:South Summit (Mount Everest)"
+  }
+},
+{
+  "type": "node",
+  "id": 1348498378,
+  "lat": 28.0062366,
+  "lon": 86.9298976,
+  "tags": {
+    "ele": "7790",
+    "name": "二号营地",
+    "name:en": "Camp 2N North ridge",
+    "name:zh": "二号营地",
+    "source": "2bulu",
+    "tourism": "camp_site"
+  }
+},
+{
+  "type": "node",
+  "id": 1348498379,
+  "lat": 28.0163695,
+  "lon": 86.9233160,
+  "tags": {
+    "ele": "7028",
+    "name": "一号营地",
+    "name:en": "Camp 1N",
+    "name:zh": "一号营地",
+    "name:zh-Hans": "一号营地",
+    "name:zh-Hant": "一號營地",
+    "source": "2bulu",
+    "source:date": "2022-04-06",
+    "tourism": "camp_site"
+  }
+},
+{
+  "type": "node",
+  "id": 1348498380,
+  "lat": 28.0304568,
+  "lon": 86.9403576,
+  "tags": {
+    "ele": "6500",
+    "name": "前进营地",
+    "name:en": "ABC Advanced base camp",
+    "name:zh": "前进营地",
+    "source": "https://k.sina.com.cn/article_7080540369_1a60878d100100p46q.html",
+    "source2": "http://outdoor.travel.sohu.com/20070215/n248262654.shtml",
+    "tourism": "camp_site"
+  }
+},
+{
+  "type": "node",
+  "id": 1679173380,
+  "lat": 27.9297049,
+  "lon": 86.8362191,
+  "tags": {
+    "ele": "5535",
+    "mountain_pass": "yes",
+    "name": "Kongma La Pass",
+    "natural": "saddle",
+    "tourism": "viewpoint"
+  }
+},
+{
+  "type": "node",
+  "id": 1679173453,
+  "lat": 27.9617246,
+  "lon": 86.7516374,
+  "tags": {
+    "alt_name": "Cho La Pass;Nire La",
+    "ele": "5368",
+    "mountain_pass": "yes",
+    "name": "Cho La",
+    "name:ru": "Чо Ла",
+    "natural": "saddle",
+    "source:alt_name": "Finn Map",
+    "tourism": "viewpoint",
+    "westra_ref": "13879",
+    "wikidata": "Q5103370",
+    "wikipedia": "en:Cho La, Nepal"
+  }
+},
+{
+  "type": "node",
+  "id": 1679250333,
+  "lat": 27.9253341,
+  "lon": 86.8792024,
+  "tags": {
+    "ele": "5546",
+    "name": "Chukhung Ri",
+    "name:ja": "チュクン・リ",
+    "natural": "peak",
+    "tourism": "viewpoint"
+  }
+},
+{
+  "type": "node",
+  "id": 2119333054,
+  "lat": 27.9496738,
+  "lon": 86.9833813,
+  "tags": {
+    "ele": "7457",
+    "name": "夏子二峰 ཤར་རྩེ་༢ शारत्से २",
+    "name:bo": "ཤར་རྩེ་༢",
+    "name:cs": "Šarce",
+    "name:en": "Shartse II",
+    "name:ne": "शारत्से २",
+    "name:ru": "пик Шарцзе II",
+    "name:zh": "夏子二峰",
+    "natural": "peak",
+    "wikidata": "Q20748056"
+  }
+},
+{
+  "type": "node",
+  "id": 2119333136,
+  "lat": 27.9642750,
+  "lon": 86.9322989,
+  "tags": {
+    "ele": "8275",
+    "name": "洛子北一峰 ལྷོ་རྩེ་བྱང་༡",
+    "name:bo": "ལྷོ་རྩེ་བྱང་༡",
+    "name:en": "Lhotse North I",
+    "name:ru": "пик Лхоцзе-Чанг I",
+    "name:zh": "洛子北一峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 2119333148,
+  "lat": 27.9680095,
+  "lon": 86.9326087,
+  "tags": {
+    "ele": "8117",
+    "name": "洛子北二峰 ལྷོ་རྩེ་བྱང་༢",
+    "name:bo": "ལྷོ་རྩེ་བྱང་༢",
+    "name:en": "Lhotse North II",
+    "name:ru": "пик Лхоцзе-Чанг II",
+    "name:zh": "洛子北二峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 2119333526,
+  "lat": 28.0213996,
+  "lon": 86.8471846,
+  "tags": {
+    "ele": "6100",
+    "natural": "saddle"
+  }
+},
+{
+  "type": "node",
+  "id": 2119333527,
+  "lat": 28.0197274,
+  "lon": 86.8150773,
+  "tags": {
+    "alt_name": "Khangri Shar",
+    "alt_name:en": "Khangri Shar",
+    "ele": "6792",
+    "name": "康里东峰",
+    "name:en": "Khangri East",
+    "name:zh": "康里东峰",
+    "name:zh-Hans": "康里东峰",
+    "name:zh-Hant": "康里東峰",
+    "natural": "peak",
+    "wikidata": "Q20757625"
+  }
+},
+{
+  "type": "node",
+  "id": 2119333575,
+  "lat": 28.0281332,
+  "lon": 86.8544934,
+  "tags": {
+    "ele": "6714",
+    "name": "林禅峰 लिंगट्रेन",
+    "name:en": "Mount Lingtren",
+    "name:ne": "लिंगट्रेन",
+    "name:ru": "гора Лингтрен",
+    "name:zh": "林禅峰",
+    "name:zh-Hans": "林禅峰",
+    "name:zh-Latn-pinyin": "Língchuān fēng",
+    "natural": "peak",
+    "wikidata": "Q1826566",
+    "wikipedia": "de:Lingtren"
+  }
+},
+{
+  "type": "node",
+  "id": 2526429858,
+  "lat": 27.9196156,
+  "lon": 86.7651758,
+  "tags": {
+    "alt_name": "Cholotse,Jobo Lhaptshan",
+    "ele": "6423",
+    "name": "Cholatse",
+    "name:zh": "喬拉傑峰",
+    "natural": "peak",
+    "note": "Finn Map calls this peak (erroneously) Arakam Tse, which is in fact further north",
+    "source:ele": "Finn Map",
+    "wikidata": "Q389456",
+    "wikipedia": "en:Cholatse"
+  }
+},
+{
+  "type": "node",
+  "id": 2540248530,
+  "lat": 27.9741973,
+  "lon": 86.9319071,
+  "tags": {
+    "ele": "7907",
+    "mountain_pass": "yes",
+    "name": "南坳 - दक्षिण स्तम्भ",
+    "name:be": "Паўднёвая седлавіна",
+    "name:cs": "Jižní sedlo",
+    "name:de": "Südsattel",
+    "name:en": "South Col",
+    "name:ja": "サウスコル",
+    "name:ka": "სამხრეთ უნაგირა",
+    "name:ko": "사우스 콜",
+    "name:ne": "दक्षिण स्तम्भ",
+    "name:ru": "Южное седло",
+    "name:zh": "南坳",
+    "natural": "saddle",
+    "source": "bing",
+    "source:position": "SRTM-Version 3.0-SRTMGL1-Void Filled-10m",
+    "wikidata": "Q2598195",
+    "wikipedia": "en:South Col"
+  }
+},
+{
+  "type": "node",
+  "id": 2677892526,
+  "lat": 28.0243290,
+  "lon": 86.9151856,
+  "tags": {
+    "ele": "7543",
+    "name": "章子峰",
+    "name:bo": "བྱང་རྩེ",
+    "name:en": "Changtse Peak",
+    "name:ru": "пик Чангцзе",
+    "name:zh": "章子峰",
+    "name:zh-Hans": "章子峰",
+    "name:zh-Hant": "章子峰",
+    "natural": "peak",
+    "prominence": "501",
+    "source:position": "SRTM-Version 3.0-SRTMGL1-Void Filled-10m",
+    "source:prominence": "7543-7042 (Everest North Col)",
+    "wikidata": "Q595929",
+    "wikipedia": "zh:章子峰"
+  }
+},
+{
+  "type": "node",
+  "id": 2677892527,
+  "lat": 27.9194539,
+  "lon": 86.9819868,
+  "tags": {
+    "alt_name": "Cho Pholu",
+    "alt_name:zh": "琢布鲁",
+    "ele": "6735",
+    "name": "चोपुलु",
+    "name:en": "Cho Polu",
+    "name:ne": "चोपुलु",
+    "name:zh": "卓普鲁",
+    "natural": "peak",
+    "wikidata": "Q448932",
+    "wikipedia": "en:Cho Polu"
+  }
+},
+{
+  "type": "node",
+  "id": 2677892528,
+  "lat": 28.0219052,
+  "lon": 86.8721930,
+  "tags": {
+    "alt_name": "坤布崎峰",
+    "ele": "6636",
+    "name": "孔布则峰 ཁུམ་བུ།་རྩེ खुम्बुत्से",
+    "name:bo": "ཁུམ་བུ།་རྩེ",
+    "name:de": "Khumbutse",
+    "name:en": "Khumbutse Peak",
+    "name:ne": "खुम्बुत्से",
+    "name:ru": "пик Кхумбуцзе",
+    "name:zh": "孔布则峰/孔布則峰",
+    "name:zh-Hans": "孔布则峰",
+    "name:zh-Hant": "孔布則峰",
+    "name:zh-Latn-pinyin": "Kūnbùqí fēng",
+    "natural": "peak",
+    "wikidata": "Q1740698",
+    "wikipedia": "en:Khumbutse"
+  }
+},
+{
+  "type": "node",
+  "id": 2677892529,
+  "lat": 27.9587526,
+  "lon": 86.9437630,
+  "tags": {
+    "ele": "8382",
+    "name": "洛子东峰 ལྷོ་རྩེ་ཤར ल्होत्से शार",
+    "name:bo": "ལྷོ་རྩེ་ཤར",
+    "name:en": "Lhotse Shar",
+    "name:ja": "ローツェ・シャール峰",
+    "name:ne": "ल्होत्से शार",
+    "name:ru": "пик Лхоцзе-Шар",
+    "name:zh": "洛子东峰",
+    "name:zh-Hans": "洛子东峰",
+    "name:zh-Hant": "洛子夏爾峰",
+    "name:zh-Latn-pinyin": "Luòzi Xiàr fēng",
+    "natural": "peak",
+    "source:position": "SRTM-Version 3.0-SRTMGL1-Void Filled-10m",
+    "wikidata": "Q11237699",
+    "wikipedia": "en:Lhotse Shar"
+  }
+},
+{
+  "type": "node",
+  "id": 2677892532,
+  "lat": 27.9556290,
+  "lon": 86.9651422,
+  "tags": {
+    "alt_name": "38峰",
+    "alt_name:en": "Peak 38",
+    "ele": "7591",
+    "name": "夏子一峰 ཤར་རྩེ་༡ शारत्से १",
+    "name:bo": "ཤར་རྩེ་༡",
+    "name:en": "Shartse I",
+    "name:ne": "शारत्से १",
+    "name:ru": "пик Шарцзе I",
+    "name:zh": "夏子一峰",
+    "natural": "peak",
+    "wikipedia": "de:Shartse I / Peak 38"
+  }
+},
+{
+  "type": "node",
+  "id": 2677892533,
+  "lat": 28.0158523,
+  "lon": 86.8273505,
+  "tags": {
+    "ele": "7138",
+    "name": "普莫里峰",
+    "name:en": "Pumori",
+    "name:ja": "プモリ",
+    "name:ne": "पुमोरी",
+    "name:ru": "Пумори",
+    "name:zh": "普莫里峰",
+    "name:zh-Hans": "普莫里峰",
+    "name:zh-Hant": "普莫里峰",
+    "natural": "peak",
+    "wikidata": "Q1137644",
+    "wikipedia": "en:Pumori"
+  }
+},
+{
+  "type": "node",
+  "id": 2681546080,
+  "lat": 28.0419301,
+  "lon": 86.9638908,
+  "tags": {
+    "ele": "6785",
+    "mountain_pass": "yes",
+    "name": "拉巴拉山坳 ལྷག་པ་ལ",
+    "name:bo": "ལྷག་པ་ལ",
+    "name:en": "Lhakpa La",
+    "name:zh": "拉巴拉山坳",
+    "natural": "saddle",
+    "wikidata": "Q1822466"
+  }
+},
+{
+  "type": "node",
+  "id": 2681546081,
+  "lat": 28.0103933,
+  "lon": 86.8764352,
+  "tags": {
+    "ele": "5981",
+    "mountain_pass": "yes",
+    "name": "罗拉 ལྷོ་ལ ल्हो ला",
+    "name:bo": "ལྷོ་ལ",
+    "name:en": "Lho La",
+    "name:ne": "ल्हो ला",
+    "name:ru": "перевал Лхо-Ла",
+    "name:zh": "罗拉",
+    "name:zh-Latn-pinyin": "Luò-Lā",
+    "natural": "saddle",
+    "source:position": "SRTM-Version 3.0-SRTMGL1-Void Filled-10m",
+    "wikidata": "Q18011310"
+  }
+},
+{
+  "type": "node",
+  "id": 2681546435,
+  "lat": 28.0581801,
+  "lon": 86.7510752,
+  "tags": {
+    "ele": "5844",
+    "mountain_pass": "yes",
+    "name": "努拉 - Nup La",
+    "name:en": "Nup La",
+    "name:ru": "Нуп",
+    "natural": "saddle",
+    "westra_ref": "17171"
+  }
+},
+{
+  "type": "node",
+  "id": 2681570113,
+  "lat": 27.9853076,
+  "lon": 86.8662933,
+  "tags": {
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 2681570114,
+  "lat": 27.9963754,
+  "lon": 86.8918222,
+  "tags": {
+    "ele": "7260",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 2681941089,
+  "lat": 28.0186698,
+  "lon": 86.9635033,
+  "tags": {
+    "ele": "6501",
+    "mountain_pass": "yes",
+    "name": "热补拉",
+    "name:en": "Rapu La",
+    "name:zh": "热补拉",
+    "natural": "saddle"
+  }
+},
+{
+  "type": "node",
+  "id": 2681941092,
+  "lat": 27.9960625,
+  "lon": 86.8941855,
+  "tags": {
+    "name:de": "Westschulter",
+    "natural": "saddle"
+  }
+},
+{
+  "type": "node",
+  "id": 2681946526,
+  "lat": 28.0161604,
+  "lon": 86.9233646,
+  "tags": {
+    "ele": "7042",
+    "mountain_pass": "yes",
+    "name": "北坳",
+    "name:de": "Nordsattel",
+    "name:en": "North Col",
+    "name:ru": "Северное Седло",
+    "name:zh": "北坳",
+    "natural": "saddle",
+    "source:position": "SRTM-Version 3.0-SRTMGL1-Void Filled-10m",
+    "wikidata": "Q2611798",
+    "wikipedia": "en:North Col"
+  }
+},
+{
+  "type": "node",
+  "id": 2683830785,
+  "lat": 28.0136395,
+  "lon": 86.7878294,
+  "tags": {
+    "ele": "6859",
+    "name": "Chumbu",
+    "name:zh": "琼布",
+    "natural": "peak",
+    "wikidata": "Q20757638",
+    "wikipedia": "en:Chumbu (mountain)"
+  }
+},
+{
+  "type": "node",
+  "id": 2683857479,
+  "lat": 27.9696599,
+  "lon": 86.7817247,
+  "tags": {
+    "ele": "6135",
+    "name": "Lobuche West",
+    "name:ja": "ロブチェ",
+    "name:zh": "罗布切西峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 2686686024,
+  "lat": 28.0346233,
+  "lon": 86.7595710,
+  "tags": {
+    "ele": "7029",
+    "name": "红旗峰",
+    "name:en": "Hungchi",
+    "natural": "peak",
+    "wikidata": "Q20757621"
+  }
+},
+{
+  "type": "node",
+  "id": 2686686041,
+  "lat": 28.0376525,
+  "lon": 86.7725506,
+  "tags": {
+    "alt_name": "Burke Kang",
+    "ele": "6942",
+    "name": "红旗东峰 / 布尔克岗",
+    "name:en": "Hungchi East",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 2686686111,
+  "lat": 28.0750096,
+  "lon": 86.7650413,
+  "tags": {
+    "ele": "6861",
+    "name": "努普拉岗峰",
+    "name:en": "Nupla Kang",
+    "name:zh": "努普拉岗峰",
+    "name:zh-Hans": "努普拉岗峰",
+    "name:zh-Hant": "努普拉崗峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 2687648806,
+  "lat": 27.9606819,
+  "lon": 86.9375894,
+  "tags": {
+    "ele": "8410",
+    "name": "洛子中一峰 ལྷོ་རྩེ་ཀྱི་༡ ल्होत्से मध्य १",
+    "name:bo": "ལྷོ་རྩེ་ཀྱི་༡",
+    "name:en": "Lhotse Middle I",
+    "name:ja": "ローツェ中央峰",
+    "name:ne": "ल्होत्से मध्य १",
+    "name:ru": "пик Лхоцзе-Кьи I",
+    "name:zh": "洛子中一峰",
+    "name:zh-Hans": "洛子中一峰",
+    "name:zh-Hant": "洛子中一峰",
+    "name:zh-Latn-pinyin": "Luòzi Zhōng I fēng",
+    "natural": "peak",
+    "source:position": "SRTM-Version 3.0-SRTMGL1-Void Filled-10m",
+    "wikidata": "Q21838044",
+    "wikipedia": "en:Lhotse Middle I"
+  }
+},
+{
+  "type": "node",
+  "id": 2687648807,
+  "lat": 27.9609424,
+  "lon": 86.9309715,
+  "tags": {
+    "ele": "8415",
+    "name": "ल्होत्से नुप १",
+    "name:bo": "ལྷོ་རྩེ་ནུབ་༡",
+    "name:en": "Lhotse Nup I",
+    "name:ne": "ल्होत्से नुप १",
+    "name:ru": "пик Лхоцзе-Нуп I",
+    "name:zh": "洛子西一峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 2946285579,
+  "lat": 28.0226855,
+  "lon": 86.9710457,
+  "tags": {
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 2946286653,
+  "lat": 28.0380978,
+  "lon": 86.9697483,
+  "tags": {
+    "ele": "6986",
+    "name": "拉克巴日 ལྷག་པ་རི",
+    "name:bo": "ལྷག་པ་རི",
+    "name:en": "Lhakpa Ri",
+    "name:zh": "拉克巴日",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 2946286663,
+  "lat": 28.0403570,
+  "lon": 86.9648445,
+  "tags": {
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 2946286697,
+  "lat": 28.0647378,
+  "lon": 86.9105768,
+  "tags": {
+    "ele": "6563",
+    "name": "建设山",
+    "name:en": "Jianshe Top",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 2950781581,
+  "lat": 27.9054758,
+  "lon": 86.8354796,
+  "tags": {
+    "ele": "5073",
+    "name": "Nangkartshang",
+    "name:zh": "朗嘎藏",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 2950781582,
+  "lat": 27.9247682,
+  "lon": 86.8331902,
+  "tags": {
+    "ele": "5806",
+    "name": "Pokalde",
+    "natural": "peak",
+    "wikidata": "Q968606"
+  }
+},
+{
+  "type": "node",
+  "id": 3522210446,
+  "lat": 27.9463981,
+  "lon": 86.7879206,
+  "tags": {
+    "ele": "5532",
+    "natural": "peak",
+    "source:ele": "FinnMaps"
+  }
+},
+{
+  "type": "node",
+  "id": 3696097627,
+  "lat": 27.9602130,
+  "lon": 86.9134353,
+  "tags": {
+    "ele": "7686",
+    "name": "नुप्त्से शार ३",
+    "name:bo": "ནུབ་རྩེ་ཤར་༣",
+    "name:en": "Nuptse Shar III",
+    "name:ja": "ヌプツェ東III峰",
+    "name:ne": "नुप्त्से शार ३",
+    "name:ru": "пик Нупцзе-Шар III",
+    "name:uk": "пік Нупцзе-Шар III",
+    "name:zh": "努子东三峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 3696097628,
+  "lat": 27.9673711,
+  "lon": 86.8869630,
+  "tags": {
+    "ele": "7864",
+    "name": "नुप्त्से १",
+    "name:bo": "ནུབ་རྩེ་༡",
+    "name:en": "Nuptse I",
+    "name:ja": "ヌプツェⅠ",
+    "name:ne": "नुप्त्से १",
+    "name:ru": "пик Нупцзе I",
+    "name:zh": "努子一峰",
+    "natural": "peak",
+    "prominence": "354",
+    "source:prominence": "7864-7510 (Col at the E towards Lothse)",
+    "wikidata": "Q1139538",
+    "wikipedia": "en:Nuptse"
+  }
+},
+{
+  "type": "node",
+  "id": 3696097629,
+  "lat": 27.9661046,
+  "lon": 86.8890915,
+  "tags": {
+    "ele": "7827",
+    "name": "नुप्त्से २",
+    "name:bo": "ནུབ་རྩེ་༢",
+    "name:en": "Nuptse II",
+    "name:ja": "ヌプツェⅡ",
+    "name:ne": "नुप्त्से २",
+    "name:ru": "пик Нупцзе II",
+    "name:zh": "努子二峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 3696097630,
+  "lat": 27.9691430,
+  "lon": 86.8818941,
+  "tags": {
+    "ele": "7775",
+    "name": "नुप्त्से नुप १",
+    "name:bo": "ནུབ་རྩེ་ནུབ་༡",
+    "name:en": "Nuptse Nup I",
+    "name:ne": "नुप्त्से नुप १",
+    "name:ru": "пик Нупцзе-Нуп I",
+    "name:zh": "努子西一峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 3696097631,
+  "lat": 27.9727980,
+  "lon": 86.8756938,
+  "tags": {
+    "ele": "7732",
+    "name": "नुप्त्से नुप २",
+    "name:bo": "ནུབ་རྩེ་ནུབ་༢",
+    "name:en": "Nuptse Nup II",
+    "name:ne": "नुप्त्से नुप २",
+    "name:ru": "пик Нупцзе-Нуп II",
+    "name:zh": "努子西二峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 3696097632,
+  "lat": 27.9643955,
+  "lon": 86.8910360,
+  "tags": {
+    "ele": "7815",
+    "name": "नुप्त्से शार १",
+    "name:bo": "ནུབ་རྩེ་ཤར་༡",
+    "name:en": "Nuptse Shar I",
+    "name:ne": "नुप्त्से शार १",
+    "name:ru": "пик Нупцзе-Шар I",
+    "name:zh": "努子东一峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 3696097633,
+  "lat": 27.9625839,
+  "lon": 86.8938459,
+  "tags": {
+    "ele": "7795",
+    "name": "नुप्त्से शार २",
+    "name:bo": "ནུབ་རྩེ་ཤར་༢",
+    "name:en": "Nuptse Shar II",
+    "name:ne": "नुप्त्से शार २",
+    "name:ru": "пик Нупцзе-Шар II",
+    "name:zh": "努子东二峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 4079548654,
+  "lat": 28.0906246,
+  "lon": 86.8119625,
+  "tags": {
+    "alt_name": "Jomo Samzhubma",
+    "ele": "6927",
+    "gns:dsg": "PK: peak",
+    "name": "红星峰",
+    "name:en": "Hongxing",
+    "natural": "peak",
+    "old_name": "觉木桑珠玛",
+    "source:name": "GNS"
+  }
+},
+{
+  "type": "node",
+  "id": 4880806685,
+  "lat": 27.9815643,
+  "lon": 86.8991408,
+  "tags": {
+    "ele": "6400",
+    "fee": "no",
+    "name": "Camp 2S",
+    "name:en": "Camp 2S",
+    "name:ja": "エベレスト キャンプ2S",
+    "name:ka": "მე-2 ბანაკი",
+    "name:ko": "캠프 2S",
+    "name:zh": "南线2号营地",
+    "source:location": "SRTM-Version 3.0-SRTMGL1-Void Filled",
+    "tourism": "camp_site",
+    "website": "https://en.m.wikivoyage.org/wiki/Everest_Base_Camp_Trek"
+  }
+},
+{
+  "type": "node",
+  "id": 4880806686,
+  "lat": 27.9864173,
+  "lon": 86.8765224,
+  "tags": {
+    "ele": "6060",
+    "fee": "no",
+    "name": "Camp 1S",
+    "name:en": "Camp 1S",
+    "name:ja": "エベレスト キャンプ1S",
+    "name:ka": "1-ლი ბანაკი",
+    "name:ko": "캠프 1S",
+    "name:zh": "南线1号营地",
+    "source:location": "SRTM-Version 3.0-SRTMGL1-Void Filled",
+    "tourism": "camp_site",
+    "website": "https://en.m.wikivoyage.org/wiki/Everest_Base_Camp_Trek"
+  }
+},
+{
+  "type": "node",
+  "id": 5058594752,
+  "lat": 28.0691270,
+  "lon": 86.8977630,
+  "tags": {
+    "ele": "6916",
+    "name": "长征峰",
+    "name:en": "Changzheng Ri",
+    "name:zh": "长征峰",
+    "name:zh-Hans": "长征峰",
+    "name:zh-Hant": "長徵峰",
+    "natural": "peak",
+    "wikidata": "Q20999746"
+  }
+},
+{
+  "type": "node",
+  "id": 5058632244,
+  "lat": 27.9688883,
+  "lon": 86.9178104,
+  "tags": {
+    "ele": "7100",
+    "fee": "no",
+    "name": "Camp 3S",
+    "name:ja": "エベレスト キャンプ3S",
+    "name:ka": "მე-3 ბანაკი",
+    "name:ko": "캠프 3S",
+    "name:zh": "南线3号营地",
+    "name:zh-Hans": "南线3号营地",
+    "name:zh-Hant": "南線3號營地",
+    "source:location": "SRTM-Version 3.0-SRTMGL1-Void Filled",
+    "tourism": "camp_site",
+    "website": "https://en.m.wikivoyage.org/wiki/Everest_Base_Camp_Trek",
+    "wheelchair": "no"
+  }
+},
+{
+  "type": "node",
+  "id": 5058747068,
+  "lat": 28.0638990,
+  "lon": 86.9770979,
+  "tags": {
+    "ele": "7213",
+    "name": "卡达普峰",
+    "name:en": "Khartaphu",
+    "name:zh": "卡达普峰",
+    "name:zh-Hans": "卡达普峰",
+    "name_1": "Kardapu",
+    "natural": "peak",
+    "wikidata": "Q4134792"
+  }
+},
+{
+  "type": "node",
+  "id": 5058747070,
+  "lat": 28.0496935,
+  "lon": 86.9693398,
+  "tags": {
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 5058747076,
+  "lat": 28.0293056,
+  "lon": 86.9658100,
+  "tags": {
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 5225912921,
+  "lat": 27.9996646,
+  "lon": 86.8487946,
+  "tags": {
+    "ele": "5364",
+    "name": "Everest Base Camp",
+    "name:en": "Everest Base Camp",
+    "name:fr": "Everest Camp de base",
+    "name:ja": "エベレスト ベースキャンプ",
+    "name:ka": "ევერესტის საბაზო ბანაკი",
+    "name:ko": "에베레스트 베이스 캠프",
+    "name:zh": "珠峰大本营",
+    "tourism": "camp_site",
+    "wikidata": "Q99671286"
+  }
+},
+{
+  "type": "node",
+  "id": 5325237525,
+  "lat": 27.9959354,
+  "lon": 86.8283788,
+  "tags": {
+    "name": "Everest Viewpoint",
+    "name:en": "Everest Viewpoint",
+    "name:ja": "エベレストの展望",
+    "tourism": "viewpoint"
+  }
+},
+{
+  "type": "node",
+  "id": 5491969377,
+  "lat": 28.1142247,
+  "lon": 86.9937132,
+  "tags": {
+    "ele": "7056",
+    "loc_name": "Khartachangri",
+    "loc_name:en": "Khartachangri",
+    "name": "卡达章格里",
+    "name:en": "Kharta Changri",
+    "name:zh": "卡达章格里",
+    "name:zh-Hans": "卡达章格里",
+    "name:zh-Hant": "卡達章格里",
+    "name_1": "Khartichangri",
+    "name_2": "Kardachangri",
+    "natural": "peak",
+    "wikidata": "Q20942042"
+  }
+},
+{
+  "type": "node",
+  "id": 5491969378,
+  "lat": 28.1123613,
+  "lon": 86.9665203,
+  "tags": {
+    "ele": "6948",
+    "name": "东方 II 峰",
+    "name:en": "Dongfang II",
+    "natural": "peak",
+    "source": "http://www.peakbagger.com/peak.aspx?pid=35564"
+  }
+},
+{
+  "type": "node",
+  "id": 5491969379,
+  "lat": 28.1120383,
+  "lon": 86.9533892,
+  "tags": {
+    "ele": "6966",
+    "name": "东方 I 峰",
+    "name:en": "Dongfang I",
+    "name:zh": "东方 I 峰",
+    "name:zh-Hans": "东方 I 峰",
+    "name:zh-Hant": "東方 I 峰",
+    "natural": "peak",
+    "source": "http://www.peakbagger.com/peak.aspx?pid=35223"
+  }
+},
+{
+  "type": "node",
+  "id": 5491969380,
+  "lat": 28.1129808,
+  "lon": 86.9164907,
+  "tags": {
+    "alt_name:en": "Lixing Peak;Lixin Peak",
+    "ele": "7078",
+    "name": "立新峰",
+    "name:en": "Kellas Rock Peak",
+    "name:zh": "立新峰",
+    "natural": "peak",
+    "source": "http://www.geocities.co.jp/Technopolis/2719/hima/hm_nh2.htm",
+    "wikidata": "Q20771142"
+  }
+},
+{
+  "type": "node",
+  "id": 5786165781,
+  "lat": 27.9089791,
+  "lon": 86.9347668,
+  "tags": {
+    "name": "Island Peak High Camp",
+    "name:ja": "アイランドピークハイキャンプ",
+    "tourism": "camp_site"
+  }
+},
+{
+  "type": "node",
+  "id": 6104367048,
+  "lat": 28.0045755,
+  "lon": 86.7502999,
+  "tags": {
+    "ele": "5900",
+    "natural": "peak",
+    "source": "estimated from DEM (OpenCycleMap)"
+  }
+},
+{
+  "type": "node",
+  "id": 6800789985,
+  "lat": 27.9851386,
+  "lon": 86.8292510,
+  "tags": {
+    "name": "Everest Viewpoint",
+    "name:en": "Everest Viewpoint",
+    "tourism": "viewpoint"
+  }
+},
+{
+  "type": "node",
+  "id": 7514861295,
+  "lat": 27.9391663,
+  "lon": 86.8750005,
+  "tags": {
+    "ele": "5857",
+    "name": "Chukhung Tse",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 8415866217,
+  "lat": 28.0921897,
+  "lon": 86.9781697,
+  "tags": {
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9381866594,
+  "lat": 28.0540854,
+  "lon": 86.9044339,
+  "tags": {
+    "ele": "6852",
+    "name": "尖兵峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9381866600,
+  "lat": 28.1100018,
+  "lon": 86.8266049,
+  "tags": {
+    "ele": "6573",
+    "name": "曙光峰",
+    "name:en": "Shuguang",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9381866601,
+  "lat": 28.0802617,
+  "lon": 86.8251966,
+  "tags": {
+    "ele": "6907",
+    "name": "铜墙峰",
+    "name:en": "Tongqiang",
+    "name:zh": "铜墙峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9381866603,
+  "lat": 28.0199479,
+  "lon": 86.8097387,
+  "tags": {
+    "name": "康里峰",
+    "name:en": "Khangri",
+    "name:zh": "康里峰",
+    "name:zh-Hans": "康里峰",
+    "name:zh-Hant": "康里峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9470829576,
+  "lat": 27.9972322,
+  "lon": 86.9336054,
+  "tags": {
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9470829577,
+  "lat": 27.9938504,
+  "lon": 86.9555474,
+  "tags": {
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9727634283,
+  "lat": 27.9580094,
+  "lon": 86.7532378,
+  "tags": {
+    "ele": "5638",
+    "natural": "peak",
+    "source:ele": "Finn Map"
+  }
+},
+{
+  "type": "node",
+  "id": 9727634315,
+  "lat": 27.9439338,
+  "lon": 86.8383086,
+  "tags": {
+    "alt_name": "Nangjajung;Nāṅjājuṅ",
+    "ele": "5849",
+    "name": "Kongma Tse",
+    "natural": "peak",
+    "note": "5798m according to Finn Map",
+    "old_name": "Mehra",
+    "source:alt_name": "Finn Map",
+    "wikidata": "Q20190945",
+    "wikipedia": "de:Kongma Tse"
+  }
+},
+{
+  "type": "node",
+  "id": 9857332665,
+  "lat": 28.0674479,
+  "lon": 86.9516426,
+  "tags": {
+    "ele": "7018",
+    "name": "向东峰",
+    "name:en": "Xiangdong",
+    "name:zh": "向东峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9857358240,
+  "lat": 28.1347542,
+  "lon": 86.9457355,
+  "tags": {
+    "ele": "6617",
+    "name": "前进峰",
+    "name:en": "Qianjin",
+    "name:zh": "前进峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9857429354,
+  "lat": 28.0263224,
+  "lon": 86.9093442,
+  "tags": {
+    "ele": "7541",
+    "name": "章子西峰",
+    "name:bo": "བྱང་རྩེ་ནུབ",
+    "name:en": "Changtse West",
+    "name:ru": "пик Чангцзе-Нуп",
+    "name:zh": "章子西峰",
+    "name:zh-Hans": "章子西峰",
+    "name:zh-Hant": "章子西峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9857435738,
+  "lat": 28.0460093,
+  "lon": 86.8642649,
+  "tags": {
+    "ele": "6485",
+    "name": "光明峰",
+    "name:en": "Guangming",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9857442340,
+  "lat": 28.0358650,
+  "lon": 86.8608487,
+  "tags": {
+    "ele": "6497",
+    "name": "向阳峰",
+    "name:en": "Xiangyang",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9859505304,
+  "lat": 28.0190339,
+  "lon": 86.7898112,
+  "tags": {
+    "ele": "6822",
+    "name": "琼布北峰",
+    "name:en": "Chumbu North",
+    "name:zh": "琼布北峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9859514009,
+  "lat": 28.0348067,
+  "lon": 86.8082299,
+  "tags": {
+    "alt_name": "林禅西峰",
+    "alt_name:zh": "林禅西峰",
+    "alt_name:zh-Hans": "林禅西峰",
+    "alt_name:zh-Hant": "林禪西峰",
+    "ele": "6376",
+    "name": "西林禅峰",
+    "name:en": "West Lingtren",
+    "name:zh": "西林禅峰",
+    "name:zh-Hans": "西林禅峰",
+    "name:zh-Hant": "西林禪峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9859521563,
+  "lat": 27.9932726,
+  "lon": 86.7910019,
+  "tags": {
+    "ele": "6027",
+    "name": "Changri",
+    "name:en": "Changri",
+    "name:zh": "章里",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9859535027,
+  "lat": 28.0242956,
+  "lon": 86.7999100,
+  "tags": {
+    "ele": "6658",
+    "name": "康里西峰",
+    "name:en": "Khangri West",
+    "name:zh": "康里西峰",
+    "name:zh-Hans": "康里西峰",
+    "name:zh-Hant": "康里西峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9859581319,
+  "lat": 28.1291508,
+  "lon": 86.7722317,
+  "tags": {
+    "ele": "6711",
+    "name": "九大峰",
+    "name:en": "Jiuda",
+    "name:zh": "九大峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9859601817,
+  "lat": 28.1733299,
+  "lon": 86.7888981,
+  "tags": {
+    "ele": "6452",
+    "name": "纳木错里",
+    "name:en": "Namocoli",
+    "name:zh": "纳木错里",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9859603820,
+  "lat": 28.1951595,
+  "lon": 86.7919642,
+  "tags": {
+    "ele": "6036",
+    "name": "帕于曲堆侬宋",
+    "name:en": "Paryqudailungsum",
+    "name:zh": "帕于曲堆侬宋",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9859634361,
+  "lat": 27.9599193,
+  "lon": 86.9399794,
+  "tags": {
+    "ele": "8372",
+    "name": "洛子中二峰 ལྷོ་རྩེ་ཀྱི་༢",
+    "name:bo": "ལྷོ་རྩེ་ཀྱི་༢",
+    "name:en": "Lhotse Middle II",
+    "name:ru": "пик Лхоцзе-Кьи II",
+    "name:zh": "洛子中二峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9861633064,
+  "lat": 27.9592043,
+  "lon": 86.9230454,
+  "tags": {
+    "ele": "7942",
+    "name": "ल्होत्से नुप २",
+    "name:bo": "ལྷོ་རྩེ་ནུབ་༢",
+    "name:en": "Lhotse Nup II",
+    "name:ne": "ल्होत्से नुप २",
+    "name:ru": "пик Лхоцзе-Нуп II",
+    "name:zh": "洛子西二峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9861761349,
+  "lat": 28.1880094,
+  "lon": 86.9618437,
+  "tags": {
+    "ele": "5938",
+    "name": "确玛孔",
+    "name:en": "Quemakung",
+    "name:zh": "确玛孔",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9905248501,
+  "lat": 27.9561034,
+  "lon": 86.7970443,
+  "tags": {
+    "description": "\"false summit\"",
+    "ele": "5990",
+    "natural": "peak",
+    "source:ele": "Finn Map"
+  }
+},
+{
+  "type": "node",
+  "id": 9905248502,
+  "lat": 27.9775114,
+  "lon": 86.7629029,
+  "tags": {
+    "ele": "6159",
+    "name": "Nirekha",
+    "name:zh": "尼惹卡",
+    "natural": "peak",
+    "wikidata": "Q8523483",
+    "wikipedia": "en:Nirekha"
+  }
+},
+{
+  "type": "node",
+  "id": 9905255862,
+  "lat": 27.9109020,
+  "lon": 86.9716631,
+  "tags": {
+    "ele": "6400",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 9905255865,
+  "lat": 27.9029624,
+  "lon": 86.7687987,
+  "tags": {
+    "alt_name": "Tawoche North;Tobuche North;Tāuje North;Taweche North;Tawache North;Tawetse North",
+    "ele": "6335",
+    "name": "Taboche North",
+    "natural": "peak",
+    "note": "Finn Map calls this peak (erroneously) Cholotse, which is in fact further north",
+    "source:ele": "Finn Map",
+    "source:name": "http://publications.americanalpineclub.org/articles/13201212614/Arakam-Tse-5904m-northeast-face-Tatopani"
+  }
+},
+{
+  "type": "node",
+  "id": 10223012845,
+  "lat": 27.9617129,
+  "lon": 86.9074774,
+  "tags": {
+    "ele": "7200",
+    "natural": "saddle"
+  }
+},
+{
+  "type": "node",
+  "id": 10731513015,
+  "lat": 27.9736525,
+  "lon": 86.7733041,
+  "tags": {
+    "ele": "6065",
+    "natural": "peak",
+    "source:ele": "Finn Map"
+  }
+},
+{
+  "type": "node",
+  "id": 10731513040,
+  "lat": 27.9593572,
+  "lon": 86.7917404,
+  "tags": {
+    "ele": "6090",
+    "name": "Lobuche East",
+    "name:zh": "罗布切东峰",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 10731513049,
+  "lat": 27.9677587,
+  "lon": 86.7966699,
+  "tags": {
+    "ele": "5963",
+    "natural": "peak",
+    "source:ele": "Finn Map"
+  }
+},
+{
+  "type": "node",
+  "id": 10731513056,
+  "lat": 27.9654761,
+  "lon": 86.7593471,
+  "tags": {
+    "ele": "5595",
+    "natural": "peak",
+    "source:ele": "Finn Map"
+  }
+},
+{
+  "type": "node",
+  "id": 10731513093,
+  "lat": 27.9325597,
+  "lon": 86.7599558,
+  "tags": {
+    "ele": "5320",
+    "natural": "saddle"
+  }
+},
+{
+  "type": "node",
+  "id": 10731513098,
+  "lat": 27.9432324,
+  "lon": 86.7516517,
+  "tags": {
+    "ele": "5904",
+    "name": "Arakam Tse",
+    "name:zh": "阿拉卡姆策",
+    "natural": "peak",
+    "source": "http://publications.americanalpineclub.org/articles/13201212614/Arakam-Tse-5904m-northeast-face-Tatopani"
+  }
+},
+{
+  "type": "node",
+  "id": 10731513171,
+  "lat": 27.9682780,
+  "lon": 86.7530365,
+  "tags": {
+    "ele": "5837",
+    "natural": "peak",
+    "source:ele": "Finn Map"
+  }
+},
+{
+  "type": "node",
+  "id": 10731513195,
+  "lat": 27.9861592,
+  "lon": 86.7669081,
+  "tags": {
+    "ele": "5697",
+    "natural": "saddle",
+    "source": "Finn Map"
+  }
+},
+{
+  "type": "node",
+  "id": 10733578115,
+  "lat": 27.9336141,
+  "lon": 86.8481680,
+  "tags": {
+    "ele": "5785",
+    "natural": "peak",
+    "source:ele": "Finn Map"
+  }
+},
+{
+  "type": "node",
+  "id": 10733578159,
+  "lat": 27.9460189,
+  "lon": 86.8428683,
+  "tags": {
+    "ele": "5610",
+    "natural": "saddle"
+  }
+},
+{
+  "type": "node",
+  "id": 10733578161,
+  "lat": 27.9481966,
+  "lon": 86.8478065,
+  "tags": {
+    "ele": "5850",
+    "natural": "peak",
+    "source:ele": "estimated from Finn Map"
+  }
+},
+{
+  "type": "node",
+  "id": 10733578164,
+  "lat": 27.9526335,
+  "lon": 86.8520385,
+  "tags": {
+    "ele": "5610",
+    "natural": "saddle"
+  }
+},
+{
+  "type": "node",
+  "id": 10733578172,
+  "lat": 27.9649806,
+  "lon": 86.8537961,
+  "tags": {
+    "ele": "5850",
+    "natural": "saddle"
+  }
+},
+{
+  "type": "node",
+  "id": 10744156829,
+  "lat": 27.9046312,
+  "lon": 86.9675159,
+  "tags": {
+    "ele": "6140",
+    "natural": "saddle"
+  }
+},
+{
+  "type": "node",
+  "id": 10744254147,
+  "lat": 27.9782220,
+  "lon": 86.7535514,
+  "tags": {
+    "ele": "5656",
+    "natural": "saddle",
+    "note": "this saddle is marked as Cho La Col on many maps, but this seems to be an error",
+    "source:ele": "Finn Map"
+  }
+},
+{
+  "type": "node",
+  "id": 10788308398,
+  "lat": 27.9301709,
+  "lon": 86.9787275,
+  "tags": {
+    "ele": "6180",
+    "natural": "saddle"
+  }
+},
+{
+  "type": "node",
+  "id": 10799486977,
+  "lat": 27.9017109,
+  "lon": 86.7719292,
+  "tags": {
+    "ele": "6110",
+    "natural": "saddle"
+  }
+},
+{
+  "type": "node",
+  "id": 10799486981,
+  "lat": 27.9127849,
+  "lon": 86.7664575,
+  "tags": {
+    "ele": "5640",
+    "natural": "saddle"
+  }
+},
+{
+  "type": "node",
+  "id": 10799487000,
+  "lat": 27.9323013,
+  "lon": 86.9074210,
+  "tags": {
+    "ele": "5770",
+    "natural": "peak",
+    "source:ele": "Finn Map"
+  }
+},
+{
+  "type": "node",
+  "id": 10799487137,
+  "lat": 28.0447508,
+  "lon": 86.9628596,
+  "tags": {
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 10799487139,
+  "lat": 28.0263413,
+  "lon": 86.9684386,
+  "tags": {
+    "ele": "6690",
+    "natural": "saddle"
+  }
+},
+{
+  "type": "node",
+  "id": 11143218434,
+  "lat": 27.9143397,
+  "lon": 86.7516947,
+  "tags": {
+    "ele": "5685",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 11730385960,
+  "lat": 27.9973787,
+  "lon": 86.8472521,
+  "tags": {
+    "historic": "monument",
+    "name": "Everest Base Camp Monument",
+    "name:ja": "エベレスト・ベースキャンプ記念碑",
+    "name:ka": "ევერესტის საბაზო ბანაკის მემორიალი"
+  }
+},
+{
+  "type": "node",
+  "id": 11956009447,
+  "lat": 28.1365307,
+  "lon": 86.8554744,
+  "tags": {
+    "ele": "5200",
+    "name": "珠峰大本营",
+    "name:bo": "ཇོ་མོ་གླང་མའི་སྒར་ས་ཆེན་པོ།",
+    "name:en": "Everest Base Camp",
+    "name:zh": "珠峰大本营",
+    "name:zh-Hans": "珠峰大本营",
+    "name:zh-Hant": "珠峰大本營",
+    "note": "This base camp is exclusively for climbers of Mount Everest, and tourists are unable to reach it.",
+    "place": "locality",
+    "tourism": "camp_site"
+  }
+},
+{
+  "type": "node",
+  "id": 11956078353,
+  "lat": 28.0822740,
+  "lon": 86.9193624,
+  "tags": {
+    "ele": "5800",
+    "name": "中间营地",
+    "name:en": "Intermediate Camp",
+    "name:zh": "中间营地",
+    "name:zh-Hans": "中间营地",
+    "name:zh-Hant": "中間營地",
+    "tourism": "camp_site"
+  }
+},
+{
+  "type": "node",
+  "id": 11956078759,
+  "lat": 27.9990239,
+  "lon": 86.9321909,
+  "tags": {
+    "ele": "8300",
+    "name": "三号营地",
+    "name:en": "Camp 3N North ridge",
+    "name:zh": "三号营地",
+    "name:zh-Hans": "三号营地",
+    "name:zh-Hant": "三號營地",
+    "source": "2bulu",
+    "tourism": "camp_site"
+  }
+},
+{
+  "type": "node",
+  "id": 12177316938,
+  "lat": 27.9508852,
+  "lon": 86.7532546,
+  "tags": {
+    "ele": "5697",
+    "natural": "peak",
+    "source:ele": "Finn Map"
+  }
+},
+{
+  "type": "node",
+  "id": 12771599701,
+  "lat": 27.9983698,
+  "lon": 86.8488755,
+  "tags": {
+    "name": "Asian Trekking",
+    "tourism": "camp_site"
+  }
+},
+{
+  "type": "node",
+  "id": 13191992435,
+  "lat": 28.0249137,
+  "lon": 86.8671650,
+  "tags": {
+    "name": "莫哈冷古尔康日",
+    "natural": "peak"
+  }
+},
+{
+  "type": "node",
+  "id": 14158921737,
+  "lat": 28.0341058,
+  "lon": 86.9684891,
+  "tags": {
+    "natural": "saddle"
+  }
+}
+
+  ]
+}

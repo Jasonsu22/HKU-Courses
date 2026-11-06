@@ -1,0 +1,7 @@
+participant_id,session_date,role,everest_familiarity_1_5,task_id,start_s,end_s,seconds,completed,confidence_1_5,prompts,quote,comments
+P01,2026-10-24,student,2,T1,0,41,41,Y,4,0,"success went up a lot after 2000",read heatmap first
+P01,2026-10-24,student,2,T2,41,132,91,P,3,1,"south 91, north 85 - did not look at n",needed prompt about sample size
+P01,2026-10-24,student,2,T3,132,181,49,Y,5,0,"it says schematic, not a map",found the footnote
+P01,2026-10-24,student,2,T4,181,305,124,Y,4,0,"69 percent, 626 people, 64 percent in the group",used the cohort table
+P01,2026-10-24,student,2,T5,305,380,75,Y,2,0,"drops to 3 percent - seems weird",unsure why
+P01,2026-10-24,student,2,T6,380,421,41,Y,4,0,"2020s are higher than the model",read the limitations

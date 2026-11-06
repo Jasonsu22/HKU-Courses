@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Everest · climbing decision support</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="brand-mark">▲</span>
+    <span class="brand-name">Everest decision support</span>
+    <span class="brand-sub">COMP7507 · group 14</span>
+  </div>
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button class="tab is-active" role="tab" data-view="history" aria-selected="true">
+      <span class="tab-num">01</span> History
+    </button>
+    <button class="tab" role="tab" data-view="routes" aria-selected="false">
+      <span class="tab-num">02</span> Routes
+    </button>
+    <button class="tab" role="tab" data-view="plan" aria-selected="false">
+      <span class="tab-num">03</span> Your plan
+    </button>
+  </nav>
+  <div class="topbar-meta">
+    <button class="ghost" id="open-methods" title="Data and methods"><span class="hide-sm">Data &amp; </span>methods</button>
+  </div>
+</header>
+
+<main>
+  <!-- ============================== 01 HISTORY ============================== -->
+  <section class="view is-active" id="view-history" role="tabpanel">
+    <div class="view-head">
+      <div>
+        <p class="eyebrow">Module 01 · historical evolution</p>
+        <h1>How Everest expeditions have changed</h1>
+        <p class="lede">
+          2,347 expeditions and 25,274 participation records, 1921–2024. Counts and rates are
+          kept separate, and every rate states its numerator, denominator and sample size.
+        </p>
+      </div>
+      <div class="view-note">
+        <span class="dot"></span> Source: The Himalayan Database via Maven Analytics
+      </div>
+    </div>
+
+    <div class="kpis" id="m1-kpis"></div>
+
+    <div class="card card--wide">
+      <div class="card-head">
+        <div>
+          <h2>Expeditions and participants per year</h2>
+          <p class="hint">Bars are expeditions; the lower panel counts member records (people, not unique climbers).</p>
+        </div>
+        <div class="chip-row" id="m1-era-chips"></div>
+      </div>
+      <div class="chart" id="m1-annual" style="height:430px"></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2>Summit success by decade</h2>
+            <p class="hint" id="m1-success-hint">Share of expeditions with a summit on route 1; whiskers are 95% Wilson intervals. Click a decade to highlight it in the heatmap.</p>
+          </div>
+        </div>
+        <div class="chart" id="m1-success" style="height:320px"></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2>Season × decade</h2>
+            <p class="hint" id="m1-heat-hint">Number of expeditions (sqrt colour scale). Cells with fewer than 5 are faded.</p>
+          </div>
+          <div class="seg" id="m1-heat-toggle">
+            <button data-mode="count" class="is-active">counts</button>
+            <button data-mode="rate">success</button>
+          </div>
+        </div>
+        <div class="chart" id="m1-heat" style="height:320px"></div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2>Days from base camp to summit</h2>
+            <p class="hint">Distribution per decade: median, interquartile range and 10–90th percentile.</p>
+          </div>
+        </div>
+        <div class="chart" id="m1-duration" style="height:320px"></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2>Members and hired staff</h2>
+            <p class="hint">Expedition sums per year. Hired staff outnumber members more than two to one.</p>
+          </div>
+        </div>
+        <div class="chart" id="m1-structure" style="height:320px"></div>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2>Oxygen use</h2>
+            <p class="hint">Share of expeditions where at least one member used supplementary oxygen.</p>
+          </div>
+        </div>
+        <div class="chart" id="m1-o2" style="height:280px"></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2>Recorded deaths</h2>
+            <p class="hint">Member and hired deaths per decade, with deaths per 1,000 people on the mountain.</p>
+          </div>
+        </div>
+        <div class="chart" id="m1-deaths" style="height:280px"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 02 ROUTES ============================== -->
+  <section class="view" id="view-routes" role="tabpanel">
+    <div class="view-head">
+      <div>
+        <p class="eyebrow">Module 02 · routes and current situation</p>
+        <h1>Compare the two sides, like for like</h1>
+        <p class="lede">
+          Filter to a side, season, period or route group, then compare success, duration, team
+          structure, oxygen and risk. Every number is recomputed from the same expedition rows.
+        </p>
+      </div>
+      <div class="view-note">
+        <span class="dot"></span> Terrain: SRTM 30 m · camps: OpenStreetMap
+      </div>
+    </div>
+
+    <div class="filterbar" id="m2-filters"></div>
+    <div class="kpis" id="m2-kpis"></div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2>South vs north</h2>
+            <p class="hint" id="m2-compare-hint">Like-for-like comparison under the current filters.</p>
+          </div>
+        </div>
+        <div class="chart" id="m2-compare" style="height:360px"></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2>Route families</h2>
+            <p class="hint">Grouped by the leading route name, at least 20 expeditions, ordered by success.</p>
+          </div>
+        </div>
+        <div class="chart" id="m2-routes" style="height:360px"></div>
+      </div>
+    </div>
+
+    <div class="card card--wide" id="geo-card">
+      <div class="card-head">
+        <div>
+          <h2>Route and terrain</h2>
+          <p class="hint">SRTM elevation model with the two standard routes. Camps, cols and peaks are
+          mapped in OpenStreetMap; drag the 3D view to orbit, scroll to zoom.</p>
+        </div>
+        <div class="seg" id="geo-mode">
+          <button data-mode="map">Map</button>
+          <button data-mode="3d">3D</button>
+          <button data-mode="both" class="is-active">Both</button>
+        </div>
+      </div>
+      <div class="geo-grid mode-both" id="geo-grid">
+        <div class="geo-panel">
+          <div class="geo-head"><span>Plan view</span><span id="geo-map-note">north up · 1:1</span></div>
+          <div class="geo-map" id="geo-map"></div>
+        </div>
+        <div class="geo-panel" id="geo-panel-3d">
+          <div class="geo-head"><span>Terrain</span><span class="geo-note">drag to orbit · scroll to zoom · <button class="geo-reset" id="geo-reset" type="button">reset view</button></span></div>
+          <div class="geo-3d" id="geo-3d"></div>
+        </div>
+      </div>
+      <div class="geo-foot" id="geo-foot"></div>
+    </div>
+
+    <div class="card card--wide">
+      <div class="card-head">
+        <div>
+          <h2>Camp altitude profile (database)</h2>
+          <p class="hint">
+            Median altitude recorded in the free-text campsite field, by side, with the share of
+            expeditions that list each camp. Hover a node for typical dates. Schematic cross-section, not a map.
+          </p>
+        </div>
+        <div class="seg" id="m2-camp-side">
+          <button data-side="south">South</button>
+          <button data-side="north">North</button>
+          <button data-side="both" class="is-active">Both</button>
+        </div>
+      </div>
+      <div class="chart" id="m2-camps" style="height:380px"></div>
+    </div>
+
+    <div class="card card--wide current-card" id="m2-current"></div>
+  </section>
+
+  <!-- ============================== 03 PLAN ============================== -->
+  <section class="view" id="view-plan" role="tabpanel">
+    <div class="view-head">
+      <div>
+        <p class="eyebrow">Module 03 · profile and historical estimate</p>
+        <h1>What would this plan have done?</h1>
+        <p class="lede">
+          Describe the plan. The estimate is the historical summit share of comparable climbing
+          members, with model uncertainty, comparable sample size and calibration shown.
+        </p>
+      </div>
+      <div class="view-note">
+        <span class="dot"></span> Associations in historical records, not a forecast or promise
+      </div>
+    </div>
+
+    <div class="plan-grid">
+      <div class="card form-card" id="m3-form"></div>
+      <div class="card result-card" id="m3-result"></div>
+    </div>
+
+    <div class="grid2">
+      <div class="card">
+        <div class="card-head">
+          <div>
+            <h2>Calibration</h2>
+            <p class="hint">Predicted vs observed summit share on the held-out 2020–2024 seasons.</p>
+          </div>
+        </div>
+        <div class="chart" id="m3-calibration" style="height:300px"></div>
+      </div>
+      <div class="card" id="m3-metrics-card"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div>
+    <strong>Data</strong> · The Himalayan Database (Elizabeth Hawley), distributed by Maven Analytics.
+    Snapshot ends 2024. 2026 spring figures are a separate layer and never merged into modelling data.
+  </div>
+  <div>
+    <strong>Build</strong> · offline · runs from <code>index.html</code> · no network requests
+  </div>
+</footer>
+
+<div class="modal" id="methods-modal" aria-hidden="true">
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="methods-title">
+    <div class="modal-head">
+      <h2 id="methods-title">Data &amp; methods</h2>
+      <button class="ghost" id="close-methods" aria-label="Close">Close ✕</button>
+    </div>
+    <div class="modal-body" id="methods-body"></div>
+  </div>
+</div>
+
+<div class="tooltip" id="tooltip" role="status"></div>
+
+<script src="vendor/d3.v7.min.js"></script>
+<script src="vendor/three.min.js"></script>
+<script src="data/everest_data.js"></script>
+<script src="data/model.js"></script>
+<script src="data/terrain/terrain.js"></script>
+<script src="data/terrain/features.js"></script>
+<script src="js/util.js"></script>
+<script src="js/module1.js"></script>
+<script src="js/module2.js"></script>
+<script src="js/geo.js"></script>
+<script src="js/module3.js"></script>
+<script src="js/selftest.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

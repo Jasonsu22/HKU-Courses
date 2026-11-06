@@ -1,0 +1,29 @@
+﻿id,section,quote,method,measured,verdict,severity,note
+C01,Dataset Description,"11,425 expedition records",len(exped.csv),"11,425",✅ 一致,—,与原始快照完全一致。
+C02,Dataset Description,"approximately 89,000 member records",len(members.csv),"89,000",✅ 一致,—,"实际正好 89,000 行；可把 approximately 改成正好 89,000。"
+C03,Dataset Description,480 peaks,len(peaks.csv),480,✅ 一致,—,"EVER 高 8,849 m，且 peaks 表没有任何经纬度字段。"
+C04,Dataset Description,"15,586 references",len(refer.csv),"15,586",✅ 一致,—,"文件 15,587 行 = 表头 + 15,586 条。"
+C05,Dataset Description,"Everest filtering gives 2,347 expeditions",exped[peakid=='EVER'],"2,347",✅ 一致,—,peaks 表里只有 EVER 一个珠峰 ID，不会漏算别名。
+C06,Dataset Description,"25,274 participation records",members[peakid=='EVER'],"25,274",✅ 一致,—,这是参与记录（人次），不是人数，见 C08。
+C07,Dataset Description,from 1921 to 2024,min/max year,1921–2024,✅ 一致,—,exped 与 members 两端年份一致。
+C08,Dataset Description,Participation rows are not unique climbers,"distinct(fname,lname,yob)","13,283 人 / 25,274 人次",✅ 一致,—,按姓名+出生年去重约为人次的 53%；姓名去重只能给上界估计。
+C09,Dataset Description,The expedition identifier also contains a two-digit year,expid[peakid 之后 2 位] == year[-2:],"11,425 / 11,425",✅ 一致,—,100% 符合；这也确实带来跨世纪撞号（C10）。
+C10,Dataset Description,"linked with a composite key such as peak, year, and expedition identifier",duplicated(),"expid 单独 4 行重复；(peakid,year,expid) 0 行重复",✅ 一致,—,4 个 expid 同时对应两个年份：EVER21101=1921/2021、EVER22101=1922/2022、EVER24101=1924/2024、KANG10101=1910/2010。
+C11,Dataset Description,the member identifier is expedition-local,membid 取值范围 / 跨 expid 重复,membid 1–99，跨 expedition 重复,✅ 一致,—,"但 (expid,membid) 仍有 35 对（70 行）重复，全部来自 C10 的撞号 expedition，所以成员表也必须先解决年份归属。"
+C12,Dataset Description,"no complete route geometry, camp coordinates, or terrain model",字段检查,"2 表均无 lat/lon；campsites 共 2,319 条非空，其中 2,158 条含海拔、0 条含经纬度",✅ 一致,—,peaks 表只有地名与 h Himal/region 文本，没有坐标；外部路点层确实是必需的。
+C13,Module 1,seasonal composition / duration / oxygen / deaths,字段缺失率,smtdays 缺 252（10.7%）、totdays 缺 461（19.6%）；o2used 0 缺失、highpoint 0 缺失,⚠️ 需限定,中,时长/日期字段缺失约 3%–20%（bcdate 236、smtdate 77、campsites 28），图上必须标注 n；success1/totmembers/o2used 等主字段完整。
+C14,Module 2,"compare climbing side, route group, season",route1 归类,"136 个 route1；南侧 1,368、北侧 942、无法归类 37",⚠️ 需补充,中,"side 不是现成字段。按 route1 名称归类后与 host 国别的一致率为 98.5%（Nepal 1,409 / China 938）；建议把 host 作为 side 的主口径，route 名称只用于 route group，其余 37 条显式标 Other。"
+C15,Module 2,season comparison,season 计数,"Spring 2,059, Autumn 230, Winter 34, Summer 24",⚠️ 需限定,中,春季占绝对多数，秋季只有 230 次，冬/夏各 34/24 次；季节比较必须同时显示样本量，否则容易被误读。
+C16,Module 2,"route comparison (duration, team size, oxygen, success, risk)",expedition 级 success1,"1,479/2,347 = 63.0%",✅ 可用,—,但 success1 是「route 1 上是否有人登顶」，与「有多少队员登顶」不同，见 C17。
+C17,Module 2/3,estimate recorded expedition summit success,success1 vs smtmembers>0,不一致 40 次 （1.7%）：29 次只有雇佣人员登顶、11 次走 route2 登顶,⚠️ 需补充,高,必须在界面/报告里先定义「success」：expedition 级(success1)、队员级(msuccess) 还是峰顶人数(smtmembers)。
+C18,Module 3,age band / recorded sex predictors,yob 与 sex,"yob 缺 1,309/25,274（5.2%）；年龄 <10 岁 0 行、>80 岁 5 行；性别 M 23,129 / F 2,144",⚠️ 需补充,中,用 expedition 年份算年龄是干净的（12–86 岁，中位 36）；但若误用 myear，会出现 385 行 <10 岁、54 行 >80 岁（最小 -41、最大 118）。所以 age band 必须基于 expedition 年份。
+C19,Module 3,planned oxygen use,o2used 分布,"1,791/2,347 = 76.3% 使用氧气",⚠️ 需补充,中,方差很小（约 76% 都用氧），和年代高度共线；回归里它很容易变成「年代代理」，解释时要谨慎。
+C20,Methodology,Training/validation/testing = 1990-2014 / 2015-2019 / 2020-2024,按 expedition 年份计数,"1,511 / 443 / 189",⚠️ 需改,中,2020 年只有 3 次 expedition（疫情），2020–2024 测试集仅 189 次，p 值/校准曲线会很不稳；建议改成 2021–2024 或 2015–2024 滚动验证。
+C21,Module 1,hired support / team size,tothired vs 成员表里 hired 行数,"字段合计 35,952 vs 成员行 19,971（只有 66.6% 的 expedition 精确相等）",⚠️ 需补充,高,"成员表只收录了部分雇佣人员（珠峰：8,323/15,533 = 53.6%），hired 的分母必须用 expedition.tothired，不能用成员行数。"
+C22,Module 1,recorded deaths,mdeaths / hdeaths 与成员 death,队员 208 + 雇佣 132 = 340,✅ 一致,—,expedition 级死亡数与成员行 death=True 完全对齐（100.0% 的 expedition 精确相等）。
+C23,Dataset Description,"participations / success / death rates always state numerator, denominator, unit",exped 级口径与成员行口径对比,totmembers 与成员行 98.9% 精确相等；smtmembers 与成员行 99.9% 精确相等,✅ 可支撑,—,两个口径都自洽；但要固定用哪个口径，并在图上写出分子/分母。
+C24,Dataset Description,records will be linked ... after duplicate checks,成员表 myear 与所属 expedition 年份比较,"30,930/89,000 行不一致（34.8%；珠峰 27.5%）",⚠️ 需补充,高,"members.csv 的 myear 不可信（例：1973 年意大利队的 65 名队员全被写成 1995；15,761/59,731 行的 myear 与本人登山日期年份矛盾），2000 年以前的记录 96.1% 全错（珠峰 96.7%），2000 年以后 3.2%（珠峰 2.7%）；mseason 却与所属 expedition 的季节 89,000/89,000 完全一致。年份必须从 expedition 表取，不能按 myear 过滤。"
+C25,Module 2,current 2025-2026 aggregate indicators,引用链接与数据时间范围,本地快照止于 2024；引用 [5][6] 均为 2026 年春季,⚠️ 需限定,低,没有 2025 年的来源，建议改成「2026 spring season」；两条新闻链接均可打开，数字与标题一致。
+C26,Objectives,current snapshot / season lists,外部链接可达性,"[1][2][4][5][6] 均 HTTP 200；[5] 1.26 billion 卢比、[6] 1,008 人登顶",✅ 一致,—,[6] 称上一个纪录「约 900」，与本地数据 2019 年 899 次（members+hired）吻合，可作为可信度旁证。
+C27,Part B 格式,"Times New Roman 12pt black, Part B ≤ 5 pages",docx 样式与 PDF 页数,TNR 12pt、黑色；PDF 共 5 页,✅ 合规,—,页数正好压线，后续不要再加内容。
+C28,Dataset Description,The dataset and data dictionary are stored in the project's data folder,data dictionary 字段与列名对照,dictionary 4 张表 165 行；refer 段描述从 ryear 起整体错位一列,⚠️ 需补充,低,refer 表字典把 ryear 描述成 Reference type、rtype 描述成 Journal type…，每行描述属于下一个字段；上游 Maven 快照的问题，做字典页时要手工修正。
