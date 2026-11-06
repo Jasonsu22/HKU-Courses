@@ -38,8 +38,8 @@
         <p class="eyebrow">Module 01 · historical evolution</p>
         <h1>How Everest expeditions have changed</h1>
         <p class="lede">
-          2,347 expeditions and 25,274 participation records, 1921–2024. Counts and rates are
-          kept separate, and every rate states its numerator, denominator and sample size.
+          Success rose from about 30% to about 89%. Did the mountain get easier? Drag the timeline,
+          switch denominators and test the hypotheses below. Every rate states its numerator, denominator and sample size.
         </p>
       </div>
       <div class="view-note">
@@ -48,82 +48,103 @@
     </div>
 
     <div class="kpis" id="m1-kpis"></div>
+    <div class="findings" id="m1-findings"></div>
 
-    <div class="card card--wide">
+    <div class="card card--wide" id="m1-card-annual">
       <div class="card-head">
         <div>
           <h2>Expeditions and participants per year</h2>
-          <p class="hint">Bars are expeditions; the lower panel counts member records (people, not unique climbers).</p>
+          <p class="hint">Drag across the chart to choose a period; every chart on this page follows it. <b id="m1-range-label"></b></p>
         </div>
         <div class="chip-row" id="m1-era-chips"></div>
       </div>
-      <div class="chart" id="m1-annual" style="height:430px"></div>
+      <div class="chart" id="m1-annual"></div>
     </div>
 
+    <h2 class="section-title">Scale and seasons <small>Which season drove the growth?</small></h2>
     <div class="grid2">
-      <div class="card">
+      <div class="card" id="m1-card-season">
         <div class="card-head">
-          <div>
-            <h2>Summit success by decade</h2>
-            <p class="hint" id="m1-success-hint">Share of expeditions with a summit on route 1; whiskers are 95% Wilson intervals. Click a decade to highlight it in the heatmap.</p>
-          </div>
+          <div><h2>Seasons over time</h2><p class="hint">Expeditions per year by season, stacked.</p></div>
+          <div class="seg" id="m1-season-mode"><button data-mode="count">Count</button><button data-mode="share">Share</button></div>
         </div>
-        <div class="chart" id="m1-success" style="height:320px"></div>
+        <div class="chart" id="m1-season"></div>
       </div>
-      <div class="card">
+      <div class="card" id="m1-card-heat">
         <div class="card-head">
-          <div>
-            <h2>Season × decade</h2>
-            <p class="hint" id="m1-heat-hint">Number of expeditions (sqrt colour scale). Cells with fewer than 5 are faded.</p>
-          </div>
-          <div class="seg" id="m1-heat-toggle">
-            <button data-mode="count" class="is-active">counts</button>
-            <button data-mode="rate">success</button>
-          </div>
+          <div><h2>Season × decade</h2><p class="hint" id="m1-heat-hint"></p></div>
+          <div class="seg" id="m1-heat-toggle"><button data-mode="count">Counts</button><button data-mode="rate">Success</button></div>
         </div>
-        <div class="chart" id="m1-heat" style="height:320px"></div>
+        <div class="chart" id="m1-heat"></div>
       </div>
     </div>
 
+    <h2 class="section-title">Success <small>Did it really change, and is that special to Everest?</small></h2>
     <div class="grid2">
-      <div class="card">
+      <div class="card" id="m1-card-success">
         <div class="card-head">
-          <div>
-            <h2>Days from base camp to summit</h2>
-            <p class="hint">Distribution per decade: median, interquartile range and 10–90th percentile.</p>
-          </div>
+          <div><h2>Summit success</h2><p class="hint" id="m1-success-hint"></p></div>
+          <div class="seg" id="m1-success-mode"><button data-mode="decade">Decade</button><button data-mode="year">Year</button></div>
         </div>
-        <div class="chart" id="m1-duration" style="height:320px"></div>
+        <div class="chart" id="m1-success"></div>
       </div>
-      <div class="card">
+      <div class="card" id="m1-card-peaks">
         <div class="card-head">
-          <div>
-            <h2>Members and hired staff</h2>
-            <p class="hint">Expedition sums per year. Hired staff outnumber members more than two to one.</p>
-          </div>
+          <div><h2>Everest compared with other peaks</h2><p class="hint" id="m1-peaks-hint"></p></div>
+          <div class="seg" id="m1-peaks-mode"><button data-mode="horizon">Horizon</button><button data-mode="index">Index</button></div>
         </div>
-        <div class="chart" id="m1-structure" style="height:320px"></div>
+        <div class="chart" id="m1-peaks"></div>
       </div>
     </div>
 
+    <h2 class="section-title">Effort and support <small>What changed in how people climb?</small></h2>
     <div class="grid2">
-      <div class="card">
+      <div class="card" id="m1-card-duration">
         <div class="card-head">
-          <div>
-            <h2>Oxygen use</h2>
-            <p class="hint">Share of expeditions where at least one member used supplementary oxygen.</p>
-          </div>
+          <div><h2>Days from base camp to summit</h2><p class="hint">Box plots: median, middle 50% and 10th–90th percentile, per decade.</p></div>
+          <div class="seg" id="m1-duration-mode"><button data-mode="all">All</button><button data-mode="side">By side</button></div>
         </div>
-        <div class="chart" id="m1-o2" style="height:280px"></div>
+        <div class="chart" id="m1-duration"></div>
       </div>
-      <div class="card">
+      <div class="card" id="m1-card-structure">
+        <div class="card-head"><div><h2>Members and hired staff</h2><p class="hint">Stacked people per year, and hired staff per member below on its own axis.</p></div></div>
+        <div class="chart" id="m1-structure"></div>
+      </div>
+    </div>
+    <div class="card card--wide" id="m1-card-o2" style="margin-top:18px">
+      <div class="card-head"><div><h2>Oxygen use</h2><p class="hint">Share of expeditions where at least one member used oxygen. Dots are single years (larger means more expeditions); lines are 5-year averages.</p></div></div>
+      <div class="chart" id="m1-o2"></div>
+    </div>
+
+    <h2 class="section-title">Risk and failure <small>Did it get safer, and why do attempts fail?</small></h2>
+    <div class="grid2">
+      <div class="card" id="m1-card-deaths">
         <div class="card-head">
-          <div>
-            <h2>Recorded deaths</h2>
-            <p class="hint">Member and hired deaths per decade, with deaths per 1,000 people on the mountain.</p>
-          </div>
+          <div><h2>Recorded deaths</h2><p class="hint" id="m1-deaths-hint"></p></div>
         </div>
-        <div class="chart" id="m1-deaths" style="height:280px"></div>
+        <div class="seg seg--wrap" id="m1-deaths-mode" style="margin-bottom:8px"><button data-mode="count">Count</button><button data-mode="members">Per 1,000 members</button><button data-mode="hired">Per 1,000 hired</button><button data-mode="summits">Per 100 summiters</button></div>
+        <div class="chart" id="m1-deaths"></div>
+      </div>
+      <div class="card" id="m1-card-ended">
+        <div class="card-head">
+          <div><h2>How expeditions ended</h2><p class="hint">Primary recorded reason, per 5-year period. "Season closure" is identified from the dataset's notes.</p></div>
+          <div class="seg" id="m1-ended-mode"><button data-mode="share">Share</button><button data-mode="count">Count</button></div>
+        </div>
+        <div class="chart" id="m1-ended"></div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Who climbs with whom <small>Which nations work with which agencies?</small></h2>
+    <div class="card card--wide" id="m1-card-net">
+      <div class="card-head">
+        <div><h2>Nations and trekking agencies</h2><p class="hint" id="m1-net-hint"></p></div>
+        <div class="seg" id="m1-net-size"><button data-mode="expeditions">Size: expeditions</button><button data-mode="betweenness">Size: betweenness</button></div>
+      </div>
+      <div class="net-controls"><label>Show connections with at least <output id="m1-net-out"></output> expeditions
+        <input type="range" id="m1-net-min" class="range" min="2" max="12" step="1" value="4"></label></div>
+      <div class="net-layout">
+        <div class="chart" id="m1-net"></div>
+        <div class="net-side" id="m1-net-side"></div>
       </div>
     </div>
   </section>
@@ -367,6 +388,7 @@
 <script src="data/terrain/features.js"></script>
 <script src="js/util.js"></script>
 <script src="js/store.js"></script>
+<script src="js/network.js"></script>
 <script src="js/module1.js"></script>
 <script src="js/module2.js"></script>
 <script src="js/geo.js"></script>
