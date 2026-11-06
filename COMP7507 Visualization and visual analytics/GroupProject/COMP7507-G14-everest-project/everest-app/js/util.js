@@ -166,9 +166,11 @@
       s.select(".domain").remove();
     });
   }
-  function axisX(g, x, y, { ticks = 6, format = d3.format("d"), values, size = 11 } = {}) {
+  const YEAR = d3.format("d");
+  function axisX(g, x, y, { ticks = 6, format = YEAR, values, size = 11 } = {}) {
     const a = d3.axisBottom(x).tickSize(3);
-    if (values) a.tickValues(values); else if (x.ticks) a.ticks(ticks);
+    if (values) a.tickValues(values);
+    else if (x.ticks) a.tickValues(format === YEAR ? x.ticks(ticks).filter(Number.isInteger) : x.ticks(ticks));
     a.tickFormat(format);
     g.append("g").attr("transform", `translate(0,${y})`).call(a).call((s) => {
       s.select(".domain").attr("stroke", COLORS.line);

@@ -7,7 +7,11 @@
   const F = window.TERRAIN_FEATURES;
   const { fmt, COLORS, withTip } = U;
 
-  const SIDE = { south: "#b4552d", north: "#1e4a5f" };
+  const SIDE = { south: COLORS.south, north: COLORS.north };
+  // Filter-driven view state: reach(side, elevation) gives the share of filtered
+  // expeditions that got that high, so the map and 3D view follow the charts.
+  const view = { reach: null, alt: null, contours: true };
+  const shareOf = (c) => (view.reach ? view.reach(c.side, c.elev) : null);
   const META = T.meta;
   const BBOX = META.bbox;
   const MESH = META.mesh;
@@ -59,6 +63,13 @@
       if (rec.share != null) html += ` · listed by ${fmt.pct(rec.share, 0)}`;
       html += "</span>";
     }
+    if (camp.id === "SUM" && view.reach) {
+      const s = view.reach("south", camp.elev), n = view.reach("north", camp.elev);
+      html += `<br>Reached under these filters: south ${s == null ? "–" : fmt.pct(s, 0)}, north ${n == null ? "–" : fmt.pct(n, 0)}`;
+    } else {
+      const share = shareOf(camp);
+      if (share != null) html += `<br>${fmt.pct(share, 0)} of filtered ${sideName.toLowerCase()} expeditions got this high`;
+    }
     return html;
   }
 
@@ -70,6 +81,23 @@
       [BBOX.east, BBOX.north], [BBOX.west, BBOX.north], [BBOX.west, BBOX.south],
     ]],
   };
+
+  let mapProj = null;
+  // Ring the camps nearest a hovered altitude (linked with the funnel and profile).
+  function highlightMap() {
+    const svg = d3.select("#geo-map svg");
+    if (svg.empty() || !mapProj) return;
+    svg.selectAll("g.geo-hl").remove();
+    if (view.alt == null) return;
+    const layer = svg.append("g").attr("class", "geo-hl").attr("pointer-events", "none");
+    Object.values(F.camps).forEach((list) => {
+      const near = d3.least(list, (c) => Math.abs(c.elev - view.alt));
+      if (!near || Math.abs(near.elev - view.alt) > 350) return;
+      const [x, y] = mapProj([near.lon, near.lat]);
+      layer.append("circle").attr("cx", x).attr("cy", y).attr("r", 13).attr("fill", "none")
+        .attr("stroke", COLORS.plan).attr("stroke-width", 3);
+    });
+  }
 
   function drawMap() {
     const el = document.getElementById("geo-map");
@@ -119,22 +147,42 @@
         .attr("stroke", "#fff").attr("stroke-width", 0.8).attr("stroke-dasharray", "3 4");
     }
 
-    // routes
-    Object.entries(F.routes).forEach(([side, ids]) => {
-      // in 3D the north approach starts at ABC: BC-N -> ABC crosses half the massif
-      const chain = side === "north" ? ids.slice(1) : ids;
-      const pts = chain.map((id) => {
-        const c = F.camps[side].find((x) => x.id === id);
-        return proj([c.lon, c.lat]);
+    // contour plot from the same elevation grid as the 3D mesh
+    if (view.contours) {
+      const toLonLat = d3.geoTransform({
+        point(px, py) {
+          const lon = BBOX.west + (px / (MESH.nx - 1)) * (BBOX.east - BBOX.west);
+          const lat = BBOX.north - (py / (MESH.ny - 1)) * (BBOX.north - BBOX.south);
+          const p = proj([lon, lat]);
+          this.stream.point(p[0], p[1]);
+        },
       });
-      const line = d3.line();
-      g.append("path").attr("d", line(pts)).attr("fill", "none")
-        .attr("stroke", "#fff").attr("stroke-width", 5).attr("opacity", 0.8)
-        .attr("stroke-linecap", "round").attr("stroke-linejoin", "round");
-      g.append("path").attr("d", line(pts)).attr("fill", "none")
-        .attr("stroke", SIDE[side]).attr("stroke-width", 2.2).attr("stroke-dasharray", "7 5")
-        .attr("stroke-linecap", "round");
+      const path = d3.geoPath(toLonLat);
+      const levels = d3.contours().size([MESH.nx, MESH.ny]).thresholds(d3.range(5000, 8600, 500))(Array.from(ELEV));
+      const cg = g.append("g").attr("fill", "none");
+      levels.forEach((c) => {
+        cg.append("path").attr("d", path(c)).attr("stroke", "#fff")
+          .attr("stroke-width", c.value % 1000 === 0 ? 1.1 : .6).attr("stroke-opacity", c.value % 1000 === 0 ? .8 : .55);
+      });
+    }
+
+    // routes: one segment per camp pair; width shows the share that got to the upper camp
+    Object.entries(F.routes).forEach(([side, ids]) => {
+      // the north approach starts at ABC: BC-N -> ABC crosses half the massif
+      const chain = side === "north" ? ids.slice(1) : ids;
+      const camps = chain.map((id) => F.camps[side].find((x) => x.id === id));
+      camps.slice(1).forEach((c, i) => {
+        const a = proj([camps[i].lon, camps[i].lat]), b = proj([c.lon, c.lat]);
+        const s = view.reach ? view.reach(side, c.elev) : null;
+        const width = s == null ? 2.2 : 1.5 + s * 7;
+        g.append("line").attr("x1", a[0]).attr("y1", a[1]).attr("x2", b[0]).attr("y2", b[1])
+          .attr("stroke", "#fff").attr("stroke-width", width + 2.4).attr("stroke-opacity", .85).attr("stroke-linecap", "round");
+        g.append("line").attr("x1", a[0]).attr("y1", a[1]).attr("x2", b[0]).attr("y2", b[1])
+          .attr("stroke", SIDE[side]).attr("stroke-width", width).attr("stroke-linecap", "round");
+      });
     });
+    mapProj = proj;
+    highlightMap();
 
     // ---- label placement with simple collision avoidance
     const placed = [];
@@ -227,8 +275,9 @@
           .attr("fill", SIDE[c.side]).attr("stroke", "#fff").attr("stroke-width", 1.8);
       }
       const name = isSummit ? "Summit" : (isBC ? c.label : c.short);
+      const share = isSummit ? null : shareOf(c);
       const lines = [{ text: name, weight: isSummit ? 650 : 600 },
-                     { text: fmt.int(c.elev) + " m", size: 10, weight: 400, fill: "#5f5a52" }];
+                     { text: fmt.int(c.elev) + " m" + (share == null ? "" : " · " + fmt.pct(share, 0)), size: 10, weight: 400, fill: "#3c4046" }];
       const box = placeLabel(x, y, lines, { size: 12, anchor: c.dx < 0 ? "end" : "start" });
       drawLabel(box, x, y, lines, { size: 12 });
       g.append("circle").attr("cx", x).attr("cy", y).attr("r", 13).attr("fill", "transparent")
@@ -360,7 +409,7 @@
         );
         m.position.set(x, y, z);
         scene.add(m);
-        markers.push({ c, x, y, z, isSummit });
+        markers.push({ c, x, y, z, isSummit, mesh: m });
       });
     });
 
@@ -409,6 +458,7 @@
       d.dataset.side = m.c.side;
       overlay.appendChild(d);
       m.el = d;
+      m.baseLabel = d.textContent;
     });
 
     // --- orbit
@@ -502,8 +552,31 @@
     }
     requestAnimationFrame(frame);
 
-    three = { renderer, host, reset };
+    three = { renderer, host, reset, markers };
+    apply3D();
     return three;
+  }
+
+  // Same filter state on the 3D markers: label shows the share, size follows it.
+  function apply3D() {
+    if (!three) return;
+    three.markers.forEach((m) => {
+      const s = m.isSummit ? null : shareOf(m.c);
+      m.el.textContent = m.baseLabel + (s == null ? "" : " " + fmt.pct(s, 0));
+      const near = view.alt != null && Math.abs(m.c.elev - view.alt) <= 350;
+      m.mesh.scale.setScalar((s == null ? 1 : .6 + s * 1.1) * (near ? 1.9 : 1));
+    });
+  }
+
+  function update(reach) {
+    view.reach = reach;
+    drawMap();
+    apply3D();
+  }
+  function highlight(alt) {
+    view.alt = alt;
+    highlightMap();
+    apply3D();
   }
 
   // ------------------------------------------------------------- mount
@@ -518,12 +591,13 @@
     const foot = document.getElementById("geo-foot");
     if (foot) {
       foot.innerHTML = `Terrain: SRTM 30 m via <a href="https://registry.opendata.aws/terrain-tiles/" target="_blank" rel="noopener">Mapzen / AWS Terrain Tiles</a>
-        (vertical exaggeration ×1.9 in 3D). Camps, cols and peaks: <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">© OpenStreetMap contributors</a> (ODbL).
+        (vertical exaggeration ×1.7 in 3D). Camps, cols and peaks: <a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">© OpenStreetMap contributors</a> (ODbL).
         Elevations are OSM tags, cross-checked against the database medians shown on hover.
-        The connecting line is a schematic route, not a surveyed track.`;
+        The connecting line is a schematic route, not a surveyed track. Contours every 500 m, heavier at each 1,000 m.`;
     }
     const note = document.getElementById("geo-map-note");
     if (note) note.textContent = "north up";
+    U.seg("geo-contour", "on", (v) => { view.contours = v === "on"; drawMap(); });
 
     drawMap();
     const ro = new ResizeObserver(() => {
@@ -545,5 +619,5 @@
     if (rb) rb.addEventListener("click", () => { if (three) three.reset(); });
   }
 
-  window.GEO = { init };
+  window.GEO = { init, update, highlight };
 })();

@@ -156,8 +156,8 @@
         <p class="eyebrow">Module 02 · routes and current situation</p>
         <h1>Compare the two sides, like for like</h1>
         <p class="lede">
-          Filter to a side, season, period or route group, then compare success, duration, team
-          structure, oxygen and risk. Every number is recomputed from the same expedition rows.
+          Filter once, and every chart, the map and the 3D terrain respond. Compare the sides, find where
+          expeditions stop, and check when they summit. Every number is recomputed from the same expedition rows.
         </p>
       </div>
       <div class="view-note">
@@ -167,39 +167,63 @@
 
     <div class="filterbar" id="m2-filters"></div>
     <div class="kpis" id="m2-kpis"></div>
+    <div class="findings" id="m2-findings"></div>
 
+    <h2 class="section-title">South vs north <small>How do the sides compare, and is the gap stable?</small></h2>
     <div class="grid2">
-      <div class="card">
-        <div class="card-head">
-          <div>
-            <h2>South vs north</h2>
-            <p class="hint" id="m2-compare-hint">Like-for-like comparison under the current filters.</p>
-          </div>
-        </div>
-        <div class="chart" id="m2-compare" style="height:360px"></div>
+      <div class="card" id="m2-card-compare">
+        <div class="card-head"><div><h2>Six measures, like for like</h2>
+          <p class="hint" id="m2-compare-hint"></p></div></div>
+        <div class="chart" id="m2-compare"></div>
       </div>
-      <div class="card">
-        <div class="card-head">
-          <div>
-            <h2>Route families</h2>
-            <p class="hint">Grouped by the leading route name, at least 20 expeditions, ordered by success.</p>
-          </div>
-        </div>
-        <div class="chart" id="m2-routes" style="height:360px"></div>
+      <div class="card" id="m2-card-gap">
+        <div class="card-head"><div><h2>The gap through time</h2>
+          <p class="hint" id="m2-gap-hint"></p></div></div>
+        <div class="chart" id="m2-gap"></div>
       </div>
     </div>
 
-    <div class="card card--wide" id="geo-card">
+    <h2 class="section-title">Which route <small>Which of the 137 route names matter?</small></h2>
+    <div class="card card--wide" id="m2-card-routes">
+      <div class="card-head">
+        <div><h2>Route families</h2><p class="hint" id="m2-routes-hint"></p></div>
+        <div class="seg" id="m2-routes-mode"><button data-mode="bars">Ranked bars</button><button data-mode="tree">Treemap</button></div>
+      </div>
+      <div class="chart" id="m2-routes"></div>
+    </div>
+
+    <h2 class="section-title">Where on the mountain <small>Where do expeditions stop?</small></h2>
+    <div class="grid2">
+      <div class="card" id="m2-card-funnel">
+        <div class="card-head"><div><h2>How far up expeditions got</h2>
+          <p class="hint" id="m2-funnel-hint"></p></div></div>
+        <div class="chart" id="m2-funnel"></div>
+      </div>
+      <div class="card" id="m2-card-camps">
+        <div class="card-head">
+          <div><h2>Camp altitude profile</h2>
+          <p class="hint">Median altitude in the campsite field, with the share of expeditions listing each camp, all seasons 1921–2024.</p></div>
+          <div class="seg" id="m2-camp-side">
+            <button data-side="south">South</button><button data-side="north">North</button><button data-side="both" class="is-active">Both</button>
+          </div>
+        </div>
+        <div class="chart" id="m2-camps"></div>
+      </div>
+    </div>
+
+    <div class="card card--wide" id="geo-card" style="margin-top:18px">
       <div class="card-head">
         <div>
           <h2>Route and terrain</h2>
-          <p class="hint">SRTM elevation model with the two standard routes. Camps, cols and peaks are
-          mapped in OpenStreetMap; drag the 3D view to orbit, scroll to zoom.</p>
+          <p class="hint">Route width and the percentages on each camp show the share of filtered expeditions that got that high, so they change with the filters. Drag the 3D view to orbit, scroll to zoom.</p>
         </div>
-        <div class="seg" id="geo-mode">
-          <button data-mode="map">Map</button>
-          <button data-mode="3d">3D</button>
-          <button data-mode="both" class="is-active">Both</button>
+        <div class="seg-row">
+          <div class="seg" id="geo-contour"><button data-mode="on">Contours on</button><button data-mode="off">Off</button></div>
+          <div class="seg" id="geo-mode">
+            <button data-mode="map">Map</button>
+            <button data-mode="3d">3D</button>
+            <button data-mode="both" class="is-active">Both</button>
+          </div>
         </div>
       </div>
       <div class="geo-grid mode-both" id="geo-grid">
@@ -215,24 +239,21 @@
       <div class="geo-foot" id="geo-foot"></div>
     </div>
 
-    <div class="card card--wide">
-      <div class="card-head">
-        <div>
-          <h2>Camp altitude profile (database)</h2>
-          <p class="hint">
-            Median altitude recorded in the free-text campsite field, by side, with the share of
-            expeditions that list each camp. Hover a node for typical dates. Schematic cross-section, not a map.
-          </p>
-        </div>
-        <div class="seg" id="m2-camp-side">
-          <button data-side="south">South</button>
-          <button data-side="north">North</button>
-          <button data-side="both" class="is-active">Both</button>
-        </div>
+    <h2 class="section-title">When <small>Does timing matter?</small></h2>
+    <div class="grid2 grid2--wide-left">
+      <div class="card" id="m2-card-calendar">
+        <div class="card-head"><div><h2>Summit calendar</h2>
+          <p class="hint" id="m2-calendar-hint"></p></div></div>
+        <div class="chart" id="m2-calendar"></div>
       </div>
-      <div class="chart" id="m2-camps" style="height:380px"></div>
+      <div class="card" id="m2-card-bc">
+        <div class="card-head"><div><h2>Does arriving early help?</h2>
+          <p class="hint" id="m2-bc-hint"></p></div></div>
+        <div class="chart" id="m2-bc"></div>
+      </div>
     </div>
 
+    <h2 class="section-title">Current season <small>Kept separate from the historical records</small></h2>
     <div class="card card--wide current-card" id="m2-current"></div>
   </section>
 
