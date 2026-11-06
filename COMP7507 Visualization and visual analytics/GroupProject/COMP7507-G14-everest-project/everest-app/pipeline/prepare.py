@@ -97,6 +97,42 @@ def route_family(route: str) -> str:
 CLIMBING_HINTS = ("climb", "leader", "guide", "member", "sirdar")
 
 
+# 2014 年 Sherpa 罢工/雪崩、2015 年地震导致整季中止。这些队伍往往还没到需要用氧的高度，
+# 被记录成"未用氧 + 未登顶"，会把氧气系数抬高；规则只依据数据集自带的 termnote 字段。
+CLOSURE_RE = re.compile(r"earthquake|strike|avalanche", re.I)
+
+
+def is_closure(year: int, success: bool, note) -> bool:
+    return (year in (2014, 2015) and not success
+            and isinstance(note, str) and bool(CLOSURE_RE.search(note)))
+
+
+def end_category(reason, closure: bool) -> str:
+    """把 15 个 termreason 归成 7 类（图上最多 7 个颜色）。"""
+    if closure:
+        return "Season closure"
+    r = str(reason)
+    if r.startswith("Success"):
+        return "Summit"
+    if r.startswith(("Bad weather", "Bad conditions")):
+        return "Weather & conditions"
+    if r.startswith("Illness"):
+        return "Illness & exhaustion"
+    if r.startswith("Accident"):
+        return "Accident"
+    if r.startswith(("Lack", "Route technically", "Did not")):
+        return "Logistics & difficulty"
+    return "Other / unknown"
+
+
+def clean_agency(a) -> str | None:
+    """'Asian Trekking (Climbalaya pmt)' -> 'Asian Trekking'；多家时取第一家。"""
+    if not isinstance(a, str) or not a.strip():
+        return None
+    s = re.sub(r"\(.*?\)", "", a).split("/")[0].strip()
+    return s or None
+
+
 def is_climbing_status(status: str) -> bool:
     s = str(status).lower()
     return any(h in s for h in CLIMBING_HINTS)
@@ -149,13 +185,18 @@ def prepare(data_dir: Path = DATA) -> dict[str, pd.DataFrame]:
                             for r, s in zip(exped["route"], exped["side"])]
     exped["route_family"] = exped["route"].map(route_family)
     exped["uid"] = exped["expid"] + "-" + exped["year"].astype(str)
+    exped["closure"] = [is_closure(y, s, n) for y, s, n in
+                        zip(exped["year"], exped["success1"], exped["termnote"])]
+    exped["end_cat"] = [end_category(r, c) for r, c in
+                        zip(exped["termreason"], exped["closure"])]
+    exped["agency_clean"] = exped["agency"].map(clean_agency)
 
     members["year"] = resolve_member_year(exped, members)
     members["myear_ok"] = members["myear"] == members["year"]
 
     # 把 expedition 级上下文并到成员行（复合键，一年一行，many_to_one）
     ctx = exped[["peakid", "year", "expid", "season", "side", "route_group",
-                 "totmembers", "tothired", "o2used", "success1"]] \
+                 "totmembers", "tothired", "o2used", "success1", "closure"]] \
         .rename(columns={"season": "exp_season"})
     members = members.merge(ctx, on=["peakid", "year", "expid"],
                             how="left", validate="many_to_one")

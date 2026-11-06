@@ -72,11 +72,12 @@
       </ul>
 
       <h3>The estimate</h3>
-      <p>Two regularised logistic regressions, both fitted only on variables that are known before an expedition
-      (age band, recorded sex, season, side, route group, team size, hired support, planned oxygen).</p>
+      <p>Two regularised logistic regressions using age band, recorded sex, season, side, route group, team size,
+      hired support and oxygen. Expeditions abandoned because of the 2014 strike and avalanche or the 2015 earthquake
+      (${fmt.int(M.meta.closure.expeditions)} expeditions, identified from the dataset's own notes) are excluded from fitting.</p>
       <ul>
         <li><strong>Member model</strong> (headline): probability that a climbing member with this profile summited.
-          Population: non-hired climbing members, 2005–2024, age 15–80. n = ${fmt.int(member.n)},
+          Population: non-hired climbing members, 2005–2024, age 15–80, closures excluded. n = ${fmt.int(member.n)},
           base rate ${fmt.pct(member.baseRate, 1)}. L2 penalty λ = ${member.lambda}.</li>
         <li><strong>Expedition model</strong> (context): probability that the expedition put at least one climber on
           the summit via route 1. n = ${fmt.int(exped.n)}, base rate ${fmt.pct(exped.baseRate, 1)}.</li>
@@ -106,10 +107,10 @@
 
       <h3>Known limitations</h3>
       <ul>
-        <li>2020–2024 ran notably higher than the model average; the calibration chart in module 3 shows the
-          under-prediction for recent seasons. Treat the estimate as a conservative historical average.</li>
-        <li>Oxygen is close to a perfect separator in recent records (almost no oxygen-free member summited).
-          Its coefficient is therefore large and the oxygen-free estimates rest on few, self-selected cases.</li>
+        <li>Success changes over time and the model has no time term. Overall 2020–2024 ran higher than the model
+          (see the calibration chart), but individual plans vary, so "Your plan through time" checks each plan against recent seasons.</li>
+        <li>Oxygen is close to a perfect separator in recent records (almost no oxygen-free member summited), even after excluding closures.
+          The oxygen-free estimates rest on few, self-selected cases.</li>
         <li>"Oxygen used" and "hired staff above base camp" are recorded during the expedition rather than
           entered as a plan. They are treated as plan attributes here; the estimate is therefore a description
           of comparable historical expeditions, not a strict pre-trip forecast.</li>
@@ -156,7 +157,16 @@
   modal.addEventListener("click", (e) => { if (e.target === modal) closeMethods(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMethods(); });
 
+  window.APP = { show };
+
   // ---------------------------------------------------------------- boot
   show((location.hash || "#history").slice(1), false);
+  // ?finding=H7 reproduces a finding in one click
+  const wanted = new URLSearchParams(location.search).get("finding");
+  if (wanted) {
+    const owner = /^H[123]$/.test(wanted) ? "history" : /^H[456]$/.test(wanted) ? "routes" : "plan";
+    show(owner, true);
+    setTimeout(() => { const f = U.FINDINGS.get(wanted); if (f) f.apply(); }, 150);
+  }
   if (new URLSearchParams(location.search).has("methods")) openMethods();
 })();

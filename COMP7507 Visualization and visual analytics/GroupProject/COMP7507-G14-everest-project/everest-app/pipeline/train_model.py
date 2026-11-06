@@ -184,8 +184,10 @@ def feature_labels(meta):
 # ---------------------------------------------------------------------------
 # 数据集
 # ---------------------------------------------------------------------------
-def member_dataset(clean):
+def member_dataset(clean, include_closure=False):
     m = clean["members"]
+    if not include_closure:
+        m = m[~m["closure"].fillna(False).astype(bool)]
     m = m[(m["peakid"] == "EVER") & m["year"].between(START, END)]
     m = m[(~m["hired"]) & (m["status_group"] == "climbing")]
     m = m[m["sex"].isin(["M", "F"])]
@@ -205,6 +207,7 @@ def member_dataset(clean):
         "hired": m["tothired"].fillna(0).astype(float),
         "totmembers": m["totmembers"].fillna(0).astype(float),
         "tothired": m["tothired"].fillna(0).astype(float),
+        "closure": m["closure"].fillna(False).astype(bool),
     })
     return df.reset_index(drop=True)
 
@@ -214,6 +217,7 @@ def expedition_dataset(clean):
     e = e[(e["peakid"] == "EVER") & e["year"].between(START, END)]
     e = e[e["totmembers"].fillna(0) > 0]
     e = e[e["success1"].notna()]
+    e = e[~e["closure"]]
     return pd.DataFrame({
         "year": e["year"].astype(int),
         "y": e["success1"].astype(int),
@@ -417,6 +421,17 @@ def run():
         "memberRows": int(len(m_all)),
     }
 
+    # 记录排除整季中止前后氧气系数的变化，界面和报告都要说明
+    def o2_coef(frame):
+        dep = frame[frame["year"].between(*DEPLOY)]
+        X, meta, _ = design(dep, MEMBER_SPEC)
+        beta = fit_logistic(X, dep["y"].values.astype(float), m["lambda"])
+        i = [j for j, f in enumerate(meta) if f["group"] == "o2"][0]
+        return round(float(beta[i + 1]), 4)
+    with_closure = member_dataset(clean, include_closure=True)
+    closure_effect = {"o2CoefWith": o2_coef(with_closure),
+                      "o2CoefWithout": o2_coef(with_closure[~with_closure["closure"]])}
+
     models = {
         "selftest": selftest,
         "meta": {
@@ -435,8 +450,16 @@ def run():
                 "member": "non-hired climbing members, 1990–2024, age 15–80, recorded sex M/F",
                 "expedition": "Everest expeditions 1990–2024 with at least one member",
             },
-            "note": "Only pre-expedition variables are used. Post-expedition fields "
-                    "(summit date, reached altitude, actual deaths) are excluded.",
+            "note": "Post-expedition fields (summit date, reached altitude, actual deaths) "
+                    "are excluded. Oxygen and hired staff are recorded during the expedition "
+                    "and treated as plan attributes. Expeditions abandoned because of the 2014 "
+                    "strike/avalanche or the 2015 earthquake (per termnote) are excluded.",
+            "closureEffect": closure_effect,
+            "closure": {
+                "rule": "year in 2014-2015, no summit, termnote mentions earthquake, strike or avalanche",
+                "expeditions": int(clean["exped"].query("peakid == 'EVER'")["closure"].sum()),
+                "members": int(member_dataset(clean, include_closure=True)["closure"].sum()),
+            },
         },
         "member": m,
         "expedition": x,

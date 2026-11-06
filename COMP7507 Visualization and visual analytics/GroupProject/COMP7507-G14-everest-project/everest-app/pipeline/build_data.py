@@ -47,6 +47,12 @@ def q(vals, p):
     return round(vals[lo] + (vals[hi] - vals[lo]) * (k - lo), 1)
 
 
+def doy(v):
+    """日期字符串 -> 一年中的第几天；无法解析返回 None。"""
+    t = pd.to_datetime(v, errors="coerce")
+    return None if pd.isna(t) else int(t.day_of_year)
+
+
 def main() -> None:
     clean = P.prepare()
     e, m = P.everest(clean)
@@ -73,6 +79,13 @@ def main() -> None:
             "success": bool(r.success1),
             "daysSummit": None if r.smtdays != r.smtdays else float(r.smtdays),
             "daysTotal": None if r.totdays != r.totdays else float(r.totdays),
+            "hp": int(r.highpoint) if r.highpoint == r.highpoint and r.highpoint > 0 else None,
+            "end": r.end_cat,
+            "closure": bool(r.closure),
+            "smt": doy(r.smtdate),
+            "bc": doy(r.bcdate),
+            "agency": r.agency_clean if isinstance(r.agency_clean, str) else None,
+            "nation": r.nation if isinstance(r.nation, str) else None,
         })
 
     # ---- 年度聚合 -----------------------------------------------------------
@@ -211,9 +224,9 @@ def main() -> None:
             "caveats": [
                 "The snapshot ends in 2024; the 2026 spring figures are a separate, "
                 "clearly labelled layer and are not merged into any modelling data.",
-                "The source has no camp coordinates or route geometry, so the route "
-                "panel is a schematic elevation profile built from the campsite text "
-                "field, not a georeferenced map.",
+                "The source has no camp coordinates or route geometry. The camp altitude "
+                "profile is built from the campsite text field; the terrain view uses "
+                "SRTM elevation and OpenStreetMap camp positions.",
                 "Member-level year is taken from the expedition record because the "
                 "member table's own year field disagrees with its expedition in 34.8% "
                 "of rows (96% before 2000).",

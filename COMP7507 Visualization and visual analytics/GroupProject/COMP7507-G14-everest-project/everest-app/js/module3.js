@@ -3,13 +3,14 @@
   "use strict";
 
   const M = window.EVEREST_MODEL;
-  const { fmt, COLORS, mount, el } = U;
+  const { fmt, COLORS, mount, el, wilson, withTip } = U;
 
   const DEFAULTS = {
     age: "30s", sex: "M", season: "Spring", side: "South",
     route: "standard", team: 12, hired: 20, o2: 1,
   };
   const profile = { ...DEFAULTS };
+  const listeners = [];
 
   // Shareable scenarios: ?age=40s&sex=F&season=Autumn&side=North&route=other&team=20&hired=30&o2=0
   (function readQuery() {
@@ -107,11 +108,12 @@
     const box = document.getElementById("m3-form");
     box.innerHTML = `
       <div class="card-head" style="margin-bottom:4px">
-        <div><h2>Describe the plan</h2><p class="hint">Eight choices. Everything updates immediately.</p></div>
+        <div><h2>Describe the plan</h2><p class="hint">Eight choices. Every view updates immediately.</p></div>
       </div>
       <div id="form-fields"></div>
       <div class="form-actions">
-        <button class="btn btn--ghost" id="m3-reset">Reset to a default plan</button>
+        <button class="btn btn--ghost" id="m3-reset">Reset</button>
+        <button class="btn btn--ghost" id="m3-see-route">See this route</button>
       </div>
       <p class="form-note">Nothing is sent anywhere: the estimate is computed in this page from exported model
       coefficients. Historical records only — not medical or safety advice.</p>`;
@@ -177,20 +179,140 @@
     pills(s, [{ value: 1 }, { value: 0 }], "o2", (v) => (v ? "Yes" : "No"));
 
     document.getElementById("m3-reset").addEventListener("click", () => {
-      Object.assign(profile, DEFAULTS);
-      buildForm();
-      update();
+      setProfile(DEFAULTS);
+    });
+    document.getElementById("m3-see-route").addEventListener("click", () => {
+      if (window.M2 && window.M2.setFilters) {
+        Store.go("routes");
+        window.M2.setFilters({ side: profile.side, season: profile.season, route: profile.route, period: "all" });
+      }
     });
   }
 
+  function setProfile(next) {
+    Object.assign(profile, next);
+    buildForm();
+    update();
+  }
+
   // ----------------------------------------------------------- result
-  function driverRows(p) {
-    const x = design(M.member, p);
-    return M.member.features
-      .map((f, i) => ({ f, v: M.member.coef[i + 1] * x[i + 1] }))
-      .filter((d) => Math.abs(d.v) > 0.01)
-      .sort((a, b) => Math.abs(b.v) - Math.abs(a.v))
-      .slice(0, 5);
+  const pts = (x) => (Math.abs(x) < .005 ? "0" : d3.format("+.0f")(x * 100));
+
+  // Every single change to the plan, with the model's answer and its bootstrap range.
+  function whatIfRows(p) {
+    const rows = [];
+    const add = (label, patch) => {
+      const q = { ...p, ...patch };
+      const c = cohort(q);
+      rows.push({ label, patch, q, p: predict(M.member, M.member.coef, q), ci: interval(M.member, q), n: c.level === "exact" ? c.n : 0 });
+    };
+    ["u30", "30s", "40s", "50s", "60p"].filter((v) => v !== p.age).forEach((v) => add(`Age ${AGE_LABEL[v]}`, { age: v }));
+    add(p.sex === "M" ? "Female" : "Male", { sex: p.sex === "M" ? "F" : "M" });
+    ["Spring", "Autumn", "Winter", "Summer"].filter((v) => v !== p.season).forEach((v) => add(`${v} season`, { season: v }));
+    add(p.side === "South" ? "North side" : "South side", { side: p.side === "South" ? "North" : "South" });
+    add(p.route === "standard" ? "Other route" : "Standard route", { route: p.route === "standard" ? "other" : "standard" });
+    add(p.o2 ? "No oxygen" : "With oxygen", { o2: p.o2 ? 0 : 1 });
+    if (p.team * 2 <= 80) add(`Team of ${p.team * 2}`, { team: p.team * 2, hired: Math.min(120, p.hired * 2) });
+    if (Math.floor(p.team / 2) >= 2) add(`Team of ${Math.floor(p.team / 2)}`, { team: Math.floor(p.team / 2), hired: Math.floor(p.hired / 2) });
+    if (p.hired * 2 <= 120 && p.hired > 0) add(`Hired staff ${p.hired * 2}`, { hired: p.hired * 2 });
+    if (p.hired > 0) add(`Hired staff ${Math.floor(p.hired / 2)}`, { hired: Math.floor(p.hired / 2) });
+    return rows.sort((a, b) => b.p - a.p);
+  }
+
+  function drawLadder(status) {
+    const rows = whatIfRows(profile);
+    const pNow = predict(M.member, M.member.coef, profile);
+    const rowH = 25;
+    const box = document.getElementById("m3-ladder");
+    if (!box) return;
+    mount(box, rows.length * rowH + 44, (svg, w, h) => {
+      const m = { top: 26, right: w < 520 ? 74 : 150, bottom: 16, left: w < 520 ? 108 : 146 };
+      const x = d3.scaleLinear().domain([0, 1]).range([m.left, w - m.right]);
+      const g = svg.append("g");
+      x.ticks(5).forEach((t) => {
+        g.append("line").attr("x1", x(t)).attr("x2", x(t)).attr("y1", m.top - 6).attr("y2", h - m.bottom).attr("stroke", COLORS.grid);
+        g.append("text").attr("x", x(t)).attr("y", m.top - 11).attr("text-anchor", "middle").attr("font-size", 10.5).attr("fill", COLORS.muted).text(d3.format(".0%")(t));
+      });
+      if (status !== "insufficient") {
+        g.append("line").attr("x1", x(pNow)).attr("x2", x(pNow)).attr("y1", m.top - 6).attr("y2", h - m.bottom)
+          .attr("stroke", COLORS.plan).attr("stroke-width", 2);
+      }
+      rows.forEach((r, i) => {
+        const y = m.top + i * rowH + rowH / 2;
+        const row = g.append("g").attr("class", "ladder-row").style("cursor", "pointer");
+        const sparse = r.n < 10;
+        row.append("rect").attr("x", 0).attr("y", y - rowH / 2).attr("width", w).attr("height", rowH).attr("fill", "transparent");
+        row.append("text").attr("x", m.left - 10).attr("y", y + 4).attr("text-anchor", "end").attr("font-size", 12).attr("fill", COLORS.ink).text(r.label);
+        if (sparse) {
+          row.append("text").attr("x", w - m.right + 10).attr("y", y + 4).attr("font-size", 11.5).attr("fill", COLORS.muted)
+            .text(w < 520 ? "too few" : "too few records");
+        } else {
+          const up = r.p >= pNow;
+          const c = up ? COLORS.above : COLORS.below;
+          row.append("line").attr("x1", x(r.ci[0])).attr("x2", x(r.ci[1])).attr("y1", y).attr("y2", y).attr("stroke", c).attr("stroke-width", 1.2).attr("opacity", .55);
+          if (status !== "insufficient") {
+            row.append("line").attr("x1", x(pNow)).attr("x2", x(r.p)).attr("y1", y).attr("y2", y).attr("stroke", c).attr("stroke-width", 3).attr("stroke-linecap", "round");
+          }
+          row.append("circle").attr("cx", x(r.p)).attr("cy", y).attr("r", 5.5).attr("fill", c).attr("stroke", "#fff").attr("stroke-width", 2);
+          row.append("text").attr("x", w - m.right + 10).attr("y", y + 4).attr("font-size", 12).attr("fill", COLORS.ink)
+            .html(status === "insufficient" ? fmt.pct(r.p, 0)
+              : `<tspan font-weight="600">${pts(r.p - pNow)} pts</tspan>${w < 520 ? "" : `<tspan fill="${COLORS.muted}"> → ${pctSmart(r.p)}</tspan>`}`);
+        }
+        withTip(row, `<strong>${r.label}</strong><br>` + (sparse
+          ? `Only ${fmt.int(r.n)} matching records, so no estimate is given. Click to try it anyway.`
+          : `Model ${fmt.pct(r.p, 1)} · range ${fmt.pct(r.ci[0], 0)}–${fmt.pct(r.ci[1], 0)}<br><span class="tt-muted">${fmt.int(r.n)} matching records · click to apply</span>`));
+        row.on("click", () => { U.tipHide(); setProfile(r.patch); });
+      });
+    });
+  }
+
+  // Forest-style strip: model range vs what comparable members actually did.
+  function drawStrip(pModel, lo, hi) {
+    const ps = M.member.boot.map((b) => predict(M.member, b, profile));
+    const all = PD.cohortRows(profile, "exact");
+    const hist = PD.total(all.filter((r) => r.year >= 2005));
+    const late = PD.total(all.filter((r) => r.year >= 2020));
+    const rows = [
+      { label: "Model estimate", v: pModel, ci: [lo, hi], color: COLORS.plan, note: "95% bootstrap range" },
+      { label: "Same plan, 2005–24", v: hist.rate, ci: wilson(hist.k, hist.n), color: COLORS.slate, note: `${fmt.int(hist.k)} of ${fmt.int(hist.n)} members`, n: hist.n },
+      { label: "Same plan, 2020–24", v: late.rate, ci: wilson(late.k, late.n), color: COLORS.slate, note: `${fmt.int(late.k)} of ${fmt.int(late.n)} members`, n: late.n },
+    ];
+    mount(document.getElementById("m3-strip"), 148, (svg, w, h) => {
+      const small = w < 560;
+      const m = { top: 22, right: small ? 56 : 170, bottom: 8, left: small ? 110 : 138 };
+      const x = d3.scaleLinear().domain([0, 1]).range([m.left, w - m.right]);
+      const g = svg.append("g");
+      x.ticks(5).forEach((t) => {
+        g.append("line").attr("x1", x(t)).attr("x2", x(t)).attr("y1", m.top).attr("y2", h - m.bottom).attr("stroke", COLORS.grid);
+        g.append("text").attr("x", x(t)).attr("y", m.top - 8).attr("text-anchor", "middle").attr("font-size", 10.5).attr("fill", COLORS.muted).text(d3.format(".0%")(t));
+      });
+      const rh = (h - m.top - m.bottom) / rows.length;
+      // bootstrap density above the model row
+      const bins = d3.bin().domain([0, 1]).thresholds(100)(ps);
+      const dmax = d3.max(bins, (b) => b.length) || 1;
+      rows.forEach((r, i) => {
+        const y = m.top + rh * i + rh / 2 + 3;
+        g.append("text").attr("x", m.left - 10).attr("y", y + 4).attr("text-anchor", "end").attr("font-size", 12)
+          .attr("font-weight", i === 0 ? 600 : 400).attr("fill", COLORS.ink).text(r.label);
+        if (i === 0) {
+          g.selectAll("rect.den").data(bins.filter((b) => b.length)).join("rect")
+            .attr("x", (b) => x(b.x0)).attr("width", (b) => Math.max(1.5, x(b.x1) - x(b.x0) - .4))
+            .attr("y", (b) => y - 3 - (b.length / dmax) * 14).attr("height", (b) => (b.length / dmax) * 14)
+            .attr("fill", COLORS.plan).attr("opacity", .35);
+        }
+        if (r.v == null || (r.n != null && r.n < 10)) {
+          g.append("text").attr("x", m.left + 4).attr("y", y + 4).attr("font-size", 11.5).attr("fill", COLORS.muted)
+            .text(`fewer than 10 records (n = ${fmt.int(r.n || 0)})`);
+          return;
+        }
+        g.append("line").attr("x1", x(r.ci[0])).attr("x2", x(r.ci[1])).attr("y1", y).attr("y2", y).attr("stroke", r.color).attr("stroke-width", 2.4).attr("stroke-linecap", "round");
+        g.append("circle").attr("cx", x(r.v)).attr("cy", y).attr("r", i === 0 ? 7 : 5.5).attr("fill", r.color).attr("stroke", "#fff").attr("stroke-width", 2)
+          .call((s) => withTip(s, `<strong>${r.label}</strong><br>${fmt.pct(r.v, 1)} · range ${fmt.pct(r.ci[0], 0)}–${fmt.pct(r.ci[1], 0)}<br><span class="tt-muted">${r.note}</span>`));
+        g.append("text").attr("x", w - m.right + 10).attr("y", y + 4).attr("font-size", 12).attr("fill", COLORS.ink)
+          .html(`<tspan font-weight="600">${fmt.pct(r.v, 0)}</tspan>${small ? "" : `<tspan fill="${COLORS.muted}" font-size="11">  ${r.note}</tspan>`}`);
+      });
+    });
+    return { hist, late };
   }
 
   function renderResult() {
@@ -203,7 +325,15 @@
     const expCoh = expCohort(profile);
 
     const status = coh.level === "exact" && coh.n >= 50 ? "good"
-      : coh.n >= 10 ? "limited" : "insufficient";
+      : coh.level === "exact" && coh.n >= 10 ? "limited" : coh.n >= 10 ? "limited" : "insufficient";
+
+    const ladderHtml = `<div class="result-block" id="m3-ladder-block">
+        <h3>${status === "insufficient" ? "What would give enough evidence" : "Change one thing"}</h3>
+        <p class="hint" style="margin:-4px 0 6px">${status === "insufficient"
+          ? "Model estimates for single changes; click one to apply it."
+          : "How the estimate moves if you change one choice, in percentage points. Thin lines are model ranges. Click a row to apply it."}</p>
+        <div class="chart" id="m3-ladder"></div>
+      </div>`;
 
     if (status === "insufficient") {
       const obs = coh.n > 0 ? `${fmt.int(coh.k)} of ${fmt.int(coh.n)} summited (${fmt.pct(coh.k / coh.n, 1)})` : "no records at all";
@@ -217,110 +347,58 @@
               matches <b>${fmt.int(coh.n)}</b> historical climbing records. That is too few to report a
               number without overstating confidence.</p>
               <p class="obs">Closest comparison available: ${obs}.</p>
-              <p>Try a standard route, the spring season, or a wider team-size band. For context, the
-              expedition-level model gives <b>${pctSmart(pExp)}</b> (${pctSmart(elo)}–${pctSmart(ehi)});
+              <p>For context, the expedition-level model gives <b>${pctSmart(pExp)}</b> (${pctSmart(elo)}–${pctSmart(ehi)});
               ${expCoh.n ? `it rests on ${fmt.int(expCoh.n)} comparable expeditions.` : "there are no directly comparable expeditions either."}</p>
             </div>
           </div>
-        </div>`;
+        </div>${ladderHtml}`;
+      drawLadder(status);
       return;
     }
 
-    const obsRate = coh.n ? coh.k / coh.n : null;
+    const statusLabel = coh.level === "exact"
+      ? `${fmt.int(coh.n)} exact matches${status === "limited" ? " — low" : ""}`
+      : `No exact matches · ${fmt.int(coh.n)} in a wider group`;
     const expObs = expCoh.n ? expCoh.k / expCoh.n : null;
     const expGap = expCoh.n >= 10 && expObs != null ? Math.abs(pExp - expObs) : 0;
-    const expRows = closestExpeditions(profile, 5);
-    const drivers = driverRows(profile);
-    const maxAbs = d3.max(drivers, (d) => Math.abs(d.v)) || 1;
-    const statusLabel = status === "good"
-      ? `${fmt.int(coh.n)} comparable records`
-      : `${fmt.int(coh.n)} comparable records — low`;
 
     box.innerHTML = `
       <div class="result-top">
         <div>
           <div class="result-label">Chance of summiting, this profile</div>
           <div class="big-prob">${pctSmart(pModel).replace("%", "")}<small>%</small></div>
-          <div class="prob-ci">95% model interval ${pctSmart(lo)}–${pctSmart(hi)} · n = ${fmt.int(M.member.n)}</div>
+          <div class="prob-ci">Model range ${pctSmart(lo)}–${pctSmart(hi)}, fitted on ${fmt.int(M.member.n)} members, 2005–2024</div>
         </div>
         <span class="status status--${status}">${statusLabel}</span>
       </div>
-
-      <div class="prob-bar">
-        <div class="ci" style="left:${lo * 100}%;width:${(hi - lo) * 100}%"></div>
-        <div class="fill" style="width:${pModel * 100}%"></div>
-      </div>
-
+      <div class="chart" id="m3-strip" style="margin-top:12px"></div>
+      <div class="reading" id="m3-reading"></div>
       <div class="prob-meta">
-        <span>Comparable members <b>${fmt.int(coh.n)}</b></span>
-        <span>Observed in that group <b>${obsRate == null ? "–" : fmt.pct(obsRate, 1)}</b></span>
         <span>Expedition-level success <b>${fmt.pct(pExp, 0)}</b> (${fmt.pct(elo, 0)}–${fmt.pct(ehi, 0)})</span>
         <span>Comparable expeditions <b>${fmt.int(expCoh.n)}</b>${expObs == null ? "" : ` · observed <b>${fmt.pct(expObs, 0)}</b>`}</span>
       </div>
+      ${ladderHtml}
+      ${expGap > 0.12 ? `<p class="result-warn">The expedition model smooths this case: ${fmt.int(expCoh.k)} of ${fmt.int(expCoh.n)} comparable expeditions summited (${fmt.pct(expObs, 0)}) against a model figure of ${fmt.pct(pExp, 0)}. Where they disagree, trust the observed group.</p>` : ""}
+      <p class="result-note">These are associations in historical records, not causal effects or a promise.</p>`;
 
-      <div class="result-body">
-        <div class="result-block">
-          <h3>What moves the estimate</h3>
-          <div class="drivers">
-            ${drivers.map((d) => {
-              const factor = Math.exp(d.v);
-              const w = (Math.abs(d.v) / maxAbs) * 100;
-              const pos = d.v > 0;
-              return `<div class="driver">
-                <div>
-                  <div>${labelOf(d.f)}</div>
-                  <div class="bar"><i style="left:0;width:${w}%;background:${pos ? COLORS.navy : COLORS.rust}"></i></div>
-                </div>
-                <div class="val">${factor >= 10 ? d3.format(".0f")(factor) : d3.format(".1f")(factor)}×</div>
-              </div>`;
-            }).join("") || `<p class="hint">This profile sits at the reference level, so nothing moves it.</p>`}
-          </div>
-          <p class="result-note">Factors are relative to under 30 · male · spring · south side ·
-          standard route · no oxygen. They are associations in the records, not causal effects.</p>
-        </div>
-        <div class="result-block">
-          <h3>Reading it</h3>
-          <p style="font-size:13px;color:#3c4046">
-            ${fmt.int(coh.k)} of ${fmt.int(coh.n)} historical climbing members with this profile reached
-            the summit (${obsRate == null ? "–" : fmt.pct(obsRate, 1)}). The model estimate is
-            ${fmt.pct(pModel, 0)}${Math.abs(pModel - (obsRate || 0)) < 0.03
-              ? ", essentially the raw group rate because this profile sits near the model average."
-              : ", adjusting the raw group rate for team size, hired support and the other profile fields."}
-          </p>
-          <p style="font-size:12.5px;color:#6f6a62;margin-top:8px">
-            The model is fitted on 2005–2024 and averages across those seasons; 2020–2024 ran higher,
-            so treat this as a conservative baseline. Oxygen is close to a perfect separator in recent
-            records, which makes the oxygen coefficient large.
-          </p>
-          ${status === "limited" ? `<p style="font-size:12.5px;color:#8a6a1f;margin-top:8px">Only ${fmt.int(coh.n)} directly comparable records: read the interval as wider than it looks.</p>` : ""}
-          ${expGap > 0.12 ? `<p style="font-size:12.5px;color:#8a6a1f;margin-top:8px">The expedition model smooths this case: ${fmt.int(expCoh.k)} of ${fmt.int(expCoh.n)} comparable expeditions summited (${fmt.pct(expObs, 0)}) against a model figure of ${fmt.pct(pExp, 0)}. Where they disagree, trust the observed group.</p>` : ""}
-        </div>
-        <div class="result-block" style="grid-column:1 / -1">
-          <h3>Comparable cohorts</h3>
-          <table class="cohort-table">
-            <thead><tr><th>Matching rule</th><th>Records</th><th>Observed summit share</th></tr></thead>
-            <tbody>
-              ${cohortRows(profile).map((r) => `<tr class="${r.level === coh.level ? "is-on" : ""}">
-                <td>${r.label}</td><td>${fmt.int(r.hit.n)}</td><td>${fmt.pct(r.hit.k / r.hit.n, 1)}</td>
-              </tr>`).join("")}
-            </tbody>
-          </table>
-        </div>
-        <div class="result-block" style="grid-column:1 / -1">
-          <h3>Closest historical expeditions</h3>
-          <p class="hint" style="margin:-4px 0 8px">Same side, season, route group and oxygen setting; ranked by team size, hired support and recency.</p>
-          ${expRows.length ? `<table class="cohort-table">
-            <thead><tr><th>Year · route</th><th>Team / hired</th><th>Result</th></tr></thead>
-            <tbody>
-              ${expRows.map((r) => `<tr>
-                <td>${r.year} · ${r.route.length > 42 ? r.route.slice(0, 41) + "…" : r.route}</td>
-                <td>${fmt.int(r.members)} / ${fmt.int(r.hired)}</td>
-                <td>${r.success ? "someone summited" : "no summit"}${r.summits ? ` · ${fmt.int(r.summits)} members` : ""}</td>
-              </tr>`).join("")}
-            </tbody>
-          </table>` : `<p class="hint">No historical expedition matches this side, season, route group and oxygen setting.</p>`}
-        </div>
-      </div>`;
+    const { hist, late } = drawStrip(pModel, lo, hi);
+    drawLadder(status);
+
+    // The reading is computed for this plan, never a fixed sentence.
+    const notes = [];
+    if (hist.n >= 10) {
+      const gap = pModel - hist.rate;
+      notes.push(`${fmt.int(hist.k)} of ${fmt.int(hist.n)} members with this exact plan summited in 2005–2024 (${fmt.pct(hist.rate, 0)}); the model gives ${fmt.pct(pModel, 0)}${Math.abs(gap) < .03 ? ", close to that record." : ", because it also adjusts for team size, hired support and the other choices."}`);
+    }
+    if (late.n >= 10) {
+      const gap = late.rate - pModel;
+      notes.push(Math.abs(gap) < .03
+        ? `The most recent period (2020–24) ran close to the model at ${fmt.pct(late.rate, 0)}.`
+        : `The most recent period ran <b>${gap > 0 ? "higher" : "lower"}</b> than the model: ${fmt.pct(late.rate, 0)} in 2020–24, so this estimate may be ${gap > 0 ? "too low" : "too high"} for this plan today.`);
+    } else {
+      notes.push(`Too few members with this plan in 2020–24 to check it against recent seasons.`);
+    }
+    document.getElementById("m3-reading").innerHTML = notes.map((t) => `<p>${t}</p>`).join("");
   }
 
   const DRIVER_LABEL = {
@@ -331,48 +409,51 @@
     route: (lv) => (lv === "other" ? "Non-standard route" : "Standard route"),
     o2: () => "Oxygen planned",
   };
-  // Rank the historical expeditions that most resemble this plan.
-  function closestExpeditions(p, k = 5) {
-    const pool = window.EVEREST_DATA.expeditions.filter((r) =>
-      r.season === p.season && r.side === p.side &&
-      r.standard === (p.route === "standard") &&
-      (r.o2 ? 1 : 0) === p.o2 && r.members > 0);
-    if (!pool.length) return [];
-    const support = Math.log1p(p.hired / Math.max(p.team, 1));
-    return pool.map((r) => {
-      const teamDist = Math.abs(Math.log(r.members) - Math.log(Math.max(p.team, 1)));
-      const supDist = Math.abs(Math.log1p(r.hired / r.members) - support);
-      const recency = (2024 - r.year) / 60;
-      return { r, score: teamDist + supDist + recency };
-    }).sort((a, b) => a.score - b.score).slice(0, k).map((x) => x.r);
-  }
 
-  function cohortRows(p) {
+  function cohortTable() {
     const keys = {
-      exact: `${p.age}|${p.sex}|${p.season}|${p.side}|${p.route}|${p.o2}|${teamKey(p.team)}`,
-      mid: `${p.age}|${p.sex}|${p.season}|${p.side}|${p.o2}`,
-      broad: `${p.age}|${p.sex}|${p.season}|${p.side}`,
+      exact: `${profile.age}|${profile.sex}|${profile.season}|${profile.side}|${profile.route}|${profile.o2}|${teamKey(profile.team)}`,
+      mid: `${profile.age}|${profile.sex}|${profile.season}|${profile.side}|${profile.o2}`,
+      broad: `${profile.age}|${profile.sex}|${profile.season}|${profile.side}`,
     };
     const labels = {
       exact: "Exact profile (all seven fields)",
       mid: "Same age, sex, season, side and oxygen",
       broad: "Same age, sex, season and side",
     };
-    return ["exact", "mid", "broad"]
+    const coh = cohort(profile);
+    const rows = ["exact", "mid", "broad"]
       .map((level) => ({ level, label: labels[level], hit: MEM_CELLS[level].get(keys[level]) }))
-      .filter((r) => r.hit && r.hit.n > 0)
-      .filter((r, i, arr) => i === 0 || r.hit.n !== arr[i - 1].hit.n);
+      .filter((r) => r.hit && r.hit.n > 0);
+    document.getElementById("m3-cohorts").innerHTML = `
+      <div class="card-head"><div><h2>Comparable cohorts</h2>
+      <p class="hint">How the observed share changes with the matching rule (2005–2024, closures excluded). The highlighted row is the one the status label uses.</p></div></div>
+      ${rows.length ? `<table class="cohort-table">
+        <thead><tr><th>Matching rule</th><th>Records</th><th>Observed summit share</th></tr></thead>
+        <tbody>${rows.map((r) => `<tr class="${r.level === coh.level ? "is-on" : ""}"><td>${r.label}</td><td>${fmt.int(r.hit.n)}</td><td>${fmt.pct(r.hit.k / r.hit.n, 1)}</td></tr>`).join("")}</tbody>
+      </table>` : `<p class="hint">No comparable records for this plan.</p>`}`;
   }
 
-  function labelOf(f) {
-    if (f.kind === "numeric") return f.label;
-    const fn = DRIVER_LABEL[f.group];
-    return fn ? fn(f.level) : `${f.label}: ${f.level}`;
+  function renderClosureCard() {
+    const c = M.meta.closure;
+    const e = M.meta.closureEffect;
+    document.getElementById("m3-closure-card").innerHTML = `
+      <div class="card-head"><div><h2>Why the 2014–15 closures are excluded</h2></div></div>
+      <p class="hint" style="max-width:none">The dataset's own notes say ${fmt.int(c.expeditions)} expeditions (${fmt.int(c.members)} climbing members)
+      were abandoned because of the 2014 Sherpa strike and avalanche or the 2015 earthquake. Many stopped before anyone would use oxygen,
+      so they appear as "no oxygen, no summit". That is not a fair oxygen comparison. Removing them moves the model's oxygen factor
+      from about <b>${d3.format(".0f")(Math.exp(e.o2CoefWith))}×</b> to about <b>${d3.format(".0f")(Math.exp(e.o2CoefWithout))}×</b> the odds. Oxygen-free
+      climbs remain rare and self-selected, so this is still an association. These expeditions stay visible in the historical charts on page 1.</p>`;
   }
 
   // ------------------------------------------------------- calibration
+  let calMode = "test";
   function drawCalibration() {
-    const bins = M.member.calibration.filter((b) => b.n >= 20);
+    const source = calMode === "test" ? M.member.calibration : M.member.calibrationAll;
+    const bins = source.filter((b) => b.n >= 20);
+    document.getElementById("m3-cal-hint").textContent = calMode === "test"
+      ? "Predicted vs observed share on the held-out 2020–2024 seasons, using the model trained on 1990–2014. Dots above the line mean under-prediction."
+      : "Predicted vs observed on the 2005–2024 data the deployed model was fitted on. This shows fit, not out-of-sample skill.";
     mount(document.getElementById("m3-calibration"), 300, (svg, w, h) => {
       const m = { top: 12, right: 18, bottom: 38, left: 46 };
       const iw = w - m.left - m.right;
@@ -380,40 +461,18 @@
       const x = d3.scaleLinear().domain([0, 1]).range([m.left, m.left + iw]);
       const y = d3.scaleLinear().domain([0, 1]).range([m.top + ih, m.top]);
       const g = svg.append("g");
-      g.append("g").attr("transform", `translate(${m.left},0)`)
-        .call(d3.axisLeft(y).ticks(4).tickSize(-iw).tickFormat(d3.format(".0%")))
-        .call((s) => {
-          s.selectAll(".tick line").attr("stroke", COLORS.grid);
-          s.selectAll(".tick text").attr("fill", COLORS.faint).attr("font-size", 10.5);
-          s.select(".domain").remove();
-        });
-      g.append("g").attr("transform", `translate(0,${m.top + ih})`)
-        .call(d3.axisBottom(x).ticks(5).tickFormat(d3.format(".0%")))
-        .call((s) => {
-          s.selectAll(".tick line").attr("stroke", COLORS.grid);
-          s.selectAll(".tick text").attr("fill", COLORS.faint).attr("font-size", 10.5);
-          s.select(".domain").attr("stroke", COLORS.line);
-        });
+      U.axisY(g, y, m.left, iw, { format: d3.format(".0%") });
+      U.axisX(g, x, m.top + ih, { ticks: 5, format: d3.format(".0%") });
       g.append("line").attr("x1", x(0)).attr("x2", x(1)).attr("y1", y(0)).attr("y2", y(1))
-        .attr("stroke", COLORS.faint).attr("stroke-dasharray", "3 4");
-
-      g.selectAll("circle")
-        .data(bins).join("circle")
+        .attr("stroke", COLORS.muted).attr("stroke-dasharray", "3 4");
+      g.selectAll("circle").data(bins).join("circle")
         .attr("cx", (d) => x(d.predicted)).attr("cy", (d) => y(d.observed))
-        .attr("r", (d) => 3 + Math.sqrt(d.n) / 2.2)
-        .attr("fill", COLORS.navy).attr("opacity", .55)
-        .on("mousemove", (event, d) => U.tipShow(event,
-          `<strong>predicted ${fmt.pct(d.predicted, 0)}</strong><br>observed ${fmt.pct(d.observed, 1)}<br>` +
-          `<span class="tt-muted">n = ${fmt.int(d.n)} members</span>`))
-        .on("mouseleave", U.tipHide);
-
-      g.append("text").attr("x", m.left + iw / 2).attr("y", h - 6)
-        .attr("text-anchor", "middle").attr("font-size", 10.5).attr("fill", COLORS.faint)
-        .text("predicted probability · test seasons 2020–2024");
-      g.append("text").attr("x", x(0.5)).attr("y", y(0.06)).attr("text-anchor", "end")
-        .attr("font-size", 10).attr("fill", COLORS.faint).text("dashed: perfect calibration");
-      g.append("text").attr("x", m.left + 4).attr("y", m.top + 2)
-        .attr("font-size", 10).attr("fill", COLORS.faint).text("observed");
+        .attr("r", (d) => 3 + Math.sqrt(d.n) / (calMode === "test" ? 2.2 : 4))
+        .attr("fill", COLORS.slate).attr("opacity", .75).attr("stroke", "#fff").attr("stroke-width", 1.5)
+        .call((s) => withTip(s, (d) => `<strong>predicted ${fmt.pct(d.predicted, 0)}</strong><br>observed ${fmt.pct(d.observed, 1)}<br><span class="tt-muted">n = ${fmt.int(d.n)} members</span>`));
+      U.caption(g, m.left + iw / 2, h - 6, "predicted probability", "middle");
+      U.caption(g, x(.62), y(.5), "on the line = well calibrated");
+      U.caption(g, m.left + 4, m.top + 10, "observed share");
     });
   }
 
@@ -453,20 +512,95 @@
 
   // ------------------------------------------------------------- update
   let raf = 0;
+  let activeTab = "estimate";
+  const tabRender = {};
+
+  function syncUrl() {
+    Store.writeParams({
+      age: profile.age, sex: profile.sex, season: profile.season, side: profile.side,
+      route: profile.route, team: profile.team, hired: profile.hired, o2: profile.o2,
+    });
+  }
+
+  function renderActive() {
+    if (activeTab === "estimate") renderResult();
+    if (activeTab === "trust") { cohortTable(); renderClosureCard(); drawCalibration(); renderMetrics(); }
+    (tabRender[activeTab] || []).forEach((f) => f());
+  }
+
   function update() {
     cancelAnimationFrame(raf);
-    raf = requestAnimationFrame(renderResult);
+    raf = requestAnimationFrame(() => {
+      if (document.getElementById("view-plan").classList.contains("is-active")) syncUrl();
+      renderActive();
+    });
+  }
+
+  function setTab(tab) {
+    activeTab = tab;
+    document.querySelectorAll("#m3-subtabs button").forEach((b) => {
+      const on = b.dataset.tab === tab;
+      b.classList.toggle("is-active", on);
+      b.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    document.querySelectorAll(".plan-tab").forEach((p) => p.classList.toggle("is-active", p.dataset.tab === tab));
+    renderActive();
+  }
+
+  function drawTimeline() {
+    const byYear = d3.rollups(PD.usable(), (v) => d3.sum(v, (r) => r.n), (r) => r.year);
+    const data = d3.range(1990, 2025).map((y) => ({ year: y, v: (byYear.find((b) => b[0] === y) || [0, 0])[1] }));
+    U.timeline(document.getElementById("m3-timeline"), {
+      data, height: 62, getRange: () => PD.state.range, valueLabel: "climbing members per year",
+      onChange: (r) => { PD.setRange(r || [1990, 2024]); if (!r) drawTimeline(); },
+    });
+    const n = PD.total(PD.live());
+    document.getElementById("m3-range-label").textContent =
+      `${PD.state.range[0]}–${PD.state.range[1]} · ${fmt.int(n.n)} members`;
+  }
+
+  function buildFindings() {
+    const E = window.EVEREST_PLAN.expect;
+    const def = E.defaultByPeriod;
+    const r = (x) => fmt.pct(x.k / x.n, 0);
+    const c = M.meta.closureEffect;
+    U.findings("m3-findings", [
+      {
+        id: "H7", title: "A plan's chance is a stable number", verdict: "Rejected",
+        text: () => `The default plan's group went ${r(def[1990])} (1990–94) → ${r(def[2010])} (2010–14) → ${r(def[2020])} (2020–24), while the model gives one number.`,
+        apply: () => { setProfile(DEFAULTS); setTab("time"); U.spotlight("m3-card-through"); },
+      },
+      {
+        id: "H8", title: "Oxygen multiplies your odds by about 69", verdict: "Overstated",
+        text: () => `${fmt.int(E.noOxygen.closure)} of the ${fmt.int(E.noOxygen.members)} "no oxygen" members were on expeditions abandoned in the 2014–15 closures. Without them the factor is about ${d3.format(".0f")(Math.exp(c.o2CoefWithout))}×.`,
+        apply: () => { setTab("trust"); U.spotlight("m3-closure-card"); },
+      },
+      {
+        id: "H3", title: "More hired support is what drives success", verdict: "Mixed",
+        text: () => `Look along the three "Hired" rows: the gap between them changes from period to period, so hired support alone doesn't explain success.`,
+        apply: () => { setTab("time"); U.spotlight("m3-card-grid"); },
+      },
+    ]);
   }
 
   function init() {
     buildForm();
-    renderResult();
-    drawCalibration();
-    renderMetrics();
+    buildFindings();
+    drawTimeline();
+    document.querySelectorAll("#m3-subtabs button").forEach((b) => b.addEventListener("click", () => setTab(b.dataset.tab)));
+    document.getElementById("m3-closure").addEventListener("change", (e) => PD.setDropClosure(e.target.checked));
+    U.seg("m3-cal-mode", calMode, (v) => { calMode = v; drawCalibration(); });
+    PD.onChange(() => { drawTimeline(); renderActive(); });
+    setTab(new URLSearchParams(location.search).get("tab") || "estimate");
   }
 
   window.M3 = {
     init,
+    profile,
+    setProfile,
+    setTab,
+    register(tab, fn) { (tabRender[tab] = tabRender[tab] || []).push(fn); },
+    onProfile: update,
     _test: {
       member: (p) => predict(M.member, M.member.coef, p),
       expedition: (p) => predict(M.expedition, M.expedition.coef, p),
