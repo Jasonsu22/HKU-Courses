@@ -1,5 +1,7 @@
 # Report outline — Everest climbing decision support
 
+**How to write each section: see [REPORT_GUIDE.md](REPORT_GUIDE.md).**
+
 Required format: one PDF. **Part I** up to 20 pages (excluding title page and references), **Part II**
 up to 5 pages per member. Every figure below can be captured from the app; the numbers are the ones the
 app and the audit use.
@@ -134,16 +136,14 @@ Organise this section around hypotheses H1 to H8 (`DEMO_AND_STORY_GUIDE.md` has 
 
 ### 7.1 What changed
 Expedition success 29.1% in the 1980s → 88.9% in 2020–2024; median BC→summit 44 → 28 days; hired staff
-outnumber members more than 2:1 in recent seasons; oxygen use 76.3% overall and near-universal recently.
+per member rose from 0.60 in the 1990s to 1.47 in 2020–2024; oxygen use 76.3% overall and 92.6% in 2020–2024.
 Figure 1 again or a cropped panel.
 
 ### 7.2 Do side and season differences survive like-for-like comparison?
 Spring 2020–2024: south 157/173 = **90.8%**, north 11/13 = **84.6%** — the gap is small and the north
-sample is tiny. All-season and all-period: south 68% vs north 55%, with the gap concentrated in autumn
-(south 42.9% vs north 7.8%) and in the pre-2000 period.
-The visual-analytics question from the proposal is answered with the cohort comparison in module 03:
-same age band, sex, season, side and oxygen — the observed rates converge (e.g. exact cohort 75.0% vs
-broad cohort 62.2% for the default profile), which is why the app shows both.
+sample is tiny. All-season and all-period: south 68.2% vs north 55.2%. Before 2000: 52.7% vs 30.3%. From 2000: 71.8% vs 65.4%.
+Autumn: south 38.3% (49/128) vs north 7.8% (8/102). The overall gap shrinks a lot when comparing similar periods and seasons.
+Module 03 shows how the matching rule matters for the default profile: exact 75.0% (440/587), same oxygen 73.4% (920/1,254), widest 69.8% (923/1,323).
 
 ### 7.3 Model behaviour and where it fails
 Calibration points sit above the diagonal for 2020–2024 (under-prediction); oxygen is a near-perfect
