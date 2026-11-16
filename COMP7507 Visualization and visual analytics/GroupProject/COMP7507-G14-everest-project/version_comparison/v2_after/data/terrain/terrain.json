@@ -1,0 +1,29 @@
+{
+  "bbox": {
+    "west": 86.785,
+    "east": 86.985,
+    "south": 27.955,
+    "north": 28.155
+  },
+  "zoom": 13,
+  "shadeSize": [
+    1000,
+    1133
+  ],
+  "mesh": {
+    "nx": 260,
+    "ny": 300
+  },
+  "widthKm": 19.649,
+  "heightKm": 22.114,
+  "elevation": {
+    "min": 4936,
+    "max": 8751
+  },
+  "cellMetres": 16.9,
+  "attribution": {
+    "dem": "Terrain tiles: Mapzen / AWS Open Data (SRTM-derived), terrarium encoding",
+    "features": "Camps and peaks: © OpenStreetMap contributors, ODbL"
+  },
+  "build": "pipeline/build_terrain.py"
+}

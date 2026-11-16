@@ -1,0 +1,475 @@
+{
+  "files_sha256": {
+    "exped.csv": "c90c2c8a3959fdb5b05183887f1879501b9832d3980369254cb9ecce318e665d",
+    "members.csv": "e71268329b30f37c0129b3eb29737f89be5f64891cf3ccca531da7ba8cce34be",
+    "peaks.csv": "6280f01676c0625a3bc9745af3f08031593bbdf55f0e1fd1095f12d636c1fc18",
+    "refer.csv": "d44a79a91f8c12c9d386a63d964ef961cd774baad6b63eaa5e40b0a5192652c0",
+    "himalayan_data_dictionary.csv": "43aa305676169cdae8a906643a6fe91006631db01ede40e719959a0bdb80988e"
+  },
+  "sizes": {
+    "exped": 11425,
+    "members": 89000,
+    "peaks": 480,
+    "refer": 15586,
+    "dictionary": 165
+  },
+  "everest": {
+    "expeditions": 2347,
+    "member_rows": 25274,
+    "year_min": 1921,
+    "year_max": 2024,
+    "member_year_min": 1921,
+    "member_year_max": 2024,
+    "unique_people_est": 13283,
+    "unique_people_est_all": 39502,
+    "expeditions_by_decade": {
+      "1920": 3,
+      "1930": 5,
+      "1940": 1,
+      "1950": 9,
+      "1960": 16,
+      "1970": 29,
+      "1980": 141,
+      "1990": 331,
+      "2000": 745,
+      "2010": 878,
+      "2020": 189
+    }
+  },
+  "keys": {
+    "expid_dup_rows": 4,
+    "expid_collision_ids": [
+      "EVER21101",
+      "EVER22101",
+      "EVER24101",
+      "KANG10101"
+    ],
+    "collisions": [
+      {
+        "expid": "EVER21101",
+        "peakid": "EVER",
+        "year": 1921,
+        "season": "Spring",
+        "route1": "W, N & E sides"
+      },
+      {
+        "expid": "EVER21101",
+        "peakid": "EVER",
+        "year": 2021,
+        "season": "Spring",
+        "route1": "S Col-SE Ridge"
+      },
+      {
+        "expid": "EVER22101",
+        "peakid": "EVER",
+        "year": 1922,
+        "season": "Spring",
+        "route1": "N Col-N Face"
+      },
+      {
+        "expid": "EVER22101",
+        "peakid": "EVER",
+        "year": 2022,
+        "season": "Spring",
+        "route1": "S Col-SE Ridge"
+      },
+      {
+        "expid": "EVER24101",
+        "peakid": "EVER",
+        "year": 1924,
+        "season": "Spring",
+        "route1": "N Col-N Face (Norton to 8570m)"
+      },
+      {
+        "expid": "EVER24101",
+        "peakid": "EVER",
+        "year": 2024,
+        "season": "Spring",
+        "route1": "S Col-SE Ridge"
+      },
+      {
+        "expid": "KANG10101",
+        "peakid": "KANG",
+        "year": 1910,
+        "season": "Spring",
+        "route1": "NE Side (recon)"
+      },
+      {
+        "expid": "KANG10101",
+        "peakid": "KANG",
+        "year": 2010,
+        "season": "Spring",
+        "route1": "SW Face"
+      }
+    ],
+    "composite_dup": 0,
+    "expid_suffix_matches_year": 11425,
+    "expid_rows": 11425,
+    "membid_dup_rows": 35,
+    "membid_dup_rows_in_collisions": 35,
+    "membid_max": 99,
+    "member_year_ambiguous": 49
+  },
+  "myear_check": {
+    "mismatch_rows": 30930,
+    "mismatch_share": 0.3475,
+    "ever_mismatch_rows": 6947,
+    "ever_mismatch_share": 0.2749,
+    "mseason_mismatch": 0,
+    "pre2000_rows": 30197,
+    "pre2000_mismatch_share": 0.9614,
+    "post2000_mismatch_share": 0.0323,
+    "ever_pre2000_mismatch_share": 0.9673,
+    "ever_post2000_mismatch_share": 0.0269,
+    "summitdate_rows": 59731,
+    "summitdate_year_mismatch": 15761
+  },
+  "denominators_all": {
+    "members": {
+      "exact_share": 0.9887,
+      "within1_share": 0.991,
+      "gt2": 90,
+      "sum_field": 69918,
+      "sum_rows": 68940
+    },
+    "hired": {
+      "exact_share": 0.6659,
+      "within1_share": 0.7675,
+      "gt2": 1838,
+      "sum_field": 35952,
+      "sum_rows": 19971
+    },
+    "member_summits": {
+      "exact_share": 0.9993,
+      "within1_share": 0.9993,
+      "gt2": 6,
+      "sum_field": 23060,
+      "sum_rows": 22989
+    },
+    "hired_summits": {
+      "exact_share": 0.9987,
+      "within1_share": 0.9988,
+      "gt2": 14,
+      "sum_field": 14183,
+      "sum_rows": 13903
+    },
+    "member_deaths": {
+      "exact_share": 1.0,
+      "within1_share": 1.0,
+      "gt2": 0,
+      "sum_field": 820,
+      "sum_rows": 820
+    },
+    "hired_deaths": {
+      "exact_share": 1.0,
+      "within1_share": 1.0,
+      "gt2": 0,
+      "sum_field": 325,
+      "sum_rows": 325
+    }
+  },
+  "denominators_everest": {
+    "members": {
+      "exact_share": 0.9889,
+      "sum_field": 17166,
+      "sum_rows": 16918
+    },
+    "hired": {
+      "exact_share": 0.5378,
+      "sum_field": 15408,
+      "sum_rows": 8274
+    },
+    "member_summits": {
+      "exact_share": 0.9991,
+      "sum_field": 6279,
+      "sum_rows": 6265
+    },
+    "hired_summits": {
+      "exact_share": 0.9966,
+      "sum_field": 6562,
+      "sum_rows": 6414
+    },
+    "member_deaths": {
+      "exact_share": 1.0,
+      "sum_field": 205,
+      "sum_rows": 205
+    },
+    "hired_deaths": {
+      "exact_share": 1.0,
+      "sum_field": 122,
+      "sum_rows": 122
+    }
+  },
+  "success": {
+    "exped_success1_n": 1479,
+    "exped_success1_rate": 0.6302,
+    "exped_with_member_summit_n": 1461,
+    "member_summits": 6279,
+    "members_total": 17199,
+    "member_success_rate": 0.3651,
+    "hired_summits": 6595,
+    "hired_total": 15533,
+    "hired_success_rate": 0.4246,
+    "flag_true_members0": 29,
+    "flag_false_members_pos": 11,
+    "disagreement_share": 0.017
+  },
+  "structure": {
+    "side": {
+      "South": 1368,
+      "North": 942,
+      "Other": 37
+    },
+    "host": {
+      "Nepal": 1409,
+      "China": 938
+    },
+    "side_host_agreement": 0.9853,
+    "season": {
+      "Spring": 2059,
+      "Autumn": 230,
+      "Winter": 34,
+      "Summer": 24
+    },
+    "distinct_routes": 136,
+    "top2_route_share": 0.8914,
+    "top_routes": {
+      "S Col-SE Ridge": 1308,
+      "N Col-NE Ridge": 784,
+      "N Face (Great Couloir)": 13,
+      "S Pillar-SE Ridge": 13,
+      "SW Face": 12,
+      "N Col": 10,
+      "SW Face (Bonington rte)": 9,
+      "N Face (Hornbein Couloir)": 9,
+      "Lho La-W Ridge": 9,
+      "NE Ridge": 9
+    },
+    "side_season": [
+      {
+        "side": "North",
+        "season": "Autumn",
+        "n": 103,
+        "success1": 0.0777
+      },
+      {
+        "side": "North",
+        "season": "Spring",
+        "n": 807,
+        "success1": 0.627
+      },
+      {
+        "side": "North",
+        "season": "Summer",
+        "n": 23,
+        "success1": 0.1304
+      },
+      {
+        "side": "North",
+        "season": "Winter",
+        "n": 9,
+        "success1": 0.0
+      },
+      {
+        "side": "Other",
+        "season": "Autumn",
+        "n": 15,
+        "success1": 0.0667
+      },
+      {
+        "side": "Other",
+        "season": "Spring",
+        "n": 20,
+        "success1": 0.2
+      },
+      {
+        "side": "Other",
+        "season": "Summer",
+        "n": 1,
+        "success1": 0.0
+      },
+      {
+        "side": "Other",
+        "season": "Winter",
+        "n": 1,
+        "success1": 0.0
+      },
+      {
+        "side": "South",
+        "season": "Autumn",
+        "n": 112,
+        "success1": 0.4286
+      },
+      {
+        "side": "South",
+        "season": "Spring",
+        "n": 1232,
+        "success1": 0.7338
+      },
+      {
+        "side": "South",
+        "season": "Winter",
+        "n": 24,
+        "success1": 0.2083
+      }
+    ],
+    "periods": {
+      "train_1990_2014": {
+        "expeditions": 1511,
+        "member_rows": 13776,
+        "success1_rate": 0.6294
+      },
+      "valid_2015_2019": {
+        "expeditions": 443,
+        "member_rows": 4933,
+        "success1_rate": 0.6749
+      },
+      "test_2020_2024": {
+        "expeditions": 189,
+        "member_rows": 3405,
+        "success1_rate": 0.8889
+      }
+    },
+    "expeditions_by_year": {
+      "1921": 1,
+      "1922": 1,
+      "1924": 1,
+      "1933": 1,
+      "1934": 1,
+      "1935": 1,
+      "1936": 1,
+      "1938": 1,
+      "1947": 1,
+      "1950": 1,
+      "1951": 2,
+      "1952": 3,
+      "1953": 1,
+      "1956": 1,
+      "1958": 1,
+      "1960": 2,
+      "1962": 2,
+      "1963": 1,
+      "1964": 1,
+      "1965": 2,
+      "1966": 1,
+      "1967": 2,
+      "1968": 1,
+      "1969": 4,
+      "1970": 2,
+      "1971": 2,
+      "1972": 2,
+      "1973": 2,
+      "1974": 3,
+      "1975": 4,
+      "1976": 2,
+      "1977": 2,
+      "1978": 4,
+      "1979": 6,
+      "1980": 9,
+      "1981": 5,
+      "1982": 8,
+      "1983": 12,
+      "1984": 13,
+      "1985": 14,
+      "1986": 15,
+      "1987": 17,
+      "1988": 20,
+      "1989": 28,
+      "1990": 22,
+      "1991": 33,
+      "1992": 33,
+      "1993": 31,
+      "1994": 26,
+      "1995": 24,
+      "1996": 39,
+      "1997": 40,
+      "1998": 41,
+      "1999": 42,
+      "2000": 61,
+      "2001": 54,
+      "2002": 50,
+      "2003": 74,
+      "2004": 66,
+      "2005": 99,
+      "2006": 101,
+      "2007": 96,
+      "2008": 61,
+      "2009": 83,
+      "2010": 85,
+      "2011": 99,
+      "2012": 93,
+      "2013": 90,
+      "2014": 68,
+      "2015": 81,
+      "2016": 80,
+      "2017": 96,
+      "2018": 87,
+      "2019": 99,
+      "2020": 3,
+      "2021": 52,
+      "2022": 43,
+      "2023": 51,
+      "2024": 40
+    }
+  },
+  "missingness_everest": {
+    "smtdays": 252,
+    "totdays": 461,
+    "bcdate": 236,
+    "smtdate": 77,
+    "campsites": 28,
+    "highpoint": 0,
+    "totmembers": 0,
+    "tothired": 0,
+    "smthired": 0,
+    "o2used": 0
+  },
+  "ages": {
+    "missing_yob": 1309,
+    "missing_yob_share": 0.0518,
+    "age_lt10": 0,
+    "age_gt80": 5,
+    "age_min": 12.0,
+    "age_max": 86.0,
+    "age_median": 36.0,
+    "age_lt10_if_myear": 385,
+    "age_gt80_if_myear": 54,
+    "age_min_if_myear": -41.0,
+    "age_max_if_myear": 118.0,
+    "sex": {
+      "M": 23129,
+      "F": 2144,
+      "X": 1
+    }
+  },
+  "oxygen": {
+    "exped_o2used_true": 1791,
+    "exped_o2used_share": 0.7631,
+    "member_mo2used_true_share": 0.6113
+  },
+  "references": {
+    "ever_expeditions": 2347,
+    "ever_with_reference": 1240,
+    "ever_reference_rows": 3570
+  },
+  "campsites": {
+    "nonnull": 2319,
+    "with_elevation": 2158,
+    "with_coordinates": 0
+  },
+  "summits_by_year_top": {
+    "2019": 899,
+    "2024": 870,
+    "2018": 848,
+    "2022": 704,
+    "2023": 686,
+    "2017": 680,
+    "2013": 679,
+    "2016": 678
+  },
+  "deaths_everest": {
+    "member": 208,
+    "hired": 132,
+    "member_rows_flagged": 340
+  }
+}

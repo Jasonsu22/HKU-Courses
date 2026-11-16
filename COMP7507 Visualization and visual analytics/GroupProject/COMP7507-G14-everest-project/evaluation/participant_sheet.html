@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Participant sheet — Everest decision support</title>
+<style>
+  @page { size: A4; margin: 15mm 16mm; }
+  :root { --ink:#1b1e22; --muted:#6f6a62; --faint:#9a948a; --line:#ddd6c9; --rust:#b4552d; --navy:#1e4a5f; }
+  * { box-sizing: border-box; }
+  body { margin:0; color:var(--ink); font-family:-apple-system,"Helvetica Neue",Arial,sans-serif; font-size:9.4pt; line-height:1.4; }
+  header { display:flex; justify-content:space-between; align-items:flex-end; border-bottom:1.4pt solid var(--ink); padding-bottom:2.6mm; margin-bottom:3.6mm; }
+  h1 { font-family:"Iowan Old Style",Georgia,serif; font-size:17pt; font-weight:500; margin:0 0 1mm; }
+  .eyebrow { font-size:7pt; letter-spacing:.15em; text-transform:uppercase; color:var(--rust); font-weight:700; }
+  .idbox { font-size:7.6pt; color:var(--muted); text-align:right; line-height:1.7; }
+  .idbox b { color:var(--ink); }
+  .intro { font-size:8.8pt; color:#3c4046; margin-bottom:3.4mm; }
+  .intro b { color:var(--ink); }
+  .task { border-top:.6pt solid var(--line); padding:3mm 0 2.4mm; break-inside:avoid; }
+  .task h2 { font-size:9.6pt; margin:0 0 .8mm; }
+  .task .n { display:inline-block; background:var(--ink); color:#fff; border-radius:50%; width:4.4mm; height:4.4mm;
+             font-size:7pt; font-weight:700; text-align:center; line-height:4.4mm; margin-right:1.6mm; vertical-align:.3mm; }
+  .ask { color:#3c4046; margin-bottom:1.6mm; }
+  .answer { border-bottom:.5pt dashed var(--line); height:7.4mm; }
+  .row { display:flex; justify-content:space-between; align-items:center; margin-top:1.4mm; font-size:7.6pt; color:var(--muted); }
+  .scale span { display:inline-block; border:.5pt solid var(--line); border-radius:99px; width:4.6mm; height:4.6mm;
+                text-align:center; line-height:4.2mm; margin-left:1.2mm; font-size:7pt; color:var(--muted); }
+  .page-break { break-after:page; }
+  h3 { font-size:8pt; letter-spacing:.1em; text-transform:uppercase; color:var(--faint); margin:4mm 0 1.6mm; }
+  .statements { width:100%; border-collapse:collapse; font-size:8.6pt; break-inside:avoid; }
+  .statements td { padding:1.4mm 0; border-bottom:.5pt solid var(--line); }
+  .statements td:first-child { width:72%; }
+  .statements td:last-child { text-align:right; color:var(--muted); letter-spacing:1.2mm; }
+  .closing { margin-top:3mm; }
+  .closing .line { border-bottom:.5pt solid var(--line); height:6mm; margin-bottom:1.6mm; }
+  .thanks { margin-top:4mm; font-size:8.4pt; color:var(--muted); }
+  footer { margin-top:8mm; border-top:.5pt solid var(--line); padding-top:2mm; font-size:7pt; color:var(--faint); display:flex; justify-content:space-between; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="eyebrow">COMP7507 · group 14 · task-based evaluation</div>
+    <h1>Everest decision support — participant sheet</h1>
+  </div>
+  <div class="idbox">
+    Participant <b>P____</b><br>
+    Date <b>____________</b><br>
+    Facilitator <b>____________</b>
+  </div>
+</header>
+
+<p class="intro">
+  Please <b>think aloud</b> while you work: say what you are looking for, what you notice, and what confuses you.
+  There are no wrong answers — we are testing the interface, not you. You can stop at any time.
+  For each task, write your answer and then circle how confident you are <b>(1 = not at all, 5 = very)</b>.
+</p>
+
+<div class="task">
+  <h2><span class="n">1</span>Historical change</h2>
+  <div class="ask">In the <b>History</b> view, find one thing that changed between the 1980s and the 2020s. Point at it and say what it means.</div>
+  <div class="answer"></div>
+  <div class="answer"></div>
+  <div class="row"><span>Your answer</span><span class="scale">Confidence <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span></div>
+</div>
+
+<div class="task">
+  <h2><span class="n">2</span>Compare two sides</h2>
+  <div class="ask">In <b>Routes</b>, keep spring and the 2020–2024 period. Compare the south and north sides: which has the higher success rate, what are the two sample sizes, and would you trust that comparison?</div>
+  <div class="answer"></div>
+  <div class="answer"></div>
+  <div class="answer"></div>
+  <div class="row"><span>Your answer</span><span class="scale">Confidence <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span></div>
+</div>
+
+<div class="task">
+  <h2><span class="n">3</span>Inspect the terrain view</h2>
+  <div class="ask">Stay in <b>Routes</b>. On the map in "Route and terrain", what do the percentages next to the camps mean? Now set the route group to <b>Other</b>: what changes? Is the line between camps a surveyed track?</div>
+  <div class="answer"></div>
+  <div class="answer"></div>
+  <div class="row"><span>Your answer</span><span class="scale">Confidence <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span></div>
+</div>
+
+<div class="task">
+  <h2><span class="n">4</span>Enter a profile</h2>
+  <div class="ask">In <b>Your plan</b>, enter: <b>age 40–49 · male · spring · south · standard route · 20 members · 30 hired · oxygen yes</b>.
+  What is the estimate, the comparable sample size, and what did the comparable group actually do?</div>
+  <div class="answer"></div>
+  <div class="answer"></div>
+  <div class="answer"></div>
+  <div class="row"><span>Your answer</span><span class="scale">Confidence <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span></div>
+</div>
+
+<div class="task">
+  <h2><span class="n">5</span>What if the plan changes?</h2>
+  <div class="ask">Now switch <b>oxygen to No</b>. What happens to the number, and what would you tell a friend about how much to trust it?</div>
+  <div class="answer"></div>
+  <div class="answer"></div>
+  <div class="answer"></div>
+  <div class="row"><span>Your answer</span><span class="scale">Confidence <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span></div>
+</div>
+
+<div class="task">
+  <h2><span class="n">6</span>Find a limitation</h2>
+  <div class="ask">Open <b>Data &amp; methods</b> and tell me one limitation of the estimate.</div>
+  <div class="answer"></div>
+  <div class="row"><span>Your answer</span><span class="scale">Confidence <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span></div>
+</div>
+
+<div class="task">
+  <h2><span class="n">7</span>A plan through time</h2>
+  <div class="ask">Reset the plan, then open <b>Over time</b>. Has this plan's success stayed stable? How does the most recent period compare with the model's number?</div>
+  <div class="answer"></div>
+  <div class="answer"></div>
+  <div class="row"><span>Your answer</span><span class="scale">Confidence <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span></div>
+</div>
+
+<div class="task">
+  <h2><span class="n">8</span>Connections</h2>
+  <div class="ask">Open <b>Connections</b>. Name two choices that often occur together. How did people with both do, compared with the average?</div>
+  <div class="answer"></div>
+  <div class="answer"></div>
+  <div class="row"><span>Your answer</span><span class="scale">Confidence <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span></div>
+</div>
+
+<h3>About the interface</h3>
+<table class="statements">
+  <tr><td>I could find what I needed without help.</td><td>1 2 3 4 5</td></tr>
+  <tr><td>The charts made the comparison clear.</td><td>1 2 3 4 5</td></tr>
+  <tr><td>I understood what the estimate means.</td><td>1 2 3 4 5</td></tr>
+  <tr><td>I understood what the tool cannot tell me.</td><td>1 2 3 4 5</td></tr>
+  <tr><td>I would use this if I were planning a trip.</td><td>1 2 3 4 5</td></tr>
+</table>
+
+<div class="closing">
+  <h3>In your own words</h3>
+  <div class="ask" style="color:var(--muted)">The most confusing moment was…</div>
+  <div class="line"></div>
+  <div class="ask" style="color:var(--muted)">Something I expected but did not find…</div>
+  <div class="line"></div>
+  <div class="ask" style="color:var(--muted)">If I could change one thing…</div>
+  <div class="line"></div>
+</div>
+
+<p class="thanks">Thank you. Your anonymous answers will be summarised as completion rates, time, and
+revision notes for a COMP7507 course project.</p>
+
+<footer>
+  <span>COMP7507 · group 14 · participant sheet</span>
+  <span>Anonymous ID only · no personal data collected</span>
+</footer>
+
+</body>
+</html>
