@@ -1284,14 +1284,356 @@
         "id": "cm0043dc",
         "type": "comment",
         "z": "dc0llect0r0tab01",
-        "name": "Create MongoDB indexes at start-up",
-        "info": "",
+        "name": "HKO regional weather \u2013 temperature per station",
+        "info": "Per-station temperature every 10 min; temperature, humidity and wind merge into the same {station, time} document.",
         "x": 180,
         "y": 760,
         "wires": []
     },
     {
-        "id": "in0046dc",
+        "id": "in0048dc",
+        "type": "inject",
+        "z": "dc0llect0r0tab01",
+        "name": "every 10 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "3",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 800,
+        "wires": [
+            [
+                "hr0047dc"
+            ]
+        ]
+    },
+    {
+        "id": "hr0047dc",
+        "type": "http request",
+        "z": "dc0llect0r0tab01",
+        "name": "GET hko_regional",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://data.weather.gov.hk/weatherAPI/hko_data/regional-weather/latest_1min_temperature.csv",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 360,
+        "y": 800,
+        "wires": [
+            [
+                "fn0046dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0046dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Parse -> hko_regional",
+        "func": "if (msg.statusCode !== 200 || !msg.payload) {\n    node.status({fill: 'red', shape: 'ring', text: 'HTTP ' + msg.statusCode});\n    return null;\n}\n\n// HKO regional weather CSV (temperature) -> one document per (station, time)\nconst num = x => { const v = parseFloat(x); return isNaN(v) ? null : v; };\nconst ops = [];\nfor (const line of String(msg.payload).replace(/^\ufeff/, '').split(/\\r?\\n/).slice(1)) {\n    const c = line.split(',').map(s => s.trim());\n    if (c.length < 3 || !/^\\d{12}$/.test(c[0])) continue;\n    const t = c[0];\n    const time = new Date(`${t.slice(0,4)}-${t.slice(4,6)}-${t.slice(6,8)}T${t.slice(8,10)}:${t.slice(10,12)}:00+08:00`);\n    const f = {temperature: num(c[2])};\n    Object.keys(f).forEach(k => f[k] === null && delete f[k]);\n    if (!Object.keys(f).length) continue;\n    ops.push({updateOne: {filter: {station: c[1], time},\n        update: {$set: Object.assign({station: c[1], time}, f), $setOnInsert: {fetchedAt: new Date(), source: 'live'}},\n        upsert: true}});\n}\nif (!ops.length) return null;\nnode.status({fill: 'blue', shape: 'dot', text: ops.length + ' stations'});\nmsg.payload = [ops, {ordered: false}];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 800,
+        "wires": [
+            [
+                "db0045dc"
+            ]
+        ]
+    },
+    {
+        "id": "db0045dc",
+        "type": "mongodb3 in",
+        "z": "dc0llect0r0tab01",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "bulkWrite hko_regional",
+        "collection": "hko_regional",
+        "operation": "bulkWrite",
+        "x": 860,
+        "y": 800,
+        "wires": [
+            [
+                "st0044dc"
+            ]
+        ]
+    },
+    {
+        "id": "st0044dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Stored",
+        "func": "// Show how many documents were inserted/updated by the bulkWrite\nconst r = msg.payload || {};\nconst ins = r.nUpserted ?? r.upsertedCount ?? 0;\nconst mod = r.nModified ?? r.modifiedCount ?? 0;\nconst t = new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'});\nnode.status({fill: 'green', shape: 'dot', text: `${t}  +${ins} new, ${mod} updated`});\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cm0049dc",
+        "type": "comment",
+        "z": "dc0llect0r0tab01",
+        "name": "HKO regional weather \u2013 humidity per station",
+        "info": "Per-station humidity every 10 min; temperature, humidity and wind merge into the same {station, time} document.",
+        "x": 180,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "in0054dc",
+        "type": "inject",
+        "z": "dc0llect0r0tab01",
+        "name": "every 10 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "4",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 900,
+        "wires": [
+            [
+                "hr0053dc"
+            ]
+        ]
+    },
+    {
+        "id": "hr0053dc",
+        "type": "http request",
+        "z": "dc0llect0r0tab01",
+        "name": "GET hko_regional",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://data.weather.gov.hk/weatherAPI/hko_data/regional-weather/latest_1min_humidity.csv",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 360,
+        "y": 900,
+        "wires": [
+            [
+                "fn0052dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0052dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Parse -> hko_regional",
+        "func": "if (msg.statusCode !== 200 || !msg.payload) {\n    node.status({fill: 'red', shape: 'ring', text: 'HTTP ' + msg.statusCode});\n    return null;\n}\n\n// HKO regional weather CSV (humidity) -> one document per (station, time)\nconst num = x => { const v = parseFloat(x); return isNaN(v) ? null : v; };\nconst ops = [];\nfor (const line of String(msg.payload).replace(/^\ufeff/, '').split(/\\r?\\n/).slice(1)) {\n    const c = line.split(',').map(s => s.trim());\n    if (c.length < 3 || !/^\\d{12}$/.test(c[0])) continue;\n    const t = c[0];\n    const time = new Date(`${t.slice(0,4)}-${t.slice(4,6)}-${t.slice(6,8)}T${t.slice(8,10)}:${t.slice(10,12)}:00+08:00`);\n    const f = {humidity: num(c[2])};\n    Object.keys(f).forEach(k => f[k] === null && delete f[k]);\n    if (!Object.keys(f).length) continue;\n    ops.push({updateOne: {filter: {station: c[1], time},\n        update: {$set: Object.assign({station: c[1], time}, f), $setOnInsert: {fetchedAt: new Date(), source: 'live'}},\n        upsert: true}});\n}\nif (!ops.length) return null;\nnode.status({fill: 'blue', shape: 'dot', text: ops.length + ' stations'});\nmsg.payload = [ops, {ordered: false}];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 900,
+        "wires": [
+            [
+                "db0051dc"
+            ]
+        ]
+    },
+    {
+        "id": "db0051dc",
+        "type": "mongodb3 in",
+        "z": "dc0llect0r0tab01",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "bulkWrite hko_regional",
+        "collection": "hko_regional",
+        "operation": "bulkWrite",
+        "x": 860,
+        "y": 900,
+        "wires": [
+            [
+                "st0050dc"
+            ]
+        ]
+    },
+    {
+        "id": "st0050dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Stored",
+        "func": "// Show how many documents were inserted/updated by the bulkWrite\nconst r = msg.payload || {};\nconst ins = r.nUpserted ?? r.upsertedCount ?? 0;\nconst mod = r.nModified ?? r.modifiedCount ?? 0;\nconst t = new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'});\nnode.status({fill: 'green', shape: 'dot', text: `${t}  +${ins} new, ${mod} updated`});\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cm0055dc",
+        "type": "comment",
+        "z": "dc0llect0r0tab01",
+        "name": "HKO regional weather \u2013 wind per station",
+        "info": "Per-station wind every 10 min; temperature, humidity and wind merge into the same {station, time} document.",
+        "x": 180,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "in0060dc",
+        "type": "inject",
+        "z": "dc0llect0r0tab01",
+        "name": "every 10 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 1000,
+        "wires": [
+            [
+                "hr0059dc"
+            ]
+        ]
+    },
+    {
+        "id": "hr0059dc",
+        "type": "http request",
+        "z": "dc0llect0r0tab01",
+        "name": "GET hko_regional",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://data.weather.gov.hk/weatherAPI/hko_data/regional-weather/latest_10min_wind.csv",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 360,
+        "y": 1000,
+        "wires": [
+            [
+                "fn0058dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0058dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Parse -> hko_regional",
+        "func": "if (msg.statusCode !== 200 || !msg.payload) {\n    node.status({fill: 'red', shape: 'ring', text: 'HTTP ' + msg.statusCode});\n    return null;\n}\n\n// HKO regional weather CSV (wind) -> one document per (station, time)\nconst num = x => { const v = parseFloat(x); return isNaN(v) ? null : v; };\nconst ops = [];\nfor (const line of String(msg.payload).replace(/^\ufeff/, '').split(/\\r?\\n/).slice(1)) {\n    const c = line.split(',').map(s => s.trim());\n    if (c.length < 3 || !/^\\d{12}$/.test(c[0])) continue;\n    const t = c[0];\n    const time = new Date(`${t.slice(0,4)}-${t.slice(4,6)}-${t.slice(6,8)}T${t.slice(8,10)}:${t.slice(10,12)}:00+08:00`);\n    const f = {windDir: c[2] || null, windSpeed: num(c[3]), gust: num(c[4])};\n    Object.keys(f).forEach(k => f[k] === null && delete f[k]);\n    if (!Object.keys(f).length) continue;\n    ops.push({updateOne: {filter: {station: c[1], time},\n        update: {$set: Object.assign({station: c[1], time}, f), $setOnInsert: {fetchedAt: new Date(), source: 'live'}},\n        upsert: true}});\n}\nif (!ops.length) return null;\nnode.status({fill: 'blue', shape: 'dot', text: ops.length + ' stations'});\nmsg.payload = [ops, {ordered: false}];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 1000,
+        "wires": [
+            [
+                "db0057dc"
+            ]
+        ]
+    },
+    {
+        "id": "db0057dc",
+        "type": "mongodb3 in",
+        "z": "dc0llect0r0tab01",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "bulkWrite hko_regional",
+        "collection": "hko_regional",
+        "operation": "bulkWrite",
+        "x": 860,
+        "y": 1000,
+        "wires": [
+            [
+                "st0056dc"
+            ]
+        ]
+    },
+    {
+        "id": "st0056dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Stored",
+        "func": "// Show how many documents were inserted/updated by the bulkWrite\nconst r = msg.payload || {};\nconst ins = r.nUpserted ?? r.upsertedCount ?? 0;\nconst mod = r.nModified ?? r.modifiedCount ?? 0;\nconst t = new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'});\nnode.status({fill: 'green', shape: 'dot', text: `${t}  +${ins} new, ${mod} updated`});\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 1000,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cm0061dc",
+        "type": "comment",
+        "z": "dc0llect0r0tab01",
+        "name": "Create MongoDB indexes at start-up",
+        "info": "",
+        "x": 180,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "in0064dc",
         "type": "inject",
         "z": "dc0llect0r0tab01",
         "name": "on deploy",
@@ -1308,19 +1650,19 @@
         "payload": "",
         "payloadType": "date",
         "x": 150,
-        "y": 800,
+        "y": 1100,
         "wires": [
             [
-                "fn0045dc"
+                "fn0063dc"
             ]
         ]
     },
     {
-        "id": "fn0045dc",
+        "id": "fn0063dc",
         "type": "function",
         "z": "dc0llect0r0tab01",
         "name": "Index definitions",
-        "func": "// Run once at start-up: indexes that make upserts and time-range queries fast\nconst idx = [\n  ['aqhi',              {station: 1, time: 1}, {unique: true}],\n  ['aqhi',              {time: 1}, {}],\n  ['ae_waiting',        {hospital: 1, updateTime: 1}, {unique: true}],\n  ['ae_waiting',        {updateTime: 1}, {}],\n  ['journey_time',      {from: 1, to: 1, captureTime: 1}, {unique: true}],\n  ['journey_time',      {captureTime: 1}, {}],\n  ['traffic_speed',     {snapshotTime: 1}, {unique: true}],\n  ['carpark_vacancy',   {slotTime: 1}, {unique: true}],\n  ['carpark_info',      {park_Id: 1}, {unique: true}],\n  ['weather_warnings',  {observedAt: 1}, {}],\n  ['Weather Report',    {updateTime: 1}, {}]\n];\nreturn [idx.map(([c, k, o]) => ({collection: c, operation: 'createIndex', payload: [k, o]}))];",
+        "func": "// Run once at start-up: indexes that make upserts and time-range queries fast\nconst idx = [\n  ['aqhi',              {station: 1, time: 1}, {unique: true}],\n  ['aqhi',              {time: 1}, {}],\n  ['ae_waiting',        {hospital: 1, updateTime: 1}, {unique: true}],\n  ['ae_waiting',        {updateTime: 1}, {}],\n  ['journey_time',      {from: 1, to: 1, captureTime: 1}, {unique: true}],\n  ['journey_time',      {captureTime: 1}, {}],\n  ['traffic_speed',     {snapshotTime: 1}, {unique: true}],\n  ['carpark_vacancy',   {slotTime: 1}, {unique: true}],\n  ['carpark_info',      {park_Id: 1}, {unique: true}],\n  ['weather_warnings',  {observedAt: 1}, {}],\n  ['hko_regional',      {station: 1, time: 1}, {unique: true}],\n  ['hko_regional',      {time: 1}, {}],\n  ['Weather Report',    {updateTime: 1}, {}]\n];\nreturn [idx.map(([c, k, o]) => ({collection: c, operation: 'createIndex', payload: [k, o]}))];",
         "outputs": 1,
         "timeout": 0,
         "noerr": 0,
@@ -1328,15 +1670,15 @@
         "finalize": "",
         "libs": [],
         "x": 360,
-        "y": 800,
+        "y": 1100,
         "wires": [
             [
-                "db0044dc"
+                "db0062dc"
             ]
         ]
     },
     {
-        "id": "db0044dc",
+        "id": "db0062dc",
         "type": "mongodb3 in",
         "z": "dc0llect0r0tab01",
         "service": "_ext_",
@@ -1345,28 +1687,28 @@
         "collection": "",
         "operation": "",
         "x": 600,
-        "y": 800,
+        "y": 1100,
         "wires": [
             []
         ]
     },
     {
-        "id": "ct0048dc",
+        "id": "ct0066dc",
         "type": "catch",
         "z": "dc0llect0r0tab01",
         "name": "Errors",
         "scope": null,
         "uncaught": false,
         "x": 140,
-        "y": 860,
+        "y": 1160,
         "wires": [
             [
-                "dg0047dc"
+                "dg0065dc"
             ]
         ]
     },
     {
-        "id": "dg0047dc",
+        "id": "dg0065dc",
         "type": "debug",
         "z": "dc0llect0r0tab01",
         "name": "Collector errors",
@@ -1379,7 +1721,7 @@
         "statusVal": "error.message",
         "statusType": "msg",
         "x": 360,
-        "y": 860,
+        "y": 1160,
         "wires": []
     }
 ]

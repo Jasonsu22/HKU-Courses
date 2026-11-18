@@ -15,6 +15,7 @@ docker compose up -d --build
 | Collection | Source (data.gov.hk) | Poll | Key |
 |---|---|---|---|
 | `Weather Report` | HKO current weather report (`rhrread`) | 5 min | updateTime |
+| `hko_regional` | HKO per-station temperature / humidity / wind CSVs (merged) | 10 min | station + time |
 | `weather_warnings` | HKO warning summary (`warnsum`) | 10 min, stored on change | observedAt |
 | `aqhi` | EPD past-24h AQHI, all stations | 30 min | station + time |
 | `ae_waiting` | Hospital Authority A&E waiting time v2 | 10 min | hospital + updateTime |
@@ -24,6 +25,17 @@ docker compose up -d --build
 | `carpark_info` | Carpark static info | daily | park_Id |
 
 All writes are `bulkWrite` upserts on the key above, so re-polling never creates duplicates.
+
+## Historical backfill
+The live feeds only start on 18 Nov 2026, so earlier data is loaded from the
+[data.gov.hk Historical Archive](https://data.gov.hk/en/help/api-spec#historicalAPI):
+```bash
+uv run scripts/backfill_archive.py --start 20261020 --end 20261117
+```
+It writes with the same schema as the Node-RED collectors, tagged `source: "archive"`.
+Archive coverage: AQHI, A&E and HKO regional weather are continuous from 20 Oct;
+journey time ends 31 Oct and road speed ends 5 Nov (gaps until live collection starts);
+carpark vacancy and HKO rainfall are not archived (live only).
 
 ## Regenerating the collection flow
 `python3 scripts/build_flows.py` rebuilds `nodered/data/flows.json` (sample HKO tab + Data Collection tab),

@@ -216,6 +216,36 @@ msg.payload = [[{insertOne: {document: {observedAt: t, activeCodes: active.map(a
 return msg;
 """
 
+def parse_hko_csv(kind):
+    """HKO regional-weather CSV -> hko_regional {station, time, fields}; the 3 CSVs merge into one doc."""
+    fields = {
+        "temperature": "{temperature: num(c[2])}",
+        "humidity": "{humidity: num(c[2])}",
+        "wind": "{windDir: c[2] || null, windSpeed: num(c[3]), gust: num(c[4])}",
+    }[kind]
+    return HTTP_GUARD + r"""
+// HKO regional weather CSV (""" + kind + r""") -> one document per (station, time)
+const num = x => { const v = parseFloat(x); return isNaN(v) ? null : v; };
+const ops = [];
+for (const line of String(msg.payload).replace(/^﻿/, '').split(/\r?\n/).slice(1)) {
+    const c = line.split(',').map(s => s.trim());
+    if (c.length < 3 || !/^\d{12}$/.test(c[0])) continue;
+    const t = c[0];
+    const time = new Date(`${t.slice(0,4)}-${t.slice(4,6)}-${t.slice(6,8)}T${t.slice(8,10)}:${t.slice(10,12)}:00+08:00`);
+    const f = """ + fields + r""";
+    Object.keys(f).forEach(k => f[k] === null && delete f[k]);
+    if (!Object.keys(f).length) continue;
+    ops.push({updateOne: {filter: {station: c[1], time},
+        update: {$set: Object.assign({station: c[1], time}, f), $setOnInsert: {fetchedAt: new Date(), source: 'live'}},
+        upsert: true}});
+}
+if (!ops.length) return null;
+node.status({fill: 'blue', shape: 'dot', text: ops.length + ' stations'});
+msg.payload = [ops, {ordered: false}];
+return msg;
+"""
+
+
 INDEXES = r"""
 // Run once at start-up: indexes that make upserts and time-range queries fast
 const idx = [
@@ -229,6 +259,8 @@ const idx = [
   ['carpark_vacancy',   {slotTime: 1}, {unique: true}],
   ['carpark_info',      {park_Id: 1}, {unique: true}],
   ['weather_warnings',  {observedAt: 1}, {}],
+  ['hko_regional',      {station: 1, time: 1}, {unique: true}],
+  ['hko_regional',      {time: 1}, {}],
   ['Weather Report',    {updateTime: 1}, {}]
 ];
 return [idx.map(([c, k, o]) => ({collection: c, operation: 'createIndex', payload: [k, o]}))];
@@ -313,26 +345,35 @@ def build():
               "Rainstorm / typhoon / hot-weather warnings in force; a document is written only when "
               "the set of warnings changes.")
 
+    for i, (kind, csvname) in enumerate([("temperature", "latest_1min_temperature"),
+                                         ("humidity", "latest_1min_humidity"),
+                                         ("wind", "latest_10min_wind")]):
+        collector(f"HKO regional weather – {kind} per station",
+                  f"https://data.weather.gov.hk/weatherAPI/hko_data/regional-weather/{csvname}.csv",
+                  "txt", 600, parse_hko_csv(kind), "hko_regional", 800 + i * 100,
+                  f"Per-station {kind} every 10 min; temperature, humidity and wind merge into the "
+                  "same {station, time} document.", delay=3 + i)
+
     # index creation at start-up
-    comment("Create MongoDB indexes at start-up", 180, 760)
+    comment("Create MongoDB indexes at start-up", 180, 1060)
     db_idx, fn_idx = nid("db"), nid("fn")
     add({"id": nid("in"), "type": "inject", "z": TAB, "name": "on deploy", "props": [{"p": "payload"}],
          "repeat": "", "crontab": "", "once": True, "onceDelay": "1", "topic": "", "payload": "",
-         "payloadType": "date", "x": 150, "y": 800, "wires": [[fn_idx]]})
+         "payloadType": "date", "x": 150, "y": 1100, "wires": [[fn_idx]]})
     add({"id": fn_idx, "type": "function", "z": TAB, "name": "Index definitions", "func": INDEXES.strip(),
          "outputs": 1, "timeout": 0, "noerr": 0, "initialize": "", "finalize": "", "libs": [],
-         "x": 360, "y": 800, "wires": [[db_idx]]})
+         "x": 360, "y": 1100, "wires": [[db_idx]]})
     add({"id": db_idx, "type": "mongodb3 in", "z": TAB, "service": "_ext_", "configNode": DB_CFG,
          "name": "createIndex (msg.collection)", "collection": "", "operation": "",
-         "x": 600, "y": 800, "wires": [[]]})
+         "x": 600, "y": 1100, "wires": [[]]})
 
     # error catcher
     dbg = nid("dg")
     add({"id": nid("ct"), "type": "catch", "z": TAB, "name": "Errors", "scope": None, "uncaught": False,
-         "x": 140, "y": 860, "wires": [[dbg]]})
+         "x": 140, "y": 1160, "wires": [[dbg]]})
     add({"id": dbg, "type": "debug", "z": TAB, "name": "Collector errors", "active": True, "tosidebar": True,
          "console": True, "tostatus": True, "complete": "error", "targetType": "msg",
-         "statusVal": "error.message", "statusType": "msg", "x": 360, "y": 860, "wires": []})
+         "statusVal": "error.message", "statusType": "msg", "x": 360, "y": 1160, "wires": []})
 
     flows = sample + nodes
     OUT.parent.mkdir(parents=True, exist_ok=True)
