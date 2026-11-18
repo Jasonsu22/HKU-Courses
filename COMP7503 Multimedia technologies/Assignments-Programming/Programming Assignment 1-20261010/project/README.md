@@ -57,3 +57,18 @@ and feeds the dashboards.
 | `traffic_patterns` | UC3 | Weekday vs weekend speed / congestion by hour |
 | `carpark_status` | UC3 | Free spaces by district (joined with `carpark_info`), trend, hour profile |
 | `correlations` | All | Hourly Pearson r between 8 variables, raw and time-of-day-adjusted |
+
+## Dashboards (http://localhost:1880/ui)
+`scripts/dashboards.py` builds the **Dashboards** flow tab: a link-in on the analytics bus routes each result
+(switch on `msg.topic`) to a view function that formats it for the widgets.
+
+| Page | Shows |
+|---|---|
+| Overview | Headline KPIs, current weather & warnings, alerts, key insights, data-collection health |
+| Air Quality (UC1) | AQHI by station with health-risk band, 7-day trend, typical day, daily mean/peak, temperature |
+| A&E Waiting (UC2) | Wait now vs typical per hospital, 7-day trend, hour-of-day and day-of-week profile, 28-day ranking |
+| Mobility (UC3) | Network speed vs typical, journey delays, weekday/weekend profiles, carpark vacancy by district |
+| Correlations | Time-of-day-adjusted correlation matrix, raw vs adjusted r table, scatter plots, method note |
+
+Charts use node-red-dashboard `ui_chart` (hover tooltips); tables, KPI cards, heatmap and scatter plots are
+HTML/SVG rendered by `ui_template`. Time axes are shown in Hong Kong time on any viewer's computer.

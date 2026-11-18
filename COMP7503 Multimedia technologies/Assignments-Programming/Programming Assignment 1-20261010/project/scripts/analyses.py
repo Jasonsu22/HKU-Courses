@@ -412,7 +412,72 @@ msg.payload = {
 return msg;
 """
 
+# ------------------------------------------------------------------ current weather & data health
+WEATHER_Q = r"""
+msg.queries = [
+  {key: 'stations', collection: 'hko_regional', pipeline: [
+    {$match: {time: {$gte: new Date(Date.now() - 45 * 60e3)}}},
+    {$sort: {time: -1}},
+    {$group: {_id: '$station', time: {$first: '$time'}, temp: {$max: '$temperature'}, hum: {$max: '$humidity'},
+              wind: {$max: '$windSpeed'}, gust: {$max: '$gust'}}}]},
+  {key: 'warnings', collection: 'weather_warnings', pipeline: [{$sort: {observedAt: -1}}, {$limit: 1}]},
+  {key: 'report', collection: 'Weather Report', pipeline: [{$sort: {_id: -1}}, {$limit: 1},
+    {$project: {rainfall: 1, updateTime: 1}}]},
+  {key: 'trend', collection: 'hko_regional', pipeline: [
+    {$match: {time: {$gte: new Date(Date.now() - 2 * DAY)}}},
+    {$group: {_id: {$dateTrunc: {date: '$time', unit: 'hour'}}, temp: {$avg: '$temperature'}, hum: {$avg: '$humidity'}}},
+    {$sort: {_id: 1}}]}
+];
+return msg;
+"""
+
+WEATHER_C = r"""
+const R = msg.results, st = R.stations;
+const avg = f => { const v = st.map(s => s[f]).filter(x => x != null); return v.length ? r1(v.reduce((a, b) => a + b, 0) / v.length) : null; };
+const ext = (f, cmp) => st.filter(s => s[f] != null).reduce((m, s) => !m || cmp(s[f], m[f]) ? s : m, null);
+const hot = ext('temp', (a, b) => a > b), cool = ext('temp', (a, b) => a < b), gusty = ext('gust', (a, b) => a > b);
+const w = R.warnings[0] || {warnings: []};
+const rain = R.report[0] && R.report[0].rainfall;
+const maxRain = rain ? Math.max(...rain.data.map(d => d.max || 0)) : null;
+msg.payload = {
+    asOf: st.reduce((m, s) => s.time > m ? s.time : m, new Date(0)),
+    temperature: avg('temp'), humidity: avg('hum'), windSpeed: avg('wind'),
+    hottest: hot && {station: hot._id, temp: hot.temp}, coolest: cool && {station: cool._id, temp: cool.temp},
+    gustiest: gusty && {station: gusty._id, gust: gusty.gust},
+    warnings: w.warnings.map(x => x.name), maxHourlyRain: maxRain,
+    charts: {
+        trend: [{series: ['Temperature (°C)'], data: [R.trend.map(d => ({x: new Date(d._id).getTime(), y: r1(d.temp)}))], labels: ['']}]
+    }
+};
+return msg;
+"""
+
+HEALTH_Q = r"""
+const C = [['Weather Report', 'updateTime'], ['hko_regional', 'time'], ['weather_warnings', 'observedAt'],
+           ['aqhi', 'time'], ['ae_waiting', 'updateTime'], ['journey_time', 'captureTime'],
+           ['traffic_speed', 'snapshotTime'], ['carpark_vacancy', 'slotTime'], ['carpark_info', 'updatedAt']];
+msg.queries = C.map(([c, f]) => ({key: c, collection: c, pipeline: [
+    {$group: {_id: null, n: {$sum: 1}, first: {$min: '$' + f}, last: {$max: '$' + f},
+              archived: {$sum: {$cond: [{$eq: ['$source', 'archive']}, 1, 0]}}}}]}));
+return msg;
+"""
+
+HEALTH_C = r"""
+const rows = Object.keys(msg.results).map(c => {
+    const d = msg.results[c][0] || {};
+    const last = d.last ? new Date(d.last) : null;
+    const ageMin = last ? Math.round((now - last) / 60e3) : null;
+    return {collection: c, documents: d.n || 0, archived: d.archived || 0,
+            first: d.first ? new Date(d.first) : null, last, ageMin,
+            days: d.first ? r1((last - new Date(d.first)) / DAY) : 0};
+});
+msg.payload = {collections: rows, totalDocuments: rows.reduce((a, r) => a + r.documents, 0)};
+return msg;
+"""
+
 ANALYSES = [
+    ("weather_now", "Current weather", 600, WEATHER_Q, WEATHER_C),
+    ("data_health", "Data collection health", 600, HEALTH_Q, HEALTH_C),
     ("aqhi_latest", "UC1 · Current AQHI & health risk", 900, AQHI_LATEST_Q, AQHI_LATEST_C),
     ("aqhi_patterns", "UC1 · AQHI trend & daily pattern", 1800, AQHI_PATTERN_Q, AQHI_PATTERN_C),
     ("ae_status", "UC2 · A&E waiting now vs typical", 900, AE_STATUS_Q, AE_STATUS_C),

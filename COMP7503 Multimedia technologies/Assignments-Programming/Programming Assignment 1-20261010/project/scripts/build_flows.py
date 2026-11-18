@@ -397,7 +397,7 @@ return msg;""", "wires": [[store_db]]})
              "func": compute, "wires": [[BUS_OUT]]})
         y += 60
     add({"id": BUS_OUT, "type": "link out", "z": ATAB, "name": "to analytics-bus", "mode": "link",
-         "links": [BUS_IN], "x": 1100, "y": 320 + 60 * (len(ANALYSES) - 1) // 2, "wires": []})
+         "links": [BUS_IN, "da5hboard0in0001"], "x": 1100, "y": 320 + 60 * (len(ANALYSES) - 1) // 2, "wires": []})
 
     dbg = nid("dg")
     add({"id": nid("ct"), "type": "catch", "z": ATAB, "name": "Errors", "scope": None, "uncaught": False,
@@ -481,6 +481,25 @@ def build():
          "statusVal": "error.message", "statusType": "msg", "x": 360, "y": 1160, "wires": []})
 
     build_analysis_tab()
+    from dashboards import build_dashboard_tab
+    build_dashboard_tab(add, nid, None)
+    # dashboard look: dark theme with the validated palette, site name; sample page moved to the end
+    for n in sample:
+        if n["type"] == "ui_base":
+            ts = n["theme"]["themeState"]
+            for k, v in {"base-color": "#3987e5", "page-titlebar-backgroundColor": "#1a1a19",
+                         "page-backgroundColor": "#111111", "page-sidebar-backgroundColor": "#1a1a19",
+                         "group-textColor": "#c3c2b7", "group-borderColor": "#383835",
+                         "group-backgroundColor": "#1a1a19", "widget-textColor": "#f0efec",
+                         "widget-backgroundColor": "#3987e5", "widget-borderColor": "#383835"}.items():
+                ts[k] = {"value": v, "edited": True}
+            n["theme"]["darkTheme"]["default"] = n["theme"]["darkTheme"]["baseColor"] = "#3987e5"
+            n.setdefault("site", {})
+            n["site"].update({"name": "Hong Kong Smart City Monitor", "hideToolbar": "false", "allowSwipe": "false",
+                              "lockMenu": "false", "allowTempTheme": "true", "dateFormat": "DD/MM/YYYY",
+                              "sizes": {"sx": 48, "sy": 48, "gx": 6, "gy": 6, "cx": 6, "cy": 6, "px": 0, "py": 0}})
+        if n["type"] == "ui_tab":
+            n["name"], n["order"] = "HKO Sample (course demo)", 99
 
     flows = sample + nodes
     OUT.parent.mkdir(parents=True, exist_ok=True)
