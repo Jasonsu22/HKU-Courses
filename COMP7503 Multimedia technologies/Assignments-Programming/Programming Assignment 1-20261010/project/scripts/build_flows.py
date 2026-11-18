@@ -302,6 +302,111 @@ def collector(title, url, ret, repeat_s, parse_js, collection, y, info, delay=2)
          "x": 1060, "y": y, "wires": [[]]})
 
 
+ATAB = "an4lysis0tab0001"
+BUS_IN = "an4lysisbus0in01"      # link-in that receives every analysis result
+BUS_OUT = "an4lysisbus0out1"     # link-out each compute node feeds; dashboards add their link-ins here
+RUNNER_IN = "an4lysisrun0in01"
+
+
+def fn(name, code, x, y, wires, z=ATAB, outputs=1):
+    return add({"id": nid("fn"), "type": "function", "z": z, "name": name, "func": code.strip(),
+                "outputs": outputs, "timeout": 0, "noerr": 0, "initialize": "", "finalize": "", "libs": [],
+                "x": x, "y": y, "wires": wires})
+
+
+def build_analysis_tab():
+    from analyses import ANALYSES, COMMON
+
+    add({"id": ATAB, "type": "tab", "label": "Analysis", "disabled": False,
+         "info": "Periodic analyses over the collected data (MongoDB aggregation pipelines + JavaScript). "
+                 "Every result is stored in the `analytics` collection and broadcast on the analytics bus "
+                 "for the dashboards."})
+
+    # ---- shared query runner: runs msg.queries one by one, collects msg.results, returns to caller
+    comment_z = lambda text, x, y, info="": add({"id": nid("cm"), "type": "comment", "z": ATAB, "name": text,
+                                                "info": info, "x": x, "y": y, "wires": []})
+    comment_z("Query runner (called with link call): msg.queries -> msg.results", 230, 40,
+              "Each query is {key, collection, pipeline}. The runner sends them one at a time to a generic "
+              "mongodb3 node (operation aggregate.toArray) and stores each result under msg.results[key].")
+    ret_id, save_id, db_id, next_id = nid("lo"), nid("fn"), nid("db"), nid("fn")
+    add({"id": RUNNER_IN, "type": "link in", "z": ATAB, "name": "run-queries", "links": [], "x": 115, "y": 80,
+         "wires": [[next_id]]})
+    add({"id": next_id, "type": "function", "z": ATAB, "name": "Next query", "outputs": 2, "timeout": 0,
+         "noerr": 0, "initialize": "", "finalize": "", "libs": [], "x": 280, "y": 80,
+         "func": """if (msg._qi === undefined) { msg._qi = 0; msg.results = {}; }
+if (msg._qi < msg.queries.length) {
+    const q = msg.queries[msg._qi];
+    msg.collection = q.collection;
+    msg.operation = 'aggregate.toArray';
+    msg.payload = [q.pipeline, {allowDiskUse: true}];
+    return [msg, null];
+}
+delete msg._qi;
+return [null, msg];""", "wires": [[db_id], [ret_id]]})
+    add({"id": db_id, "type": "mongodb3 in", "z": ATAB, "service": "_ext_", "configNode": DB_CFG,
+         "name": "aggregate (msg.collection)", "collection": "", "operation": "", "x": 500, "y": 60,
+         "wires": [[save_id]]})
+    add({"id": save_id, "type": "function", "z": ATAB, "name": "Save result", "outputs": 1, "timeout": 0,
+         "noerr": 0, "initialize": "", "finalize": "", "libs": [], "x": 700, "y": 60,
+         "func": "// mongodb3 copies the result array into a plain object ({0:..,1:..}); turn it back into an array\n"
+                 "const p = msg.payload;\n"
+                 "msg.results[msg.queries[msg._qi].key] = Array.isArray(p) ? p : Object.values(p || {});\n"
+                 "msg._qi++;\nreturn msg;",
+         "wires": [[next_id]]})
+    add({"id": ret_id, "type": "link out", "z": ATAB, "name": "return", "mode": "return", "links": [],
+         "x": 480, "y": 110, "wires": []})
+
+    # ---- analytics bus: store every result in `analytics` (one document per analysis, overwritten)
+    comment_z("Analytics bus: store latest result of every analysis in `analytics`", 260, 180)
+    store_db = nid("db")
+    add({"id": BUS_IN, "type": "link in", "z": ATAB, "name": "analytics-bus", "links": [BUS_OUT],
+         "x": 115, "y": 220, "wires": [[nid_peek := nid("fn")]]})
+    add({"id": nid_peek, "type": "function", "z": ATAB, "name": "Prepare store", "outputs": 1, "timeout": 0,
+         "noerr": 0, "initialize": "", "finalize": "", "libs": [], "x": 300, "y": 220,
+         "func": """msg.payload = [{_id: msg.topic},
+    {$set: {name: msg.topic, title: msg.title, computedAt: new Date(), result: msg.payload}},
+    {upsert: true}];
+return msg;""", "wires": [[store_db]]})
+    add({"id": store_db, "type": "mongodb3 in", "z": ATAB, "service": "_ext_", "configNode": DB_CFG,
+         "name": "updateOne analytics", "collection": "analytics", "operation": "updateOne",
+         "x": 520, "y": 220, "wires": [[]]})
+
+    # ---- one row per analysis: inject -> define queries -> link call runner -> compute -> bus
+    y = 320
+    comment_z("Analyses (run on deploy, then periodically)", 200, y - 40)
+    for i, (name, title, every, q_js, c_js) in enumerate(ANALYSES):
+        q_id, call_id, c_id = nid("fn"), nid("lc"), nid("fn")
+        add({"id": nid("in"), "type": "inject", "z": ATAB, "name": f"every {every // 60} min",
+             "props": [{"p": "payload"}], "repeat": str(every), "crontab": "", "once": True,
+             "onceDelay": str(8 + i * 2), "topic": "", "payload": "", "payloadType": "date",
+             "x": 140, "y": y, "wires": [[q_id]]})
+        add({"id": q_id, "type": "function", "z": ATAB, "name": f"Queries: {name}", "outputs": 1, "timeout": 0,
+             "noerr": 0, "initialize": "", "finalize": "", "libs": [], "x": 340, "y": y,
+             "func": (COMMON + q_js).strip(), "wires": [[call_id]]})
+        add({"id": call_id, "type": "link call", "z": ATAB, "name": "run-queries", "links": [RUNNER_IN],
+             "linkType": "static", "timeout": "60", "x": 560, "y": y, "wires": [[c_id]]})
+        compute = (COMMON + "\ntry {\nmsg = (function (msg) {\n" + c_js.strip() + "\n})(msg);\n} catch (e) {\n"
+                   "    node.status({fill: 'red', shape: 'ring', text: e.message});\n    node.error(e, msg);\n"
+                   "    return null;\n}\nif (!msg) return null;\n"
+                   f"msg.topic = '{name}';\nmsg.title = {json.dumps(title)};\n"
+                   "delete msg.results; delete msg.queries;\n"
+                   "node.status({fill: 'green', shape: 'dot', text: 'updated ' + new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'})});\n"
+                   "return msg;")
+        add({"id": c_id, "type": "function", "z": ATAB, "name": f"Compute: {title}", "outputs": 1, "timeout": 0,
+             "noerr": 0, "initialize": "", "finalize": "", "libs": [], "x": 820, "y": y,
+             "func": compute, "wires": [[BUS_OUT]]})
+        y += 60
+    add({"id": BUS_OUT, "type": "link out", "z": ATAB, "name": "to analytics-bus", "mode": "link",
+         "links": [BUS_IN], "x": 1100, "y": 320 + 60 * (len(ANALYSES) - 1) // 2, "wires": []})
+
+    dbg = nid("dg")
+    add({"id": nid("ct"), "type": "catch", "z": ATAB, "name": "Errors", "scope": None, "uncaught": False,
+         "x": 140, "y": y + 40, "wires": [[dbg]]})
+    add({"id": dbg, "type": "debug", "z": ATAB, "name": "Analysis errors", "active": True, "tosidebar": True,
+         "console": True, "tostatus": True, "complete": "error", "targetType": "msg",
+         "statusVal": "error.message", "statusType": "msg", "x": 360, "y": y + 40, "wires": []})
+
+
 def build():
     sample = json.loads(SAMPLE.read_text())
     for n in sample:
@@ -374,6 +479,8 @@ def build():
     add({"id": dbg, "type": "debug", "z": TAB, "name": "Collector errors", "active": True, "tosidebar": True,
          "console": True, "tostatus": True, "complete": "error", "targetType": "msg",
          "statusVal": "error.message", "statusType": "msg", "x": 360, "y": 1160, "wires": []})
+
+    build_analysis_tab()
 
     flows = sample + nodes
     OUT.parent.mkdir(parents=True, exist_ok=True)

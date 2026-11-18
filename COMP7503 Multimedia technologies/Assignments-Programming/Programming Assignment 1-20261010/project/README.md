@@ -40,3 +40,20 @@ carpark vacancy and HKO rainfall are not archived (live only).
 ## Regenerating the collection flow
 `python3 scripts/build_flows.py` rebuilds `nodered/data/flows.json` (sample HKO tab + Data Collection tab),
 then `docker restart comp7503-nodered`. Once flows are edited in the editor, export from the editor instead.
+
+## Analysis tab
+`scripts/analyses.py` defines 8 analyses (MongoDB aggregation pipelines + JavaScript), run every 15–30 min.
+A shared query runner (`link call` → `run-queries`) executes each analysis's pipelines; results go to the
+**analytics bus**, which stores the latest result per analysis in the `analytics` collection (`_id` = name)
+and feeds the dashboards.
+
+| Analysis | Use case | Output |
+|---|---|---|
+| `aqhi_latest` | UC1 | AQHI per station, health-risk band, alert |
+| `aqhi_patterns` | UC1 | 7-day trend, hour-of-day profile (general vs roadside), daily mean/max |
+| `ae_status` | UC2 | Current wait per hospital vs typical for this hour, busier-than-usual alert |
+| `ae_patterns` | UC2 | 7-day trend, hour-of-day and day-of-week profile, 28-day hospital ranking |
+| `traffic_status` | UC3 | Network speed vs typical (hour × weekday/weekend), route delays, red routes |
+| `traffic_patterns` | UC3 | Weekday vs weekend speed / congestion by hour |
+| `carpark_status` | UC3 | Free spaces by district (joined with `carpark_info`), trend, hour profile |
+| `correlations` | All | Hourly Pearson r between 8 variables, raw and time-of-day-adjusted |

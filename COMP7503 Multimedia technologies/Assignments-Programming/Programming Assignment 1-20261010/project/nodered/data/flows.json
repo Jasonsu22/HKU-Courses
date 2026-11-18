@@ -1723,5 +1723,887 @@
         "x": 360,
         "y": 1160,
         "wires": []
+    },
+    {
+        "id": "an4lysis0tab0001",
+        "type": "tab",
+        "label": "Analysis",
+        "disabled": false,
+        "info": "Periodic analyses over the collected data (MongoDB aggregation pipelines + JavaScript). Every result is stored in the `analytics` collection and broadcast on the analytics bus for the dashboards."
+    },
+    {
+        "id": "cm0067dc",
+        "type": "comment",
+        "z": "an4lysis0tab0001",
+        "name": "Query runner (called with link call): msg.queries -> msg.results",
+        "info": "Each query is {key, collection, pipeline}. The runner sends them one at a time to a generic mongodb3 node (operation aggregate.toArray) and stores each result under msg.results[key].",
+        "x": 230,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "an4lysisrun0in01",
+        "type": "link in",
+        "z": "an4lysis0tab0001",
+        "name": "run-queries",
+        "links": [],
+        "x": 115,
+        "y": 80,
+        "wires": [
+            [
+                "fn0071dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0071dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Next query",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 280,
+        "y": 80,
+        "func": "if (msg._qi === undefined) { msg._qi = 0; msg.results = {}; }\nif (msg._qi < msg.queries.length) {\n    const q = msg.queries[msg._qi];\n    msg.collection = q.collection;\n    msg.operation = 'aggregate.toArray';\n    msg.payload = [q.pipeline, {allowDiskUse: true}];\n    return [msg, null];\n}\ndelete msg._qi;\nreturn [null, msg];",
+        "wires": [
+            [
+                "db0070dc"
+            ],
+            [
+                "lo0068dc"
+            ]
+        ]
+    },
+    {
+        "id": "db0070dc",
+        "type": "mongodb3 in",
+        "z": "an4lysis0tab0001",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "aggregate (msg.collection)",
+        "collection": "",
+        "operation": "",
+        "x": 500,
+        "y": 60,
+        "wires": [
+            [
+                "fn0069dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0069dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Save result",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 60,
+        "func": "// mongodb3 copies the result array into a plain object ({0:..,1:..}); turn it back into an array\nconst p = msg.payload;\nmsg.results[msg.queries[msg._qi].key] = Array.isArray(p) ? p : Object.values(p || {});\nmsg._qi++;\nreturn msg;",
+        "wires": [
+            [
+                "fn0071dc"
+            ]
+        ]
+    },
+    {
+        "id": "lo0068dc",
+        "type": "link out",
+        "z": "an4lysis0tab0001",
+        "name": "return",
+        "mode": "return",
+        "links": [],
+        "x": 480,
+        "y": 110,
+        "wires": []
+    },
+    {
+        "id": "cm0072dc",
+        "type": "comment",
+        "z": "an4lysis0tab0001",
+        "name": "Analytics bus: store latest result of every analysis in `analytics`",
+        "info": "",
+        "x": 260,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "an4lysisbus0in01",
+        "type": "link in",
+        "z": "an4lysis0tab0001",
+        "name": "analytics-bus",
+        "links": [
+            "an4lysisbus0out1"
+        ],
+        "x": 115,
+        "y": 220,
+        "wires": [
+            [
+                "fn0074dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0074dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Prepare store",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 220,
+        "func": "msg.payload = [{_id: msg.topic},\n    {$set: {name: msg.topic, title: msg.title, computedAt: new Date(), result: msg.payload}},\n    {upsert: true}];\nreturn msg;",
+        "wires": [
+            [
+                "db0073dc"
+            ]
+        ]
+    },
+    {
+        "id": "db0073dc",
+        "type": "mongodb3 in",
+        "z": "an4lysis0tab0001",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "updateOne analytics",
+        "collection": "analytics",
+        "operation": "updateOne",
+        "x": 520,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cm0075dc",
+        "type": "comment",
+        "z": "an4lysis0tab0001",
+        "name": "Analyses (run on deploy, then periodically)",
+        "info": "",
+        "x": 200,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "in0079dc",
+        "type": "inject",
+        "z": "an4lysis0tab0001",
+        "name": "every 15 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "900",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "8",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 320,
+        "wires": [
+            [
+                "fn0076dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0076dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Queries: aqhi_latest",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 320,
+        "func": "const TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\nmsg.queries = [{key: 'latest', collection: 'aqhi', pipeline: [\n    {$match: {time: {$gte: new Date(Date.now() - 2 * DAY)}}},\n    {$sort: {time: -1}},\n    {$group: {_id: '$station', time: {$first: '$time'}, aqhi: {$first: '$aqhi'},\n              raw: {$first: '$aqhiRaw'}, type: {$first: '$stationType'}}},\n    {$sort: {aqhi: -1, _id: 1}}]}];\nreturn msg;",
+        "wires": [
+            [
+                "lc0077dc"
+            ]
+        ]
+    },
+    {
+        "id": "lc0077dc",
+        "type": "link call",
+        "z": "an4lysis0tab0001",
+        "name": "run-queries",
+        "links": [
+            "an4lysisrun0in01"
+        ],
+        "linkType": "static",
+        "timeout": "60",
+        "x": 560,
+        "y": 320,
+        "wires": [
+            [
+                "fn0078dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0078dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Compute: UC1 \u00b7 Current AQHI & health risk",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 320,
+        "func": "\nconst TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\ntry {\nmsg = (function (msg) {\n// EPD health-risk bands\nconst band = a => a <= 3 ? 'Low' : a <= 6 ? 'Moderate' : a === 7 ? 'High' : a <= 10 ? 'Very High' : 'Serious';\nconst advice = {\n  'Low': 'Normal activities.',\n  'Moderate': 'Heart/respiratory patients: watch for symptoms.',\n  'High': 'Sensitive groups: reduce outdoor exertion.',\n  'Very High': 'Sensitive groups: avoid outdoor activity; others reduce exertion.',\n  'Serious': 'Everyone: reduce or avoid outdoor activity.'};\nconst rows = msg.results.latest.map(s => ({station: s._id, type: s.type === 'Roadside Stations' ? 'Roadside' : 'General',\n    aqhi: s.aqhi, display: s.raw, band: band(s.aqhi), time: s.time}));\nconst counts = {};\nrows.forEach(r => counts[r.band] = (counts[r.band] || 0) + 1);\nconst worst = rows[0] || {};\nconst alerts = rows.filter(r => r.aqhi >= 7);\nmsg.payload = {\n    asOf: rows.reduce((m, r) => r.time > m ? r.time : m, new Date(0)),\n    stations: rows, bandCounts: counts, worst,\n    worstAdvice: advice[worst.band],\n    alert: alerts.length ? `${alerts.length} station(s) at High risk or above: ` + alerts.map(a => a.station).join(', ')\n                         : 'No station at High health risk',\n    generalMean: r1(rows.filter(r => r.type === 'General').reduce((a, r, _, A) => a + r.aqhi / A.length, 0)),\n    roadsideMean: r1(rows.filter(r => r.type === 'Roadside').reduce((a, r, _, A) => a + r.aqhi / A.length, 0)),\n    charts: {\n        byStation: [{series: ['AQHI'], data: [rows.map(r => r.aqhi)], labels: rows.map(r => r.station)}]\n    }\n};\nreturn msg;\n})(msg);\n} catch (e) {\n    node.status({fill: 'red', shape: 'ring', text: e.message});\n    node.error(e, msg);\n    return null;\n}\nif (!msg) return null;\nmsg.topic = 'aqhi_latest';\nmsg.title = \"UC1 \\u00b7 Current AQHI & health risk\";\ndelete msg.results; delete msg.queries;\nnode.status({fill: 'green', shape: 'dot', text: 'updated ' + new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'})});\nreturn msg;",
+        "wires": [
+            [
+                "an4lysisbus0out1"
+            ]
+        ]
+    },
+    {
+        "id": "in0083dc",
+        "type": "inject",
+        "z": "an4lysis0tab0001",
+        "name": "every 30 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "1800",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 380,
+        "wires": [
+            [
+                "fn0080dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0080dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Queries: aqhi_patterns",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 380,
+        "func": "const TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\nconst typeExpr = {$cond: [{$eq: ['$stationType', 'Roadside Stations']}, 'Roadside', 'General']};\nmsg.queries = [\n  {key: 'trend', collection: 'aqhi', pipeline: [\n    {$match: {time: {$gte: new Date(Date.now() - 7 * DAY)}}},\n    {$group: {_id: {t: '$time', type: typeExpr}, v: {$avg: '$aqhi'}}},\n    {$sort: {'_id.t': 1}}]},\n  {key: 'diurnal', collection: 'aqhi', pipeline: [\n    {$match: {time: {$gte: new Date(Date.now() - 28 * DAY)}}},\n    {$group: {_id: {h: {$hour: {date: '$time', timezone: TZ}}, type: typeExpr}, v: {$avg: '$aqhi'}}}]},\n  {key: 'daily', collection: 'aqhi', pipeline: [\n    {$group: {_id: {$dateToString: {format: '%Y-%m-%d', date: '$time', timezone: TZ}},\n              mean: {$avg: '$aqhi'}, max: {$max: '$aqhi'}}},\n    {$sort: {_id: 1}}]}\n];\nreturn msg;",
+        "wires": [
+            [
+                "lc0081dc"
+            ]
+        ]
+    },
+    {
+        "id": "lc0081dc",
+        "type": "link call",
+        "z": "an4lysis0tab0001",
+        "name": "run-queries",
+        "links": [
+            "an4lysisrun0in01"
+        ],
+        "linkType": "static",
+        "timeout": "60",
+        "x": 560,
+        "y": 380,
+        "wires": [
+            [
+                "fn0082dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0082dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Compute: UC1 \u00b7 AQHI trend & daily pattern",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 380,
+        "func": "\nconst TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\ntry {\nmsg = (function (msg) {\nconst series = ['General', 'Roadside'];\nconst trend = series.map(s => msg.results.trend.filter(d => d._id.type === s).map(d => ({x: new Date(d._id.t).getTime(), y: r1(d.v)})));\nconst diurnal = series.map(s => { const a = Array(24).fill(null);\n    msg.results.diurnal.filter(d => d._id.type === s).forEach(d => a[d._id.h] = r1(d.v)); return a; });\nconst peakHour = diurnal[1].indexOf(Math.max(...diurnal[1].filter(v => v != null)));\nconst lowHour = diurnal[1].indexOf(Math.min(...diurnal[1].filter(v => v != null)));\nconst daily = msg.results.daily;\nconst worstDay = daily.reduce((m, d) => (!m || d.mean > m.mean) ? d : m, null);\nmsg.payload = {\n    diurnal: {general: diurnal[0], roadside: diurnal[1]},\n    insight: `Roadside AQHI peaks around ${HOURS[peakHour]} (${diurnal[1][peakHour]}) and is lowest around ${HOURS[lowHour]} (${diurnal[1][lowHour]}); ` +\n             `the roadside-general gap reflects vehicle emissions.`,\n    worstDay: worstDay && {date: worstDay._id, mean: r1(worstDay.mean), max: worstDay.max},\n    days: daily.length,\n    charts: {\n        trend: [{series, data: trend, labels: ['']}],\n        diurnal: [{series, data: diurnal, labels: HOURS}],\n        daily: [{series: ['Daily mean AQHI', 'Daily max AQHI'],\n                 data: [daily.map(d => ({x: new Date(d._id + 'T12:00:00+08:00').getTime(), y: r1(d.mean)})),\n                        daily.map(d => ({x: new Date(d._id + 'T12:00:00+08:00').getTime(), y: d.max}))], labels: ['']}]\n    }\n};\nreturn msg;\n})(msg);\n} catch (e) {\n    node.status({fill: 'red', shape: 'ring', text: e.message});\n    node.error(e, msg);\n    return null;\n}\nif (!msg) return null;\nmsg.topic = 'aqhi_patterns';\nmsg.title = \"UC1 \\u00b7 AQHI trend & daily pattern\";\ndelete msg.results; delete msg.queries;\nnode.status({fill: 'green', shape: 'dot', text: 'updated ' + new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'})});\nreturn msg;",
+        "wires": [
+            [
+                "an4lysisbus0out1"
+            ]
+        ]
+    },
+    {
+        "id": "in0087dc",
+        "type": "inject",
+        "z": "an4lysis0tab0001",
+        "name": "every 15 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "900",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "12",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 440,
+        "wires": [
+            [
+                "fn0084dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0084dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Queries: ae_status",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 440,
+        "func": "const TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\nmsg.queries = [\n  {key: 'latest', collection: 'ae_waiting', pipeline: [\n    {$match: {updateTime: {$gte: new Date(Date.now() - DAY)}}},\n    {$sort: {updateTime: -1}},\n    {$group: {_id: '$hospital', t: {$first: '$updateTime'}, t3: {$first: '$t3P50Min'}, t3p95: {$first: '$t3P95Min'},\n              t45: {$first: '$t45P50Min'}, t45p95: {$first: '$t45P95Min'},\n              m1: {$first: '$managingT1'}, m2: {$first: '$managingT2'}}}]},\n  {key: 'typical', collection: 'ae_waiting', pipeline: [\n    {$match: {updateTime: {$gte: new Date(Date.now() - 28 * DAY)}}},\n    {$group: {_id: {hosp: '$hospital', h: {$hour: {date: '$updateTime', timezone: TZ}}},\n              t45: {$avg: '$t45P50Min'}, t3: {$avg: '$t3P50Min'}}}]}\n];\nreturn msg;",
+        "wires": [
+            [
+                "lc0085dc"
+            ]
+        ]
+    },
+    {
+        "id": "lc0085dc",
+        "type": "link call",
+        "z": "an4lysis0tab0001",
+        "name": "run-queries",
+        "links": [
+            "an4lysisrun0in01"
+        ],
+        "linkType": "static",
+        "timeout": "60",
+        "x": 560,
+        "y": 440,
+        "wires": [
+            [
+                "fn0086dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0086dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Compute: UC2 \u00b7 A&E waiting now vs typical",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 440,
+        "func": "\nconst TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\ntry {\nmsg = (function (msg) {\nconst h = hkHour(now);\nconst typ = {};\nmsg.results.typical.filter(d => d._id.h === h).forEach(d => typ[d._id.hosp] = d);\nconst rows = msg.results.latest.map(d => {\n    const t = typ[d._id] || {};\n    const ratio = t.t45 ? d.t45 / t.t45 : null;\n    return {hospital: d._id, updateTime: d.t,\n            t3: d.t3, t45: d.t45, t45p95: d.t45p95,\n            typicalT45: r1(t.t45), vsTypicalPct: ratio == null ? null : Math.round((ratio - 1) * 100),\n            // flag only when both relatively (\u00b130%) and absolutely (\u00b120 min) different from the norm\n            status: ratio == null ? 'n/a' : (ratio >= 1.3 && d.t45 - t.t45 >= 20) ? 'Busier than usual'\n                  : (ratio <= 0.7 && t.t45 - d.t45 >= 20) ? 'Quieter than usual' : 'Normal',\n            managingCritical: d.m1 || d.m2};\n}).sort((a, b) => a.t45 - b.t45);\nconst mean = rows.reduce((a, r) => a + r.t45, 0) / (rows.length || 1);\nconst meanTyp = rows.filter(r => r.typicalT45).reduce((a, r, _, A) => a + r.typicalT45 / A.length, 0);\nconst busy = rows.filter(r => r.status === 'Busier than usual');\nmsg.payload = {\n    asOf: rows[0] && rows[0].updateTime, hour: h,\n    hospitals: rows,\n    shortest: rows[0], longest: rows[rows.length - 1],\n    territoryMeanT45: r1(mean), territoryTypicalT45: r1(meanTyp),\n    alert: busy.length ? `${busy.length} A&E department(s) busier than usual for ${HOURS[h]}: ` + busy.map(b => b.hospital).join(', ')\n                       : `All A&E departments within normal range for ${HOURS[h]}`,\n    charts: {\n        byHospital: [{series: ['Now (median, semi/non-urgent)', 'Typical at this hour'],\n                      data: [rows.map(r => r.t45), rows.map(r => r.typicalT45)],\n                      labels: rows.map(r => r.hospital.replace(/ Hospital| Medical Centre| Nethersole/g, ''))}]\n    }\n};\nreturn msg;\n})(msg);\n} catch (e) {\n    node.status({fill: 'red', shape: 'ring', text: e.message});\n    node.error(e, msg);\n    return null;\n}\nif (!msg) return null;\nmsg.topic = 'ae_status';\nmsg.title = \"UC2 \\u00b7 A&E waiting now vs typical\";\ndelete msg.results; delete msg.queries;\nnode.status({fill: 'green', shape: 'dot', text: 'updated ' + new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'})});\nreturn msg;",
+        "wires": [
+            [
+                "an4lysisbus0out1"
+            ]
+        ]
+    },
+    {
+        "id": "in0091dc",
+        "type": "inject",
+        "z": "an4lysis0tab0001",
+        "name": "every 30 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "1800",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "14",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 500,
+        "wires": [
+            [
+                "fn0088dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0088dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Queries: ae_patterns",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 500,
+        "func": "const TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\nmsg.queries = [\n  {key: 'trend', collection: 'ae_waiting', pipeline: [\n    {$match: {updateTime: {$gte: new Date(Date.now() - 7 * DAY)}}},\n    {$group: {_id: {$dateTrunc: {date: '$updateTime', unit: 'hour'}}, t45: {$avg: '$t45P50Min'}, t3: {$avg: '$t3P50Min'}}},\n    {$sort: {_id: 1}}]},\n  {key: 'diurnal', collection: 'ae_waiting', pipeline: [\n    {$match: {updateTime: {$gte: new Date(Date.now() - 28 * DAY)}}},\n    {$group: {_id: {$hour: {date: '$updateTime', timezone: TZ}}, t45: {$avg: '$t45P50Min'}, t3: {$avg: '$t3P50Min'}}}]},\n  {key: 'weekday', collection: 'ae_waiting', pipeline: [\n    {$match: {updateTime: {$gte: new Date(Date.now() - 28 * DAY)}}},\n    {$group: {_id: {$dayOfWeek: {date: '$updateTime', timezone: TZ}}, t45: {$avg: '$t45P50Min'}}}]},\n  {key: 'hospitals', collection: 'ae_waiting', pipeline: [\n    {$match: {updateTime: {$gte: new Date(Date.now() - 28 * DAY)}}},\n    {$group: {_id: '$hospital', t45: {$avg: '$t45P50Min'}, p95: {$avg: '$t45P95Min'}}},\n    {$sort: {t45: -1}}]}\n];\nreturn msg;",
+        "wires": [
+            [
+                "lc0089dc"
+            ]
+        ]
+    },
+    {
+        "id": "lc0089dc",
+        "type": "link call",
+        "z": "an4lysis0tab0001",
+        "name": "run-queries",
+        "links": [
+            "an4lysisrun0in01"
+        ],
+        "linkType": "static",
+        "timeout": "60",
+        "x": 560,
+        "y": 500,
+        "wires": [
+            [
+                "fn0090dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0090dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Compute: UC2 \u00b7 A&E waiting patterns",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 500,
+        "func": "\nconst TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\ntry {\nmsg = (function (msg) {\nconst R = msg.results;\nconst d45 = Array(24).fill(null), d3 = Array(24).fill(null);\nR.diurnal.forEach(d => { d45[d._id] = r1(d.t45); d3[d._id] = r1(d.t3); });\nconst DOW = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];\nconst wk = Array(7).fill(null);\nR.weekday.forEach(d => wk[d._id - 1] = r1(d.t45));\nconst vals = d45.filter(v => v != null);\nconst peak = d45.indexOf(Math.max(...vals)), low = d45.indexOf(Math.min(...vals));\nconst best = DOW[wk.indexOf(Math.min(...wk.filter(v => v != null)))];\nconst worst = DOW[wk.indexOf(Math.max(...wk.filter(v => v != null)))];\nmsg.payload = {\n    diurnal: {t45: d45, t3: d3}, weekday: wk,\n    hospitalRanking: R.hospitals.map(h => ({hospital: h._id, avgT45: r1(h.t45), avgP95: r1(h.p95)})),\n    insight: `Semi/non-urgent waits are shortest around ${HOURS[low]} (${d45[low]} min) and longest around ${HOURS[peak]} (${d45[peak]} min). ` +\n             `${best} is the quietest day and ${worst} the busiest.`,\n    charts: {\n        trend: [{series: ['Semi/non-urgent (P50)', 'Urgent (P50)'],\n                 data: [R.trend.map(d => ({x: new Date(d._id).getTime(), y: r1(d.t45)})),\n                        R.trend.map(d => ({x: new Date(d._id).getTime(), y: r1(d.t3)}))], labels: ['']}],\n        diurnal: [{series: ['Semi/non-urgent (P50)', 'Urgent (P50)'], data: [d45, d3], labels: HOURS}],\n        weekday: [{series: ['Semi/non-urgent (P50)'], data: [wk], labels: DOW}],\n        ranking: [{series: ['28-day average wait (min)'], data: [R.hospitals.map(h => r1(h.t45))],\n                   labels: R.hospitals.map(h => h._id.replace(/ Hospital| Medical Centre| Nethersole/g, ''))}]\n    }\n};\nreturn msg;\n})(msg);\n} catch (e) {\n    node.status({fill: 'red', shape: 'ring', text: e.message});\n    node.error(e, msg);\n    return null;\n}\nif (!msg) return null;\nmsg.topic = 'ae_patterns';\nmsg.title = \"UC2 \\u00b7 A&E waiting patterns\";\ndelete msg.results; delete msg.queries;\nnode.status({fill: 'green', shape: 'dot', text: 'updated ' + new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'})});\nreturn msg;",
+        "wires": [
+            [
+                "an4lysisbus0out1"
+            ]
+        ]
+    },
+    {
+        "id": "in0095dc",
+        "type": "inject",
+        "z": "an4lysis0tab0001",
+        "name": "every 15 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "900",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "16",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 560,
+        "wires": [
+            [
+                "fn0092dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0092dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Queries: traffic_status",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 560,
+        "func": "const TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\nconst dayType = {$cond: [{$in: [{$dayOfWeek: {date: '$snapshotTime', timezone: TZ}}, [1, 7]]}, 'weekend', 'weekday']};\nmsg.queries = [\n  {key: 'latest', collection: 'traffic_speed', pipeline: [\n    {$sort: {snapshotTime: -1}}, {$limit: 1}, {$project: {speeds: 0}}]},\n  {key: 'typical', collection: 'traffic_speed', pipeline: [\n    {$group: {_id: {h: {$hour: {date: '$snapshotTime', timezone: TZ}}, dt: dayType},\n              speed: {$avg: '$meanSpeed'}, cong: {$avg: '$pctBelow30'}}}]},\n  {key: 'jtLatest', collection: 'journey_time', pipeline: [\n    {$match: {captureTime: {$gte: new Date(Date.now() - 3 * 36e5)}, journeyType: 1}},\n    {$sort: {captureTime: -1}},\n    {$group: {_id: {from: '$from', to: '$to'}, t: {$first: '$captureTime'}, v: {$first: '$value'}, c: {$first: '$colour'}}}]},\n  {key: 'jtTypical', collection: 'journey_time', pipeline: [\n    {$match: {journeyType: 1}},\n    {$group: {_id: {from: '$from', to: '$to', h: {$hour: {date: '$captureTime', timezone: TZ}}}, v: {$avg: '$value'}}}]}\n];\nreturn msg;",
+        "wires": [
+            [
+                "lc0093dc"
+            ]
+        ]
+    },
+    {
+        "id": "lc0093dc",
+        "type": "link call",
+        "z": "an4lysis0tab0001",
+        "name": "run-queries",
+        "links": [
+            "an4lysisrun0in01"
+        ],
+        "linkType": "static",
+        "timeout": "60",
+        "x": 560,
+        "y": 560,
+        "wires": [
+            [
+                "fn0094dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0094dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Compute: UC3 \u00b7 Traffic now vs typical",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 560,
+        "func": "\nconst TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\ntry {\nmsg = (function (msg) {\nconst R = msg.results;\nconst L = R.latest[0] || {};\nconst t = L.snapshotTime ? new Date(L.snapshotTime) : now;\nconst h = hkHour(t), dt = [0, 6].includes(hkDow(t)) ? 'weekend' : 'weekday';\nconst typ = R.typical.find(d => d._id.h === h && d._id.dt === dt) || {};\nconst jtTyp = {};\nR.jtTypical.filter(d => d._id.h === hkHour(now)).forEach(d => jtTyp[d._id.from + '>' + d._id.to] = d.v);\nconst routes = R.jtLatest.map(d => {\n    const k = d._id.from + '>' + d._id.to, ty = jtTyp[k];\n    return {route: d._id.from + ' \u2192 ' + d._id.to, minutes: d.v, colour: ['', 'Red', 'Amber', 'Green'][d.c] || '?',\n            typical: r1(ty), delayMin: ty == null || d.v == null ? null : r1(d.v - ty)};\n}).sort((a, b) => (b.delayMin ?? -99) - (a.delayMin ?? -99));\nconst red = routes.filter(r => r.colour === 'Red');\nconst delta = typ.speed ? r1(L.meanSpeed - typ.speed) : null;\nmsg.payload = {\n    asOf: L.snapshotTime, meanSpeed: L.meanSpeed, pctBelow30: L.pctBelow30, pctBelow15: L.pctBelow15,\n    validSegments: L.validSegments, typicalSpeed: r1(typ.speed), typicalPctBelow30: r1(typ.cong), speedDelta: delta,\n    status: delta == null ? 'n/a' : delta <= -3 ? 'Slower than usual' : delta >= 3 ? 'Faster than usual' : 'Normal',\n    routes, redRoutes: red.length,\n    alert: red.length ? `Congested (red) routes: ` + red.map(r => r.route).join(', ') : 'No route currently red',\n    charts: {\n        routeDelay: [{series: ['Now (min)', 'Typical at this hour (min)'],\n                      data: [routes.slice(0, 12).map(r => r.minutes), routes.slice(0, 12).map(r => r.typical)],\n                      labels: routes.slice(0, 12).map(r => r.route)}]\n    }\n};\nreturn msg;\n})(msg);\n} catch (e) {\n    node.status({fill: 'red', shape: 'ring', text: e.message});\n    node.error(e, msg);\n    return null;\n}\nif (!msg) return null;\nmsg.topic = 'traffic_status';\nmsg.title = \"UC3 \\u00b7 Traffic now vs typical\";\ndelete msg.results; delete msg.queries;\nnode.status({fill: 'green', shape: 'dot', text: 'updated ' + new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'})});\nreturn msg;",
+        "wires": [
+            [
+                "an4lysisbus0out1"
+            ]
+        ]
+    },
+    {
+        "id": "in0099dc",
+        "type": "inject",
+        "z": "an4lysis0tab0001",
+        "name": "every 30 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "1800",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "18",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 620,
+        "wires": [
+            [
+                "fn0096dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0096dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Queries: traffic_patterns",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 620,
+        "func": "const TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\nconst dayType = {$cond: [{$in: [{$dayOfWeek: {date: '$snapshotTime', timezone: TZ}}, [1, 7]]}, 'weekend', 'weekday']};\nmsg.queries = [\n  {key: 'diurnal', collection: 'traffic_speed', pipeline: [\n    {$group: {_id: {h: {$hour: {date: '$snapshotTime', timezone: TZ}}, dt: dayType},\n              speed: {$avg: '$meanSpeed'}, cong: {$avg: '$pctBelow30'}}}]},\n  {key: 'trend', collection: 'traffic_speed', pipeline: [\n    {$match: {snapshotTime: {$gte: new Date(Date.now() - 7 * DAY)}}},\n    {$sort: {snapshotTime: 1}}, {$project: {snapshotTime: 1, meanSpeed: 1, pctBelow30: 1}}]}\n];\nreturn msg;",
+        "wires": [
+            [
+                "lc0097dc"
+            ]
+        ]
+    },
+    {
+        "id": "lc0097dc",
+        "type": "link call",
+        "z": "an4lysis0tab0001",
+        "name": "run-queries",
+        "links": [
+            "an4lysisrun0in01"
+        ],
+        "linkType": "static",
+        "timeout": "60",
+        "x": 560,
+        "y": 620,
+        "wires": [
+            [
+                "fn0098dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0098dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Compute: UC3 \u00b7 Traffic patterns",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 620,
+        "func": "\nconst TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\ntry {\nmsg = (function (msg) {\nconst R = msg.results;\nconst prof = (dt, f) => { const a = Array(24).fill(null); R.diurnal.filter(d => d._id.dt === dt).forEach(d => a[d._id.h] = r1(d[f])); return a; };\nconst wd = prof('weekday', 'speed'), we = prof('weekend', 'speed');\nconst wdc = prof('weekday', 'cong'), wec = prof('weekend', 'cong');\nconst minIdx = a => a.indexOf(Math.min(...a.filter(v => v != null)));\nconst am = wd.slice(6, 11), pm = wd.slice(16, 21);\nconst amH = 6 + am.indexOf(Math.min(...am.filter(v => v != null)));\nconst pmH = 16 + pm.indexOf(Math.min(...pm.filter(v => v != null)));\nmsg.payload = {\n    weekday: wd, weekend: we, weekdayCongestion: wdc, weekendCongestion: wec,\n    insight: `On weekdays the network is slowest at ${HOURS[amH]} (${wd[amH]} km/h) and ${HOURS[pmH]} (${wd[pmH]} km/h) rush hours; ` +\n             `weekend speeds at ${HOURS[pmH]} are ${r1(we[pmH] - wd[pmH])} km/h higher.`,\n    charts: {\n        diurnal: [{series: ['Weekday', 'Weekend'], data: [wd, we], labels: HOURS}],\n        congestion: [{series: ['Weekday', 'Weekend'], data: [wdc, wec], labels: HOURS}],\n        trend: [{series: ['Mean speed (km/h)', '% segments < 30 km/h'],\n                 data: [R.trend.map(d => ({x: new Date(d.snapshotTime).getTime(), y: d.meanSpeed})),\n                        R.trend.map(d => ({x: new Date(d.snapshotTime).getTime(), y: d.pctBelow30}))], labels: ['']}]\n    }\n};\nreturn msg;\n})(msg);\n} catch (e) {\n    node.status({fill: 'red', shape: 'ring', text: e.message});\n    node.error(e, msg);\n    return null;\n}\nif (!msg) return null;\nmsg.topic = 'traffic_patterns';\nmsg.title = \"UC3 \\u00b7 Traffic patterns\";\ndelete msg.results; delete msg.queries;\nnode.status({fill: 'green', shape: 'dot', text: 'updated ' + new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'})});\nreturn msg;",
+        "wires": [
+            [
+                "an4lysisbus0out1"
+            ]
+        ]
+    },
+    {
+        "id": "in0103dc",
+        "type": "inject",
+        "z": "an4lysis0tab0001",
+        "name": "every 15 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "900",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "20",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 680,
+        "wires": [
+            [
+                "fn0100dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0100dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Queries: carpark_status",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 680,
+        "func": "const TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\nmsg.queries = [\n  {key: 'district', collection: 'carpark_vacancy', pipeline: [\n    {$sort: {slotTime: -1}}, {$limit: 1},\n    {$unwind: '$parks'},\n    {$match: {'parks.type': 'A', 'parks.vacancy': {$gte: 0}}},\n    {$lookup: {from: 'carpark_info', localField: 'parks.id', foreignField: 'park_Id', as: 'info'}},\n    {$unwind: '$info'},\n    {$group: {_id: '$info.district', slot: {$first: '$slotTime'}, vacancy: {$sum: '$parks.vacancy'}, parks: {$sum: 1},\n              full: {$sum: {$cond: [{$eq: ['$parks.vacancy', 0]}, 1, 0]}}}},\n    {$sort: {vacancy: -1}}]},\n  {key: 'trend', collection: 'carpark_vacancy', pipeline: [\n    {$match: {slotTime: {$gte: new Date(Date.now() - 7 * DAY)}}},\n    {$sort: {slotTime: 1}}, {$project: {slotTime: 1, totalVacancy: 1}}]},\n  {key: 'diurnal', collection: 'carpark_vacancy', pipeline: [\n    {$group: {_id: {$hour: {date: '$slotTime', timezone: TZ}}, v: {$avg: '$totalVacancy'}}}]}\n];\nreturn msg;",
+        "wires": [
+            [
+                "lc0101dc"
+            ]
+        ]
+    },
+    {
+        "id": "lc0101dc",
+        "type": "link call",
+        "z": "an4lysis0tab0001",
+        "name": "run-queries",
+        "links": [
+            "an4lysisrun0in01"
+        ],
+        "linkType": "static",
+        "timeout": "60",
+        "x": 560,
+        "y": 680,
+        "wires": [
+            [
+                "fn0102dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0102dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Compute: UC3 \u00b7 Carpark vacancy by district",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 680,
+        "func": "\nconst TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\ntry {\nmsg = (function (msg) {\nconst R = msg.results;\nconst rows = R.district.filter(d => d._id).map(d => ({district: d._id, vacancy: d.vacancy, parks: d.parks, full: d.full,\n    perPark: r1(d.vacancy / d.parks)}));\nconst tight = rows.slice().sort((a, b) => a.perPark - b.perPark).slice(0, 3);\nconst di = Array(24).fill(null);\nR.diurnal.forEach(d => di[d._id] = Math.round(d.v));\nmsg.payload = {\n    asOf: R.district[0] && R.district[0].slot,\n    districts: rows, totalVacancy: rows.reduce((a, r) => a + r.vacancy, 0),\n    fullCarparks: rows.reduce((a, r) => a + r.full, 0),\n    tightest: tight,\n    insight: tight.length ? 'Hardest to park now (fewest free spaces per carpark): ' + tight.map(t => `${t.district} (${t.perPark})`).join(', ') : '',\n    charts: {\n        district: [{series: ['Free private-car spaces'], data: [rows.map(r => r.vacancy)], labels: rows.map(r => r.district.replace(' District', ''))}],\n        trend: [{series: ['Total free spaces'], data: [R.trend.map(d => ({x: new Date(d.slotTime).getTime(), y: d.totalVacancy}))], labels: ['']}],\n        diurnal: [{series: ['Average free spaces'], data: [di], labels: HOURS}]\n    }\n};\nreturn msg;\n})(msg);\n} catch (e) {\n    node.status({fill: 'red', shape: 'ring', text: e.message});\n    node.error(e, msg);\n    return null;\n}\nif (!msg) return null;\nmsg.topic = 'carpark_status';\nmsg.title = \"UC3 \\u00b7 Carpark vacancy by district\";\ndelete msg.results; delete msg.queries;\nnode.status({fill: 'green', shape: 'dot', text: 'updated ' + new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'})});\nreturn msg;",
+        "wires": [
+            [
+                "an4lysisbus0out1"
+            ]
+        ]
+    },
+    {
+        "id": "in0107dc",
+        "type": "inject",
+        "z": "an4lysis0tab0001",
+        "name": "every 30 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "1800",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "22",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 740,
+        "wires": [
+            [
+                "fn0104dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0104dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Queries: correlations",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 740,
+        "func": "const TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\nconst since = new Date(Date.now() - 42 * DAY);\nconst hourKey = f => ({$dateTrunc: {date: '$' + f, unit: 'hour'}});\nconst H = (key, collection, tf, val, match) => ({key, collection, pipeline: [\n    {$match: Object.assign({[tf]: {$gte: since}}, match || {})},\n    {$group: {_id: hourKey(tf), v: {$avg: val}}}]});\nmsg.queries = [\n  H('aqhiGeneral', 'aqhi', 'time', '$aqhi', {stationType: 'General Stations'}),\n  H('aqhiRoadside', 'aqhi', 'time', '$aqhi', {stationType: 'Roadside Stations'}),\n  H('temperature', 'hko_regional', 'time', '$temperature'),\n  H('humidity', 'hko_regional', 'time', '$humidity'),\n  H('windSpeed', 'hko_regional', 'time', '$windSpeed'),\n  H('aeWait', 'ae_waiting', 'updateTime', '$t45P50Min'),\n  H('roadSpeed', 'traffic_speed', 'snapshotTime', '$meanSpeed'),\n  {key: 'rainfall', collection: 'Weather Report', pipeline: [\n    {$project: {t: {$dateTrunc: {date: {$toDate: '$rainfall.endTime'}, unit: 'hour'}}, rain: {$max: '$rainfall.data.max'}}},\n    {$group: {_id: '$t', v: {$max: '$rain'}}}]}\n];\nreturn msg;",
+        "wires": [
+            [
+                "lc0105dc"
+            ]
+        ]
+    },
+    {
+        "id": "lc0105dc",
+        "type": "link call",
+        "z": "an4lysis0tab0001",
+        "name": "run-queries",
+        "links": [
+            "an4lysisrun0in01"
+        ],
+        "linkType": "static",
+        "timeout": "60",
+        "x": 560,
+        "y": 740,
+        "wires": [
+            [
+                "fn0106dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0106dc",
+        "type": "function",
+        "z": "an4lysis0tab0001",
+        "name": "Compute: Cross-domain correlation analysis",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 820,
+        "y": 740,
+        "func": "\nconst TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\ntry {\nmsg = (function (msg) {\n// Hourly series aligned on the hour, then Pearson r twice:\n//  raw r     : includes the shared daily rhythm (everything follows the clock)\n//  adjusted r: each value minus that variable's mean for the same hour-of-day,\n//              so only day-to-day deviations are compared (removes the diurnal confound)\nconst LABEL = {aqhiGeneral: 'AQHI (general)', aqhiRoadside: 'AQHI (roadside)', temperature: 'Temperature',\n               humidity: 'Humidity', windSpeed: 'Wind speed', aeWait: 'A&E wait', roadSpeed: 'Road speed', rainfall: 'Rainfall'};\nconst S = {};\nfor (const k of Object.keys(LABEL)) {\n    S[k] = {};\n    (msg.results[k] || []).forEach(d => { if (d._id && d.v != null) S[k][new Date(d._id).getTime()] = d.v; });\n}\nfunction anomalies(ser) {\n    const sum = Array(24).fill(0), n = Array(24).fill(0), out = {};\n    for (const t in ser) { const h = hkHour(new Date(+t)); sum[h] += ser[t]; n[h]++; }\n    for (const t in ser) { const h = hkHour(new Date(+t)); out[t] = ser[t] - sum[h] / n[h]; }\n    return out;\n}\nfunction pearson(a, b) {\n    const ks = Object.keys(a).filter(k => k in b), n = ks.length;\n    if (n < 24) return {r: null, n};\n    const x = ks.map(k => a[k]), y = ks.map(k => b[k]);\n    const mx = x.reduce((p, c) => p + c) / n, my = y.reduce((p, c) => p + c) / n;\n    let sxy = 0, sxx = 0, syy = 0;\n    for (let i = 0; i < n; i++) { sxy += (x[i] - mx) * (y[i] - my); sxx += (x[i] - mx) ** 2; syy += (y[i] - my) ** 2; }\n    return {r: sxx && syy ? Math.round(sxy / Math.sqrt(sxx * syy) * 100) / 100 : null, n};\n}\nconst A = {};\nfor (const k in S) A[k] = anomalies(S[k]);\nconst keys = Object.keys(LABEL), pairs = [];\nfor (let i = 0; i < keys.length; i++) for (let j = i + 1; j < keys.length; j++) {\n    const raw = pearson(S[keys[i]], S[keys[j]]), adj = pearson(A[keys[i]], A[keys[j]]);\n    pairs.push({a: LABEL[keys[i]], b: LABEL[keys[j]], rawR: raw.r, adjustedR: adj.r, n: raw.n,\n                strength: adj.r == null ? 'insufficient data' : Math.abs(adj.r) >= 0.5 ? 'strong' : Math.abs(adj.r) >= 0.3 ? 'moderate' : Math.abs(adj.r) >= 0.1 ? 'weak' : 'none'});\n}\npairs.sort((p, q) => Math.abs(q.adjustedR ?? 0) - Math.abs(p.adjustedR ?? 0));\n// scatter data for the headline pairs (hourly anomalies)\nfunction scatter(ka, kb) { return Object.keys(A[ka]).filter(t => t in A[kb]).map(t => ({x: r1(S[ka][t]), y: r1(S[kb][t])})); }\n// rain impact on road speed (needs live rainfall)\nconst rainy = [], dry = [];\nfor (const t in A.roadSpeed) if (t in S.rainfall) (S.rainfall[t] > 0 ? rainy : dry).push(A.roadSpeed[t]);\nconst avg = a => a.length ? a.reduce((p, c) => p + c, 0) / a.length : null;\nmsg.payload = {\n    variables: keys.map(k => ({key: k, label: LABEL[k], hours: Object.keys(S[k]).length})),\n    pairs,\n    top: pairs.filter(p => p.adjustedR != null).slice(0, 5),\n    rainImpact: {rainyHours: rainy.length, dryHours: dry.length,\n                 speedAnomalyRain: r1(avg(rainy)), speedAnomalyDry: r1(avg(dry)),\n                 note: rainy.length < 6 ? 'Not enough rainy hours collected yet' :\n                       `Road speed is ${r1(avg(rainy) - avg(dry))} km/h vs dry hours at the same time of day`},\n    charts: {\n        scatterTempAqhi: scatter('temperature', 'aqhiGeneral'),\n        scatterAqhiAe: scatter('aqhiRoadside', 'aeWait'),\n        scatterHumSpeed: scatter('humidity', 'roadSpeed')\n    }\n};\nreturn msg;\n})(msg);\n} catch (e) {\n    node.status({fill: 'red', shape: 'ring', text: e.message});\n    node.error(e, msg);\n    return null;\n}\nif (!msg) return null;\nmsg.topic = 'correlations';\nmsg.title = \"Cross-domain correlation analysis\";\ndelete msg.results; delete msg.queries;\nnode.status({fill: 'green', shape: 'dot', text: 'updated ' + new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'})});\nreturn msg;",
+        "wires": [
+            [
+                "an4lysisbus0out1"
+            ]
+        ]
+    },
+    {
+        "id": "an4lysisbus0out1",
+        "type": "link out",
+        "z": "an4lysis0tab0001",
+        "name": "to analytics-bus",
+        "mode": "link",
+        "links": [
+            "an4lysisbus0in01"
+        ],
+        "x": 1100,
+        "y": 530,
+        "wires": []
+    },
+    {
+        "id": "ct0109dc",
+        "type": "catch",
+        "z": "an4lysis0tab0001",
+        "name": "Errors",
+        "scope": null,
+        "uncaught": false,
+        "x": 140,
+        "y": 840,
+        "wires": [
+            [
+                "dg0108dc"
+            ]
+        ]
+    },
+    {
+        "id": "dg0108dc",
+        "type": "debug",
+        "z": "an4lysis0tab0001",
+        "name": "Analysis errors",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "error",
+        "targetType": "msg",
+        "statusVal": "error.message",
+        "statusType": "msg",
+        "x": 360,
+        "y": 840,
+        "wires": []
     }
 ]
