@@ -15,6 +15,9 @@ const hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hon
 const hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday
 const r1 = v => v == null ? null : Math.round(v * 10) / 10;
 const HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');
+// a 24-hour profile is only meaningful once every hour of the day has been observed
+const filled = arr => arr.filter(v => v != null).length;
+const notYet = arr => `Not enough data yet: ${filled(arr)} of 24 hours of the day observed so far; this insight appears once collection has covered a full day.`;
 """
 
 # ------------------------------------------------------------------ UC1 air quality
@@ -87,7 +90,7 @@ const daily = msg.results.daily;
 const worstDay = daily.reduce((m, d) => (!m || d.mean > m.mean) ? d : m, null);
 msg.payload = {
     diurnal: {general: diurnal[0], roadside: diurnal[1]},
-    insight: `Roadside AQHI peaks around ${HOURS[peakHour]} (${diurnal[1][peakHour]}) and is lowest around ${HOURS[lowHour]} (${diurnal[1][lowHour]}); ` +
+    insight: filled(diurnal[1]) < 24 ? notYet(diurnal[1]) : `Roadside AQHI peaks around ${HOURS[peakHour]} (${diurnal[1][peakHour]}) and is lowest around ${HOURS[lowHour]} (${diurnal[1][lowHour]}); ` +
              `the roadside-general gap reflects vehicle emissions.`,
     worstDay: worstDay && {date: worstDay._id, mean: r1(worstDay.mean), max: worstDay.max},
     days: daily.length,
@@ -187,7 +190,7 @@ const worst = DOW[wk.indexOf(Math.max(...wk.filter(v => v != null)))];
 msg.payload = {
     diurnal: {t45: d45, t3: d3}, weekday: wk,
     hospitalRanking: R.hospitals.map(h => ({hospital: h._id, avgT45: r1(h.t45), avgP95: r1(h.p95)})),
-    insight: `Semi/non-urgent waits are shortest around ${HOURS[low]} (${d45[low]} min) and longest around ${HOURS[peak]} (${d45[peak]} min). ` +
+    insight: filled(d45) < 24 ? notYet(d45) : `Semi/non-urgent waits are shortest around ${HOURS[low]} (${d45[low]} min) and longest around ${HOURS[peak]} (${d45[peak]} min). ` +
              `${best} is the quietest day and ${worst} the busiest.`,
     charts: {
         trend: [{series: ['Semi/non-urgent (P50)', 'Urgent (P50)'],
@@ -276,7 +279,7 @@ const amH = 6 + am.indexOf(Math.min(...am.filter(v => v != null)));
 const pmH = 16 + pm.indexOf(Math.min(...pm.filter(v => v != null)));
 msg.payload = {
     weekday: wd, weekend: we, weekdayCongestion: wdc, weekendCongestion: wec,
-    insight: `On weekdays the network is slowest at ${HOURS[amH]} (${wd[amH]} km/h) and ${HOURS[pmH]} (${wd[pmH]} km/h) rush hours; ` +
+    insight: filled(wd) < 24 ? notYet(wd) : `On weekdays the network is slowest at ${HOURS[amH]} (${wd[amH]} km/h) and ${HOURS[pmH]} (${wd[pmH]} km/h) rush hours; ` +
              `weekend speeds at ${HOURS[pmH]} are ${r1(we[pmH] - wd[pmH])} km/h higher.`,
     charts: {
         diurnal: [{series: ['Weekday', 'Weekend'], data: [wd, we], labels: HOURS}],
