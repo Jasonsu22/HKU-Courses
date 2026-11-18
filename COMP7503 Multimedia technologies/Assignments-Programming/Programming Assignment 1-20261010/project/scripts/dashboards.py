@@ -227,8 +227,8 @@ PAGES = [
     ]),
     ("Air Quality", "cloud", [
         ("Health risk now", 12, [("aqhi_latest", "html", {"h": 4})]),
-        ("AQHI by station", 6, [("aqhi_latest", "hbar", {"h": 9, "label": "Current AQHI", "ymin": 0, "ymax": 11, "one": True})]),
-        ("Station table", 6, [("aqhi_latest", "html", {"h": 9})]),
+        ("AQHI by station", 6, [("aqhi_latest", "hbar", {"h": 12, "label": "Current AQHI", "ymin": 0, "ymax": 11, "one": True})]),
+        ("Station table", 6, [("aqhi_latest", "html", {"h": 12})]),
         ("Last 7 days", 12, [("aqhi_patterns", "line", {"h": 6, "label": "Hourly AQHI (mean)", "xformat": "ddd HH:mm"})]),
         ("Typical day (28-day average)", 6, [("aqhi_patterns", "bar", {"h": 6, "label": "AQHI by hour of day"})]),
         ("Daily mean & peak", 6, [("aqhi_patterns", "line", {"h": 6, "label": "Daily AQHI", "xformat": "D/M"})]),
@@ -238,7 +238,7 @@ PAGES = [
     ("A&E Waiting", "local_hospital", [
         ("Right now", 12, [("ae_status", "html", {"h": 4})]),
         ("Now vs typical for this hour", 12, [("ae_status", "hbar", {"h": 10, "label": "Median wait, semi/non-urgent (min)"})]),
-        ("All A&E departments", 12, [("ae_status", "html", {"h": 9})]),
+        ("All A&E departments", 12, [("ae_status", "html", {"h": 12})]),
         ("Last 7 days", 12, [("ae_patterns", "line", {"h": 6, "label": "Average wait across A&E (min)", "xformat": "ddd HH:mm"})]),
         ("Typical day", 6, [("ae_patterns", "bar", {"h": 6, "label": "Wait by hour of day (min)"})]),
         ("Day of week", 6, [("ae_patterns", "bar", {"h": 6, "label": "Wait by day of week (min)", "one": True})]),

@@ -2599,7 +2599,7 @@
         "libs": [],
         "x": 340,
         "y": 800,
-        "func": "const TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\nmsg.queries = [\n  {key: 'district', collection: 'carpark_vacancy', pipeline: [\n    {$sort: {slotTime: -1}}, {$limit: 1},\n    {$unwind: '$parks'},\n    {$match: {'parks.type': 'A', 'parks.vacancy': {$gte: 0}}},\n    {$lookup: {from: 'carpark_info', localField: 'parks.id', foreignField: 'park_Id', as: 'info'}},\n    {$unwind: '$info'},\n    {$group: {_id: '$info.district', slot: {$first: '$slotTime'}, vacancy: {$sum: '$parks.vacancy'}, parks: {$sum: 1},\n              full: {$sum: {$cond: [{$eq: ['$parks.vacancy', 0]}, 1, 0]}}}},\n    {$sort: {vacancy: -1}}]},\n  {key: 'trend', collection: 'carpark_vacancy', pipeline: [\n    {$match: {slotTime: {$gte: new Date(Date.now() - 7 * DAY)}}},\n    {$sort: {slotTime: 1}}, {$project: {slotTime: 1, totalVacancy: 1}}]},\n  {key: 'diurnal', collection: 'carpark_vacancy', pipeline: [\n    {$group: {_id: {$hour: {date: '$slotTime', timezone: TZ}}, v: {$avg: '$totalVacancy'}}}]}\n];\nreturn msg;",
+        "func": "const TZ = '+08:00';\nconst DAY = 864e5;\nconst now = new Date();\nconst hkHour = d => Number(new Intl.DateTimeFormat('en-GB', {timeZone: 'Asia/Hong_Kong', hour: '2-digit', hour12: false}).format(d)) % 24;\nconst hkDow = d => new Date(d.getTime() + 8 * 36e5).getUTCDay();   // 0 = Sunday\nconst r1 = v => v == null ? null : Math.round(v * 10) / 10;\nconst HOURS = [...Array(24).keys()].map(h => String(h).padStart(2, '0') + ':00');\n\nmsg.queries = [\n  {key: 'district', collection: 'carpark_vacancy', pipeline: [\n    {$sort: {slotTime: -1}}, {$limit: 1},\n    {$unwind: '$parks'},\n    {$match: {'parks.type': 'A', 'parks.vacancy': {$gte: 0}}},\n    {$lookup: {from: 'carpark_info', localField: 'parks.id', foreignField: 'park_Id', as: 'info'}},\n    {$unwind: '$info'},\n    {$set: {districtName: {$trim: {input: {$replaceAll: {input: {$ifNull: ['$info.district', 'Unknown']}, find: ' District', replacement: ''}}}}}},\n    {$group: {_id: '$districtName', slot: {$first: '$slotTime'}, vacancy: {$sum: '$parks.vacancy'}, parks: {$sum: 1},\n              full: {$sum: {$cond: [{$eq: ['$parks.vacancy', 0]}, 1, 0]}}}},\n    {$sort: {vacancy: -1}}]},\n  {key: 'trend', collection: 'carpark_vacancy', pipeline: [\n    {$match: {slotTime: {$gte: new Date(Date.now() - 7 * DAY)}}},\n    {$sort: {slotTime: 1}}, {$project: {slotTime: 1, totalVacancy: 1}}]},\n  {key: 'diurnal', collection: 'carpark_vacancy', pipeline: [\n    {$group: {_id: {$hour: {date: '$slotTime', timezone: TZ}}, v: {$avg: '$totalVacancy'}}}]}\n];\nreturn msg;",
         "wires": [
             [
                 "lc0109dc"
@@ -3334,7 +3334,7 @@
         "group": "ug0125dc",
         "order": 0,
         "width": "6",
-        "height": "9",
+        "height": "12",
         "label": "Current AQHI",
         "chartType": "horizontalBar",
         "legend": "false",
@@ -3378,7 +3378,7 @@
         "name": "aqhi_latest html",
         "order": 0,
         "width": "6",
-        "height": "9",
+        "height": "12",
         "format": "<div id=\"h_uw0165dc\" style=\"width:100%\"></div>\n<script>\n(function (scope) {\n  scope.$watch(\"msg\", function (m) {\n    if (!m || m.payload === undefined) return;\n    setTimeout(function () { var el = document.getElementById(\"h_uw0165dc\"); if (el) el.innerHTML = m.payload; }, 0);\n  });\n})(scope);\n</script>",
         "storeOutMessages": true,
         "fwdInMessages": false,
@@ -3661,7 +3661,7 @@
         "name": "ae_status html",
         "order": 0,
         "width": "12",
-        "height": "9",
+        "height": "12",
         "format": "<div id=\"h_uw0173dc\" style=\"width:100%\"></div>\n<script>\n(function (scope) {\n  scope.$watch(\"msg\", function (m) {\n    if (!m || m.payload === undefined) return;\n    setTimeout(function () { var el = document.getElementById(\"h_uw0173dc\"); if (el) el.innerHTML = m.payload; }, 0);\n  });\n})(scope);\n</script>",
         "storeOutMessages": true,
         "fwdInMessages": false,

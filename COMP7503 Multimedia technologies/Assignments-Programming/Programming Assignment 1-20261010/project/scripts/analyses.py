@@ -297,7 +297,8 @@ msg.queries = [
     {$match: {'parks.type': 'A', 'parks.vacancy': {$gte: 0}}},
     {$lookup: {from: 'carpark_info', localField: 'parks.id', foreignField: 'park_Id', as: 'info'}},
     {$unwind: '$info'},
-    {$group: {_id: '$info.district', slot: {$first: '$slotTime'}, vacancy: {$sum: '$parks.vacancy'}, parks: {$sum: 1},
+    {$set: {districtName: {$trim: {input: {$replaceAll: {input: {$ifNull: ['$info.district', 'Unknown']}, find: ' District', replacement: ''}}}}}},
+    {$group: {_id: '$districtName', slot: {$first: '$slotTime'}, vacancy: {$sum: '$parks.vacancy'}, parks: {$sum: 1},
               full: {$sum: {$cond: [{$eq: ['$parks.vacancy', 0]}, 1, 0]}}}},
     {$sort: {vacancy: -1}}]},
   {key: 'trend', collection: 'carpark_vacancy', pipeline: [
