@@ -1,0 +1,1385 @@
+[
+    {
+        "id": "37f0ccf6.6b71cc",
+        "type": "tab",
+        "label": "HKO Weather (sample)",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "ecc26120.5c01a8",
+        "type": "mongodb3",
+        "z": "",
+        "uri": "mongodb://mongo:27017/smartcity",
+        "name": "SmartCityDB",
+        "options": "",
+        "parallelism": "-1"
+    },
+    {
+        "id": "e9f24978.c8dae8",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "HKSTP",
+                "default": "#4B7930",
+                "baseColor": "#371a95",
+                "baseFont": "Arial,Arial,Helvetica,sans-serif",
+                "reset": false
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": true
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": true
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": true
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": true
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": true
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": true
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": true
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "6f24792a.43aac",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Temperature",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "4921adae.55bbbc",
+        "type": "ui_group",
+        "z": "",
+        "name": "Temperature",
+        "tab": "6f24792a.43aac",
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "d629c8e.14838b8",
+        "type": "mongodb3 in",
+        "z": "37f0ccf6.6b71cc",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "",
+        "collection": "Weather Report",
+        "operation": "insert",
+        "x": 509,
+        "y": 269,
+        "wires": [
+            [
+                "9dc0f977.50d88"
+            ]
+        ]
+    },
+    {
+        "id": "19d727d7.21581",
+        "type": "mongodb3 in",
+        "z": "37f0ccf6.6b71cc",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "HKO Retrieve Last Record",
+        "collection": "Weather Report",
+        "operation": "findOne",
+        "x": 452,
+        "y": 54,
+        "wires": [
+            [
+                "6d5ebae.c730a44"
+            ]
+        ]
+    },
+    {
+        "id": "a8def012.10bd28",
+        "type": "inject",
+        "z": "37f0ccf6.6b71cc",
+        "name": "",
+        "topic": "Timer",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "300",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "x": 166,
+        "y": 54,
+        "wires": [
+            [
+                "4b3d2bc4.9c2efc"
+            ]
+        ]
+    },
+    {
+        "id": "4b3d2bc4.9c2efc",
+        "type": "function",
+        "z": "37f0ccf6.6b71cc",
+        "name": "Retrieve Last Record Query",
+        "func": "msg.payload = [\n    {\n        \"$query\": {}\n    },\n    {\n        \"sort\": {\n            \"_id\": -1\n        }\n    }\n]\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 310,
+        "y": 121,
+        "wires": [
+            [
+                "19d727d7.21581"
+            ]
+        ]
+    },
+    {
+        "id": "6d5ebae.c730a44",
+        "type": "function",
+        "z": "37f0ccf6.6b71cc",
+        "name": "Get Last updateTime",
+        "func": "if(msg.payload.hasOwnProperty('updateTime')) {\n    flow.set('lastUpdateTime', msg.payload.updateTime);\n} else {\n    flow.set('lastUpdateTime', \"\");\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 608,
+        "y": 121,
+        "wires": [
+            [
+                "6f781e37.85c0d"
+            ]
+        ]
+    },
+    {
+        "id": "6f781e37.85c0d",
+        "type": "http request",
+        "z": "37f0ccf6.6b71cc",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": false,
+        "url": "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=rhrread&lang=en",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 261,
+        "y": 177,
+        "wires": [
+            [
+                "5f5d97d3.b9eda8"
+            ]
+        ]
+    },
+    {
+        "id": "5f5d97d3.b9eda8",
+        "type": "json",
+        "z": "37f0ccf6.6b71cc",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 410,
+        "y": 177,
+        "wires": [
+            [
+                "4a99264f.206348"
+            ]
+        ]
+    },
+    {
+        "id": "4a99264f.206348",
+        "type": "function",
+        "z": "37f0ccf6.6b71cc",
+        "name": "New Record Available",
+        "func": "lastUpdateTime = flow.get('lastUpdateTime');\n\nvar updateTimeTemp = new Date(msg.payload.updateTime)\nvar updateTime = updateTimeTemp.toISOString() ;\n\nif(updateTime > lastUpdateTime) {\n    msg.needUpdate = true ;\n    msg.payload.updateTime = updateTime ;\n} else {\n    msg.needUpdate = false ;\n}\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 605,
+        "y": 177,
+        "wires": [
+            [
+                "a5266dd0.531b08"
+            ]
+        ]
+    },
+    {
+        "id": "a5266dd0.531b08",
+        "type": "switch",
+        "z": "37f0ccf6.6b71cc",
+        "name": "Need Update",
+        "property": "needUpdate",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "false",
+                "vt": "jsonata"
+            },
+            {
+                "t": "eq",
+                "v": "true",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 270,
+        "y": 234,
+        "wires": [
+            [
+                "3762950.5f9e8ec"
+            ],
+            [
+                "d629c8e.14838b8"
+            ]
+        ]
+    },
+    {
+        "id": "3762950.5f9e8ec",
+        "type": "function",
+        "z": "37f0ccf6.6b71cc",
+        "name": "No Update",
+        "func": "msg.payload = \"No Update\"\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 461,
+        "y": 227,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9dc0f977.50d88",
+        "type": "debug",
+        "z": "37f0ccf6.6b71cc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 733,
+        "y": 269,
+        "wires": []
+    },
+    {
+        "id": "14f76650.95f762",
+        "type": "mongodb3 in",
+        "z": "37f0ccf6.6b71cc",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "HKO Retrieve Records",
+        "collection": "Weather Report",
+        "operation": "find.toArray",
+        "x": 545,
+        "y": 415,
+        "wires": [
+            [
+                "b2fa4aaa.6b9388"
+            ]
+        ]
+    },
+    {
+        "id": "e0be51b7.389718",
+        "type": "function",
+        "z": "37f0ccf6.6b71cc",
+        "name": "Construct Date Range",
+        "func": "var date = new Date();\nvar day = date.getDate() ;\nvar month = date.getMonth();\nvar year = date.getFullYear();\nvar hour = date.getHours();\nvar minutes = date.getMinutes();\nvar seconds = date.getSeconds();\nvar st, et ;\nvar minMilliSeconds = 60 * 1000;\nvar hourMilliSeconds = 60 * minMilliSeconds;\nvar dayMilliSeconds = 24 * hourMilliSeconds;\nvar duration = 1 * dayMilliSeconds;\n\net = date ;\net.setSeconds(seconds/10*10);\nst = new Date() ;\nst.setTime(et.getTime() - duration);\n\nmsg.startTime = st ;\nmsg.endTime = et ;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 261,
+        "y": 417,
+        "wires": [
+            [
+                "b3f8996c.583ea"
+            ]
+        ]
+    },
+    {
+        "id": "b3f8996c.583ea",
+        "type": "function",
+        "z": "37f0ccf6.6b71cc",
+        "name": "Construct Queries",
+        "func": "var st = msg.startTime;\nvar et = msg.endTime;\n\nvar stts = st.getTime();\nvar etts = et.getTime();\n\nvar ststr=st.toISOString();\nvar etstr=et.toISOString();\n\nvar query = { 'updateTime': { $gt: ststr, $lt: etstr} };\n\nmsg.payload = query;\nmsg.ststr = ststr ;\nmsg.etstr = etstr ;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 384,
+        "y": 353,
+        "wires": [
+            [
+                "14f76650.95f762"
+            ]
+        ]
+    },
+    {
+        "id": "b2fa4aaa.6b9388",
+        "type": "function",
+        "z": "37f0ccf6.6b71cc",
+        "name": "Format Chart Data",
+        "func": "var weatherDataArray = Object.values(msg.payload) ;\n\nvar dataCount = weatherDataArray.length ;\n\nvar i, j ;\n\nvar placeDataArray = {} ;\n\n\nfor(j = 0; j < dataCount; j++) {\n    for(i = 0; i < weatherDataArray[j].temperature.data.length; i++) {\n        if(!placeDataArray.hasOwnProperty(weatherDataArray[j].temperature.data[i].place)) {\n            placeDataArray[weatherDataArray[j].temperature.data[i].place] = [] ;\n        }\n        placeDataArray[weatherDataArray[j].temperature.data[i].place].push({\"x\": new Date(weatherDataArray[j].temperature.recordTime), \"y\": weatherDataArray[j].temperature.data[i].value});\n    }\n}\n\nvar chartData = [{\"series\": Object.keys(placeDataArray), \"data\": Object.values(placeDataArray), \"labels\": \"\"}];\n\nmsg.payload = chartData ;\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 258.5,
+        "y": 482,
+        "wires": [
+            [
+                "2c261de.13f9f62"
+            ]
+        ]
+    },
+    {
+        "id": "2c261de.13f9f62",
+        "type": "ui_chart",
+        "z": "37f0ccf6.6b71cc",
+        "name": "",
+        "group": "4921adae.55bbbc",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "Temperature Chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": true,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": "24",
+        "removeOlderPoints": "24",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "outputs": 1,
+        "x": 534,
+        "y": 483,
+        "wires": [
+            [
+                "6277e851.3741e"
+            ]
+        ]
+    },
+    {
+        "id": "b3c26fd7.7c096",
+        "type": "inject",
+        "z": "37f0ccf6.6b71cc",
+        "name": "",
+        "topic": "Timer",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "300",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "x": 150,
+        "y": 356,
+        "wires": [
+            [
+                "e0be51b7.389718"
+            ]
+        ]
+    },
+    {
+        "id": "6277e851.3741e",
+        "type": "debug",
+        "z": "37f0ccf6.6b71cc",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 584,
+        "y": 539,
+        "wires": []
+    },
+    {
+        "id": "dc0llect0r0tab01",
+        "type": "tab",
+        "label": "Data Collection",
+        "disabled": false,
+        "info": "Collectors that poll data.gov.hk feeds and store them in MongoDB (database `smartcity`)."
+    },
+    {
+        "id": "cm0001dc",
+        "type": "comment",
+        "z": "dc0llect0r0tab01",
+        "name": "EPD Air Quality Health Index (past 24 h, all stations)",
+        "info": "Hourly AQHI per monitoring station. The feed covers the past 24 h, so polling every 30 min with upserts never misses an hour.",
+        "x": 180,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "in0006dc",
+        "type": "inject",
+        "z": "dc0llect0r0tab01",
+        "name": "every 30 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "1800",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 100,
+        "wires": [
+            [
+                "hr0005dc"
+            ]
+        ]
+    },
+    {
+        "id": "hr0005dc",
+        "type": "http request",
+        "z": "dc0llect0r0tab01",
+        "name": "GET aqhi",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://www.aqhi.gov.hk/epd/ddata/html/out/24aqhi_Eng.xml",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 360,
+        "y": 100,
+        "wires": [
+            [
+                "fn0004dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0004dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Parse -> aqhi",
+        "func": "if (msg.statusCode !== 200 || !msg.payload) {\n    node.status({fill: 'red', shape: 'ring', text: 'HTTP ' + msg.statusCode});\n    return null;\n}\n\n// EPD past-24h AQHI XML -> one document per (station, hour), upserted\nconst xml = String(msg.payload);\nconst tag = (s, t) => { const m = s.match(new RegExp('<' + t + '>([\\\\s\\\\S]*?)</' + t + '>')); return m ? m[1].trim() : null; };\nconst ops = [];\nfor (const m of xml.matchAll(/<item>([\\s\\S]*?)<\\/item>/g)) {\n    const it = m[1];\n    const station = tag(it, 'StationName');\n    const time = new Date(tag(it, 'DateTime'));\n    const raw = tag(it, 'aqhi');\n    if (!station || isNaN(time) || raw === null || raw === '') continue;\n    const aqhi = raw.includes('+') ? 11 : Number(raw);       // \"10+\" stored as 11\n    if (isNaN(aqhi)) continue;\n    ops.push({updateOne: {\n        filter: {station, time},\n        update: {$set: {station, time, aqhi, aqhiRaw: raw,\n                        stationType: tag(it, 'type'), fetchedAt: new Date()}},\n        upsert: true}});\n}\nif (!ops.length) { node.status({fill: 'yellow', shape: 'ring', text: 'no items'}); return null; }\nnode.status({fill: 'blue', shape: 'dot', text: ops.length + ' readings'});\nmsg.payload = [ops, {ordered: false}];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 100,
+        "wires": [
+            [
+                "db0003dc"
+            ]
+        ]
+    },
+    {
+        "id": "db0003dc",
+        "type": "mongodb3 in",
+        "z": "dc0llect0r0tab01",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "bulkWrite aqhi",
+        "collection": "aqhi",
+        "operation": "bulkWrite",
+        "x": 860,
+        "y": 100,
+        "wires": [
+            [
+                "st0002dc"
+            ]
+        ]
+    },
+    {
+        "id": "st0002dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Stored",
+        "func": "// Show how many documents were inserted/updated by the bulkWrite\nconst r = msg.payload || {};\nconst ins = r.nUpserted ?? r.upsertedCount ?? 0;\nconst mod = r.nModified ?? r.modifiedCount ?? 0;\nconst t = new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'});\nnode.status({fill: 'green', shape: 'dot', text: `${t}  +${ins} new, ${mod} updated`});\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cm0007dc",
+        "type": "comment",
+        "z": "dc0llect0r0tab01",
+        "name": "Hospital Authority A&E waiting time (updated every 15 min)",
+        "info": "Waiting time per A&E department; text like '1.5 hours' converted to minutes.",
+        "x": 180,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "in0012dc",
+        "type": "inject",
+        "z": "dc0llect0r0tab01",
+        "name": "every 10 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "hr0011dc"
+            ]
+        ]
+    },
+    {
+        "id": "hr0011dc",
+        "type": "http request",
+        "z": "dc0llect0r0tab01",
+        "name": "GET ae_waiting",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://www.ha.org.hk/opendata/aed/aedwtdata2-en.json",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 360,
+        "y": 200,
+        "wires": [
+            [
+                "fn0010dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0010dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Parse -> ae_waiting",
+        "func": "if (msg.statusCode !== 200 || !msg.payload) {\n    node.status({fill: 'red', shape: 'ring', text: 'HTTP ' + msg.statusCode});\n    return null;\n}\n\n// Hospital Authority A&E waiting time (v2) -> one document per (hospital, updateTime)\nconst d = msg.payload;\n// \"18/11/2026 8:15PM\" (HK local time) -> Date\nconst m = String(d.updateTime || '').match(/(\\d+)\\/(\\d+)\\/(\\d+)\\s+(\\d+):(\\d+)\\s*([AP]M)/i);\nif (!m) { node.status({fill: 'red', shape: 'ring', text: 'bad updateTime'}); return null; }\nlet hh = Number(m[4]) % 12; if (m[6].toUpperCase() === 'PM') hh += 12;\nconst pad = n => String(n).padStart(2, '0');\nconst updateTime = new Date(`${m[3]}-${pad(m[2])}-${pad(m[1])}T${pad(hh)}:${pad(m[5])}:00+08:00`);\n\n// \"0 minute\" | \"less than 15 minutes\" | \"20 minutes\" | \"1.5 hours\" | \"3 hour\" -> minutes\nfunction toMin(s) {\n    if (!s) return null;\n    const x = String(s).match(/([\\d.]+)\\s*(minute|hour)/i);\n    if (!x) return null;\n    return Math.round(Number(x[1]) * (/hour/i.test(x[2]) ? 60 : 1));\n}\nconst ops = (d.waitTime || []).map(h => ({updateOne: {\n    filter: {hospital: h.hospName, updateTime},\n    update: {$set: {\n        hospital: h.hospName, updateTime,\n        t1WaitMin: toMin(h.t1wt), t2WaitMin: toMin(h.t2wt),\n        t3P50Min: toMin(h.t3p50), t3P95Min: toMin(h.t3p95),\n        t45P50Min: toMin(h.t45p50), t45P95Min: toMin(h.t45p95),\n        managingT1: h.manageT1case === 'Y', managingT2: h.manageT2case === 'Y',\n        raw: h, fetchedAt: new Date()}},\n    upsert: true}}));\nif (!ops.length) return null;\nnode.status({fill: 'blue', shape: 'dot', text: ops.length + ' hospitals @ ' + d.updateTime});\nmsg.payload = [ops, {ordered: false}];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 200,
+        "wires": [
+            [
+                "db0009dc"
+            ]
+        ]
+    },
+    {
+        "id": "db0009dc",
+        "type": "mongodb3 in",
+        "z": "dc0llect0r0tab01",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "bulkWrite ae_waiting",
+        "collection": "ae_waiting",
+        "operation": "bulkWrite",
+        "x": 860,
+        "y": 200,
+        "wires": [
+            [
+                "st0008dc"
+            ]
+        ]
+    },
+    {
+        "id": "st0008dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Stored",
+        "func": "// Show how many documents were inserted/updated by the bulkWrite\nconst r = msg.payload || {};\nconst ins = r.nUpserted ?? r.upsertedCount ?? 0;\nconst mod = r.nModified ?? r.modifiedCount ?? 0;\nconst t = new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'});\nnode.status({fill: 'green', shape: 'dot', text: `${t}  +${ins} new, ${mod} updated`});\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cm0013dc",
+        "type": "comment",
+        "z": "dc0llect0r0tab01",
+        "name": "Transport Dept journey time indicators",
+        "info": "Journey time (min) from major locations to tunnels / destinations, colour-coded.",
+        "x": 180,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "in0018dc",
+        "type": "inject",
+        "z": "dc0llect0r0tab01",
+        "name": "every 10 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 300,
+        "wires": [
+            [
+                "hr0017dc"
+            ]
+        ]
+    },
+    {
+        "id": "hr0017dc",
+        "type": "http request",
+        "z": "dc0llect0r0tab01",
+        "name": "GET journey_time",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://resource.data.one.gov.hk/td/jss/Journeytimev2.xml",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 360,
+        "y": 300,
+        "wires": [
+            [
+                "fn0016dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0016dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Parse -> journey_time",
+        "func": "if (msg.statusCode !== 200 || !msg.payload) {\n    node.status({fill: 'red', shape: 'ring', text: 'HTTP ' + msg.statusCode});\n    return null;\n}\n\n// Transport Dept journey time indicators (XML) -> one document per (route, captureTime)\nconst xml = String(msg.payload);\nconst tag = (s, t) => { const m = s.match(new RegExp('<' + t + '>([\\\\s\\\\S]*?)</' + t + '>')); return m ? m[1].trim() : null; };\nconst ops = [];\nfor (const m of xml.matchAll(/<jtis_journey_time>([\\s\\S]*?)<\\/jtis_journey_time>/g)) {\n    const it = m[1];\n    const from = tag(it, 'LOCATION_ID'), to = tag(it, 'DESTINATION_ID');\n    const cap = tag(it, 'CAPTURE_DATE');\n    if (!from || !to || !cap) continue;\n    const captureTime = new Date(cap + '+08:00');\n    const val = Number(tag(it, 'JOURNEY_DATA'));\n    ops.push({updateOne: {\n        filter: {from, to, captureTime},\n        update: {$set: {from, to, captureTime,\n            journeyType: Number(tag(it, 'JOURNEY_TYPE')),   // 1 = journey time (min)\n            value: isNaN(val) ? null : val,\n            colour: Number(tag(it, 'COLOUR_ID')),            // 1 red / 2 amber / 3 green\n            fetchedAt: new Date()}},\n        upsert: true}});\n}\nif (!ops.length) return null;\nnode.status({fill: 'blue', shape: 'dot', text: ops.length + ' routes'});\nmsg.payload = [ops, {ordered: false}];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 300,
+        "wires": [
+            [
+                "db0015dc"
+            ]
+        ]
+    },
+    {
+        "id": "db0015dc",
+        "type": "mongodb3 in",
+        "z": "dc0llect0r0tab01",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "bulkWrite journey_time",
+        "collection": "journey_time",
+        "operation": "bulkWrite",
+        "x": 860,
+        "y": 300,
+        "wires": [
+            [
+                "st0014dc"
+            ]
+        ]
+    },
+    {
+        "id": "st0014dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Stored",
+        "func": "// Show how many documents were inserted/updated by the bulkWrite\nconst r = msg.payload || {};\nconst ins = r.nUpserted ?? r.upsertedCount ?? 0;\nconst mod = r.nModified ?? r.modifiedCount ?? 0;\nconst t = new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'});\nnode.status({fill: 'green', shape: 'dot', text: `${t}  +${ins} new, ${mod} updated`});\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cm0019dc",
+        "type": "comment",
+        "z": "dc0llect0r0tab01",
+        "name": "Transport Dept average road speed (strategic road network)",
+        "info": "Stores a city-wide summary (mean/median speed, % congested) plus per-segment speeds.",
+        "x": 180,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "in0024dc",
+        "type": "inject",
+        "z": "dc0llect0r0tab01",
+        "name": "every 15 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "900",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 400,
+        "wires": [
+            [
+                "hr0023dc"
+            ]
+        ]
+    },
+    {
+        "id": "hr0023dc",
+        "type": "http request",
+        "z": "dc0llect0r0tab01",
+        "name": "GET traffic_speed",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://resource.data.one.gov.hk/td/traffic-detectors/irnAvgSpeed-all.xml",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 360,
+        "y": 400,
+        "wires": [
+            [
+                "fn0022dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0022dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Parse -> traffic_speed",
+        "func": "if (msg.statusCode !== 200 || !msg.payload) {\n    node.status({fill: 'red', shape: 'ring', text: 'HTTP ' + msg.statusCode});\n    return null;\n}\n\n// Transport Dept average road-segment speeds (~thousands of segments) -> 1 snapshot document\nconst xml = String(msg.payload);\nconst date = (xml.match(/<date>([^<]+)<\\/date>/) || [])[1];\nconst time = (xml.match(/<time>([^<]+)<\\/time>/) || [])[1];\nif (!date || !time) return null;\nconst snapshotTime = new Date(`${date}T${time}+08:00`);\nconst speeds = {};\nconst valid = [];\nfor (const m of xml.matchAll(/<segment_id>(\\d+)<\\/segment_id><speed>([\\d.]+)<\\/speed><valid>([YN])<\\/valid>/g)) {\n    if (m[3] !== 'Y') continue;\n    const v = Number(m[2]);\n    speeds[m[1]] = v;\n    valid.push(v);\n}\nif (!valid.length) return null;\nvalid.sort((a, b) => a - b);\nconst mean = valid.reduce((a, b) => a + b, 0) / valid.length;\nconst doc = {\n    snapshotTime,\n    validSegments: valid.length,\n    meanSpeed: Math.round(mean * 10) / 10,\n    medianSpeed: valid[Math.floor(valid.length / 2)],\n    pctBelow30: Math.round(valid.filter(v => v < 30).length / valid.length * 1000) / 10,\n    pctBelow15: Math.round(valid.filter(v => v < 15).length / valid.length * 1000) / 10,\n    speeds,                        // { segmentId: km/h } for hotspot analysis\n    fetchedAt: new Date()\n};\nnode.status({fill: 'blue', shape: 'dot', text: `${valid.length} segs, mean ${doc.meanSpeed} km/h`});\nmsg.payload = [[{updateOne: {filter: {snapshotTime}, update: {$set: doc}, upsert: true}}]];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 400,
+        "wires": [
+            [
+                "db0021dc"
+            ]
+        ]
+    },
+    {
+        "id": "db0021dc",
+        "type": "mongodb3 in",
+        "z": "dc0llect0r0tab01",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "bulkWrite traffic_speed",
+        "collection": "traffic_speed",
+        "operation": "bulkWrite",
+        "x": 860,
+        "y": 400,
+        "wires": [
+            [
+                "st0020dc"
+            ]
+        ]
+    },
+    {
+        "id": "st0020dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Stored",
+        "func": "// Show how many documents were inserted/updated by the bulkWrite\nconst r = msg.payload || {};\nconst ins = r.nUpserted ?? r.upsertedCount ?? 0;\nconst mod = r.nModified ?? r.modifiedCount ?? 0;\nconst t = new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'});\nnode.status({fill: 'green', shape: 'dot', text: `${t}  +${ins} new, ${mod} updated`});\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cm0025dc",
+        "type": "comment",
+        "z": "dc0llect0r0tab01",
+        "name": "Carpark vacancy (private cars)",
+        "info": "One snapshot per 15-min slot with vacancy of every carpark.",
+        "x": 180,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "in0030dc",
+        "type": "inject",
+        "z": "dc0llect0r0tab01",
+        "name": "every 15 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "900",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 500,
+        "wires": [
+            [
+                "hr0029dc"
+            ]
+        ]
+    },
+    {
+        "id": "hr0029dc",
+        "type": "http request",
+        "z": "dc0llect0r0tab01",
+        "name": "GET carpark_vacancy",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.data.gov.hk/v1/carpark-info-vacancy?data=vacancy&vehicleTypes=privateCar",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 360,
+        "y": 500,
+        "wires": [
+            [
+                "fn0028dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0028dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Parse -> carpark_vacancy",
+        "func": "if (msg.statusCode !== 200 || !msg.payload) {\n    node.status({fill: 'red', shape: 'ring', text: 'HTTP ' + msg.statusCode});\n    return null;\n}\n\n// Carpark vacancy (private cars) -> 1 snapshot document every run\nconst res = (msg.payload && msg.payload.results) || [];\nconst now = new Date();\nconst slot = new Date(Math.floor(now.getTime() / 900000) * 900000);   // 15-min slot\nconst parks = [];\nfor (const p of res) {\n    const pc = (p.privateCar || [])[0];\n    if (!pc) continue;\n    parks.push({id: p.park_Id, type: pc.vacancy_type, vacancy: pc.vacancy,\n                vacancyEV: pc.vacancyEV ?? null, vacancyDIS: pc.vacancyDIS ?? null,\n                lastupdate: pc.lastupdate ? new Date(pc.lastupdate.replace(' ', 'T') + '+08:00') : null});\n}\nif (!parks.length) return null;\n// only real counts (type 'A'); -1 means \"no data\"\nconst counted = parks.filter(p => p.type === 'A' && p.vacancy >= 0);\nconst doc = {slotTime: slot, parkCount: parks.length,\n             totalVacancy: counted.reduce((a, p) => a + p.vacancy, 0),\n             parks, fetchedAt: now};\nnode.status({fill: 'blue', shape: 'dot', text: `${parks.length} parks, ${doc.totalVacancy} free`});\nmsg.payload = [[{updateOne: {filter: {slotTime: slot}, update: {$set: doc}, upsert: true}}]];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 500,
+        "wires": [
+            [
+                "db0027dc"
+            ]
+        ]
+    },
+    {
+        "id": "db0027dc",
+        "type": "mongodb3 in",
+        "z": "dc0llect0r0tab01",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "bulkWrite carpark_vacancy",
+        "collection": "carpark_vacancy",
+        "operation": "bulkWrite",
+        "x": 860,
+        "y": 500,
+        "wires": [
+            [
+                "st0026dc"
+            ]
+        ]
+    },
+    {
+        "id": "st0026dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Stored",
+        "func": "// Show how many documents were inserted/updated by the bulkWrite\nconst r = msg.payload || {};\nconst ins = r.nUpserted ?? r.upsertedCount ?? 0;\nconst mod = r.nModified ?? r.modifiedCount ?? 0;\nconst t = new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'});\nnode.status({fill: 'green', shape: 'dot', text: `${t}  +${ins} new, ${mod} updated`});\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cm0031dc",
+        "type": "comment",
+        "z": "dc0llect0r0tab01",
+        "name": "Carpark static info (daily)",
+        "info": "Name, district and coordinates of each carpark, used to group vacancy by district.",
+        "x": 180,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "in0036dc",
+        "type": "inject",
+        "z": "dc0llect0r0tab01",
+        "name": "every 1440 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "86400",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 600,
+        "wires": [
+            [
+                "hr0035dc"
+            ]
+        ]
+    },
+    {
+        "id": "hr0035dc",
+        "type": "http request",
+        "z": "dc0llect0r0tab01",
+        "name": "GET carpark_info",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://api.data.gov.hk/v1/carpark-info-vacancy?data=info&vehicleTypes=privateCar&lang=en_US",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 360,
+        "y": 600,
+        "wires": [
+            [
+                "fn0034dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0034dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Parse -> carpark_info",
+        "func": "if (msg.statusCode !== 200 || !msg.payload) {\n    node.status({fill: 'red', shape: 'ring', text: 'HTTP ' + msg.statusCode});\n    return null;\n}\n\n// Carpark static info (name, district, lat/long) -> one document per carpark\nconst res = (msg.payload && msg.payload.results) || [];\nconst ops = res.map(p => ({updateOne: {\n    filter: {park_Id: p.park_Id},\n    update: {$set: {park_Id: p.park_Id, name: p.name, district: p.district,\n        region: p.address && p.address.region, nature: p.nature, carparkType: p.carpark_Type,\n        latitude: p.latitude, longitude: p.longitude, openingStatus: p.opening_status,\n        updatedAt: new Date()}},\n    upsert: true}}));\nif (!ops.length) return null;\nnode.status({fill: 'blue', shape: 'dot', text: ops.length + ' carparks'});\nmsg.payload = [ops, {ordered: false}];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 600,
+        "wires": [
+            [
+                "db0033dc"
+            ]
+        ]
+    },
+    {
+        "id": "db0033dc",
+        "type": "mongodb3 in",
+        "z": "dc0llect0r0tab01",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "bulkWrite carpark_info",
+        "collection": "carpark_info",
+        "operation": "bulkWrite",
+        "x": 860,
+        "y": 600,
+        "wires": [
+            [
+                "st0032dc"
+            ]
+        ]
+    },
+    {
+        "id": "st0032dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Stored",
+        "func": "// Show how many documents were inserted/updated by the bulkWrite\nconst r = msg.payload || {};\nconst ins = r.nUpserted ?? r.upsertedCount ?? 0;\nconst mod = r.nModified ?? r.modifiedCount ?? 0;\nconst t = new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'});\nnode.status({fill: 'green', shape: 'dot', text: `${t}  +${ins} new, ${mod} updated`});\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cm0037dc",
+        "type": "comment",
+        "z": "dc0llect0r0tab01",
+        "name": "HKO weather warnings (stored on change)",
+        "info": "Rainstorm / typhoon / hot-weather warnings in force; a document is written only when the set of warnings changes.",
+        "x": 180,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "in0042dc",
+        "type": "inject",
+        "z": "dc0llect0r0tab01",
+        "name": "every 10 min",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "600",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "2",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 700,
+        "wires": [
+            [
+                "hr0041dc"
+            ]
+        ]
+    },
+    {
+        "id": "hr0041dc",
+        "type": "http request",
+        "z": "dc0llect0r0tab01",
+        "name": "GET weather_warnings",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=warnsum&lang=en",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 360,
+        "y": 700,
+        "wires": [
+            [
+                "fn0040dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0040dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Parse -> weather_warnings",
+        "func": "if (msg.statusCode !== 200 || !msg.payload) {\n    node.status({fill: 'red', shape: 'ring', text: 'HTTP ' + msg.statusCode});\n    return null;\n}\n\n// HKO warning summary -> store a new document only when the active set changes\nconst d = msg.payload || {};\nconst active = Object.keys(d).map(k => ({code: d[k].code, name: d[k].name,\n    actionCode: d[k].actionCode, issueTime: d[k].issueTime})).sort((a, b) => a.code < b.code ? -1 : 1);\nconst sig = JSON.stringify(active.map(a => a.code + ':' + a.issueTime));\nif (sig === flow.get('lastWarnSig')) { node.status({fill: 'grey', shape: 'dot', text: 'no change'}); return null; }\nflow.set('lastWarnSig', sig);\nconst t = new Date();\nnode.status({fill: 'blue', shape: 'dot', text: active.length ? active.map(a => a.code).join(',') : 'no warnings'});\nmsg.payload = [[{insertOne: {document: {observedAt: t, activeCodes: active.map(a => a.code), warnings: active}}}]];\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 700,
+        "wires": [
+            [
+                "db0039dc"
+            ]
+        ]
+    },
+    {
+        "id": "db0039dc",
+        "type": "mongodb3 in",
+        "z": "dc0llect0r0tab01",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "bulkWrite weather_warnings",
+        "collection": "weather_warnings",
+        "operation": "bulkWrite",
+        "x": 860,
+        "y": 700,
+        "wires": [
+            [
+                "st0038dc"
+            ]
+        ]
+    },
+    {
+        "id": "st0038dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Stored",
+        "func": "// Show how many documents were inserted/updated by the bulkWrite\nconst r = msg.payload || {};\nconst ins = r.nUpserted ?? r.upsertedCount ?? 0;\nconst mod = r.nModified ?? r.modifiedCount ?? 0;\nconst t = new Date().toLocaleTimeString('en-GB', {timeZone: 'Asia/Hong_Kong'});\nnode.status({fill: 'green', shape: 'dot', text: `${t}  +${ins} new, ${mod} updated`});\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1060,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cm0043dc",
+        "type": "comment",
+        "z": "dc0llect0r0tab01",
+        "name": "Create MongoDB indexes at start-up",
+        "info": "",
+        "x": 180,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "in0046dc",
+        "type": "inject",
+        "z": "dc0llect0r0tab01",
+        "name": "on deploy",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 800,
+        "wires": [
+            [
+                "fn0045dc"
+            ]
+        ]
+    },
+    {
+        "id": "fn0045dc",
+        "type": "function",
+        "z": "dc0llect0r0tab01",
+        "name": "Index definitions",
+        "func": "// Run once at start-up: indexes that make upserts and time-range queries fast\nconst idx = [\n  ['aqhi',              {station: 1, time: 1}, {unique: true}],\n  ['aqhi',              {time: 1}, {}],\n  ['ae_waiting',        {hospital: 1, updateTime: 1}, {unique: true}],\n  ['ae_waiting',        {updateTime: 1}, {}],\n  ['journey_time',      {from: 1, to: 1, captureTime: 1}, {unique: true}],\n  ['journey_time',      {captureTime: 1}, {}],\n  ['traffic_speed',     {snapshotTime: 1}, {unique: true}],\n  ['carpark_vacancy',   {slotTime: 1}, {unique: true}],\n  ['carpark_info',      {park_Id: 1}, {unique: true}],\n  ['weather_warnings',  {observedAt: 1}, {}],\n  ['Weather Report',    {updateTime: 1}, {}]\n];\nreturn [idx.map(([c, k, o]) => ({collection: c, operation: 'createIndex', payload: [k, o]}))];",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 800,
+        "wires": [
+            [
+                "db0044dc"
+            ]
+        ]
+    },
+    {
+        "id": "db0044dc",
+        "type": "mongodb3 in",
+        "z": "dc0llect0r0tab01",
+        "service": "_ext_",
+        "configNode": "ecc26120.5c01a8",
+        "name": "createIndex (msg.collection)",
+        "collection": "",
+        "operation": "",
+        "x": 600,
+        "y": 800,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ct0048dc",
+        "type": "catch",
+        "z": "dc0llect0r0tab01",
+        "name": "Errors",
+        "scope": null,
+        "uncaught": false,
+        "x": 140,
+        "y": 860,
+        "wires": [
+            [
+                "dg0047dc"
+            ]
+        ]
+    },
+    {
+        "id": "dg0047dc",
+        "type": "debug",
+        "z": "dc0llect0r0tab01",
+        "name": "Collector errors",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": true,
+        "complete": "error",
+        "targetType": "msg",
+        "statusVal": "error.message",
+        "statusType": "msg",
+        "x": 360,
+        "y": 860,
+        "wires": []
+    }
+]

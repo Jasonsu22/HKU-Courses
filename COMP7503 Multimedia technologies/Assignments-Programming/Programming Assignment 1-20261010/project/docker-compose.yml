@@ -1,0 +1,30 @@
+# COMP7503 Programming Assignment - Smart City dashboards
+# Usage:  docker compose up -d --build   ->  editor http://localhost:1880 , dashboard http://localhost:1880/ui
+name: comp7503-smartcity
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: comp7503-mongo
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:27017:27017"   # host access for Compass/mongosh only
+    volumes:
+      - mongo_data:/data/db
+
+  nodered:
+    build: ./nodered
+    image: comp7503-smartcity-nodered:latest
+    container_name: comp7503-nodered
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    environment:
+      - TZ=Asia/Hong_Kong
+    ports:
+      - "1880:1880"
+    volumes:
+      - ./nodered/data:/data      # flows.json lives here (easy to export/back up)
+
+volumes:
+  mongo_data:
