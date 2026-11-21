@@ -72,13 +72,24 @@ coordinates).
 ## 5. Design (≈1,100 words)
 
 ### 5.1 Story and product path
-History → Routes → Your plan; one offline page, three tabs, shared definitions.
+History → Routes → Your plan; one offline page, three tabs, shared definitions. This is a decision-support
+path: understand the historical background, compare side / season / route / support / oxygen choices, then
+inspect what comparable historical plans achieved. Routes and Your plan are the two core modules; History
+supports them with context. The event explorer belongs to the first step; it adds context for particular
+seasons rather than forming a separate causal narrative.
 
 ### 5.2 Module 01 — history
 Figure 1 (screenshot `docs/screens/history.png`): annual scale (two aligned panels, no dual axis),
 decade success with Wilson intervals, season × decade heatmap (sqrt colour for skewed counts),
-duration quantiles, support structure, oxygen, deaths with rate per 1,000.
-Interaction: decade highlighting across three charts; year-range chips.
+duration quantiles, support structure, oxygen, deaths with rate per 1,000, and termination reasons.
+Interaction: timeline brushing, decade highlighting and coordinated chart states.
+
+The **Events and turning points** explorer adds cited historical context for the 1953 first ascent,
+commercial expansion from around 1990, the 2014 avalanche and strike, the 2015 earthquake, and the
+2020 permit suspension. Selecting an event zooms the timeline and compares fixed before/during/after
+windows using expedition counts, success with Wilson intervals, and hired staff per member. These are
+explicitly descriptive comparisons, not causal estimates. The 2014–15 closures return in Module 03,
+where the same events explain the correction to the oxygen coefficient.
 
 ### 5.3 Module 02 — routes and terrain
 Figure 2 (`docs/screens/routes.png`): filter bar (side, season, period, route group), six-metric
@@ -134,25 +145,33 @@ Table 2 — held-out 2020–2024 performance (from the model card):
 
 Organise this section around hypotheses H1 to H8 (`DEMO_AND_STORY_GUIDE.md` has the current numbers).
 
-### 7.1 What changed
+### 7.1 What changed, and what interrupted the trend
 Expedition success 29.1% in the 1980s → 88.9% in 2020–2024; median BC→summit 44 → 28 days; hired staff
-per member rose from 0.60 in the 1990s to 1.47 in 2020–2024; oxygen use 76.3% overall and 92.6% in 2020–2024.
-Figure 1 again or a cropped panel.
+per member rose from 0.60 in the 1990s to 1.47 in 2020–2024; oxygen use 76.3% overall and near-universal recently.
+Separate this structural trend from sharp interruptions: 11/68 expeditions had a summit in 2014 and 0/81
+in 2015, compared with 220/263 in 2016–18. In 2020 only three expeditions remain and all three succeeded,
+so the event is primarily an interruption in scale, not evidence of a success-rate decline. Event sources
+and fixed comparison windows are documented in `data/events.json`; no causal effect is inferred.
+Figure 1 again or a cropped panel, plus a close-up of the event explorer.
 
 ### 7.2 Do side and season differences survive like-for-like comparison?
 Spring 2020–2024: south 157/173 = **90.8%**, north 11/13 = **84.6%** — the gap is small and the north
-sample is tiny. All-season and all-period: south 68.2% vs north 55.2%. Before 2000: 52.7% vs 30.3%. From 2000: 71.8% vs 65.4%.
-Autumn: south 38.3% (49/128) vs north 7.8% (8/102). The overall gap shrinks a lot when comparing similar periods and seasons.
-Module 03 shows how the matching rule matters for the default profile: exact 75.0% (440/587), same oxygen 73.4% (920/1,254), widest 69.8% (923/1,323).
+sample is tiny. All-season and all-period: south 68% vs north 55%, with the gap concentrated in autumn
+(south 38.3%, 49/128, vs north 7.8%, 8/102) and in the pre-2000 period (52.7% vs 30.3%; from 2000: 71.8% vs 65.4%).
+The visual-analytics question from the proposal is answered with the cohort comparison in module 03:
+same age band, sex, season, side and oxygen — the matching rule matters for the default profile: exact
+75.0% (440/587), same oxygen 73.4% (920/1,254), widest 69.8% (923/1,323), which is why the app shows both.
 
 ### 7.3 Model behaviour and where it fails
 Calibration points sit above the diagonal for 2020–2024 (under-prediction); oxygen is a near-perfect
 separator, so oxygen-free estimates are unstable and are flagged; the expedition model smooths the
-oxygen-free case, and the UI shows the observed comparable group next to it with a caution.
+oxygen-free case, and the UI shows the observed comparable group next to it with a caution. Explicitly
+connect this result to the History event explorer: 2014–15 first appear as season interruptions and then
+explain why the oxygen coefficient required correction.
 
 ### 7.4 Reproducibility check
-The browser ↔ Python self-test: 53/53 checks (`?selftest=1`), including 8 model predictions, 6
-cohort counts and the numbers behind every finding. Appendix B holds the 28-row audit table and the file checksums.
+The browser ↔ Python self-test: 59/59 checks (`?selftest=1`), including 8 model predictions, 6
+cohort counts, every finding and all five events' fixed-window totals. Appendix B holds the 28-row audit table and the file checksums.
 
 ## 8. Evaluation (≈600 words — fill after the six sessions)
 
@@ -180,7 +199,9 @@ cohort counts and the numbers behind every finding. Appendix B holds the 28-row 
 ## 11. References (Part I ends here)
 
 The proposal's [1]–[10] plus the two 2026 news sources; cite the Himalayan Database download and the
-Maven Analytics page with access dates.
+Maven Analytics page with access dates. Add the event sources listed in `everest-app/data/events.json`:
+University of Montana (1953), Westhoff et al. (commercialisation), Associated Press (2014–15), and
+ABC News (2020 permit suspension).
 
 ## Appendix
 

@@ -78,7 +78,7 @@
       };
       paint();
       U.axisX(g, x, m.top + topH + gap + botH, { ticks: Math.round(w / 90) });
-      U.eventMarks(g.append("g").attr("pointer-events", "none"), x, m.top, m.top + topH + gap + botH);
+      U.eventMarks(g.append("g").attr("pointer-events", "none"), x, m.top, m.top + topH + gap + botH, { all: true });
 
       const brush = d3.brushX().extent([[m.left, m.top], [w - m.right, m.top + topH + gap + botH]])
         .on("end", (event) => {
@@ -504,12 +504,12 @@
       {
         id: "H1", title: "Success rose everywhere", verdict: "Partly rejected",
         text: () => `Before 1990 vs 2020–24: Everest ${r(pts.EVER.early)} → ${r(pts.EVER.late)}, Lhotse ${r(pts.LHOT.early)} → ${r(pts.LHOT.late)}, Manaslu ${r(pts.MANA.early)} → ${r(pts.MANA.late)}, but Baruntse ${r(pts.BARU.early)} → ${r(pts.BARU.late)} (only ${pts.BARU.late.n} recent expeditions).`,
-        apply: () => { setPeaks("horizon"); U.spotlight("m1-card-peaks"); },
+        apply: () => { setRange(FULL.slice()); setPeaks("horizon"); U.spotlight("m1-card-peaks"); },
       },
       {
         id: "H2", title: "Climbing has become much safer", verdict: "Depends on the denominator",
         text: () => `Before 1990 vs 2020–24: deaths per 100 summiters fell from ${fmt.dec1(ra.s)} to ${fmt.dec1(rl.s)}, but member deaths per 1,000 members only fell from ${fmt.dec1(ra.m)} to ${fmt.dec1(rl.m)}, above the 2010s (${fmt.dec1(rt.m)}).`,
-        apply: () => { setDeaths("summits"); U.spotlight("m1-card-deaths"); },
+        apply: () => { setRange(FULL.slice()); setDeaths("summits"); U.spotlight("m1-card-deaths"); },
       },
       {
         id: "H3", title: "More hired support is what drives success", verdict: "Mixed",
@@ -541,7 +541,8 @@
     U.seg("m1-ended-mode", state.ended, (v) => { state.ended = v; drawEnded(); });
     window.OperatorNet.setup(drawNet);
     drawLinked();
+    window.HistoryEvents.init();
   }
 
-  window.M1 = { init };
+  window.M1 = { init, showPeriod: setRange };
 })();

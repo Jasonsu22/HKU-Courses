@@ -245,10 +245,13 @@
     { year: 2015, label: "2015", tip: "<strong>2015</strong><br>Season abandoned on both sides: notes cite the earthquake" },
     { year: 2020, label: "2020", tip: "<strong>2020</strong><br>Only 3 expeditions recorded" },
   ];
-  function eventMarks(g, x, top, bottom, { labels = true } = {}) {
+  function eventMarks(g, x, top, bottom, { labels = true, all = false } = {}) {
     const [a, b] = x.domain();
-    EVENTS.filter((e) => e.year >= a && e.year <= b).forEach((e, i) => {
+    const source = window.EVEREST_EVENTS || EVENTS;
+    const events = all ? source : source.filter((e) => e.mark !== false);
+    events.filter((e) => e.year >= a && e.year <= b).forEach((e) => {
       const px = x(e.year);
+      const tip = e.summary ? `<strong>${e.label} · ${e.title}</strong><br>${e.summary}` : e.tip;
       g.append("line").attr("x1", px).attr("x2", px).attr("y1", top).attr("y2", bottom)
         .attr("stroke", COLORS.ink).attr("stroke-width", 1).attr("stroke-dasharray", "2 3").attr("opacity", .55);
       if (labels) {
@@ -256,7 +259,7 @@
           .attr("text-anchor", e.year === 2014 ? "end" : "start").attr("font-size", 10).attr("fill", COLORS.muted).text(e.label);
       }
       g.append("rect").attr("x", px - 5).attr("y", top).attr("width", 10).attr("height", bottom - top)
-        .attr("fill", "transparent").call((s) => withTip(s, e.tip));
+        .attr("fill", "transparent").call((s) => withTip(s, tip));
     });
   }
 
@@ -340,6 +343,11 @@
   function spotlight(id) {
     const n = document.getElementById(id);
     if (!n) return;
+    let parent = n.parentElement;
+    while (parent) {
+      if (parent.tagName === "DETAILS") parent.open = true;
+      parent = parent.parentElement;
+    }
     n.scrollIntoView({ behavior: "smooth", block: "center" });
     n.classList.remove("is-spot");
     void n.offsetWidth;

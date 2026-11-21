@@ -128,6 +128,18 @@
       add("findings", `H5 base camp day ${w.lo}–${w.hi}: ${ks(w)}`, same(got, w), ks(got));
     });
 
+    const events = window.EVEREST_EVENTS || [];
+    add("events", "five chronological events with sources and comparison windows",
+      events.length === 5 && events.every((e, i) => e.source && e.source.url && e.windows.length === 3 && (!i || e.year >= events[i - 1].year)),
+      events.map((e) => e.label).join(" · "));
+    events.forEach((event) => {
+      const got = event.windows.map((w) => window.HistoryEvents._test.summary(w.range));
+      const want = E.events[event.id] || [];
+      const pass = got.length === want.length && got.every((s, i) => s.n === want[i].n && s.k === want[i].k && s.members === want[i].members && s.hired === want[i].hired);
+      add("events", `${event.label} ${event.title}: all three windows match Python`, pass,
+        got.map((s, i) => `${event.windows[i].label}: ${ks(s)}`).join(" · "));
+    });
+
     render(checks);
   }
 
@@ -141,8 +153,9 @@
         <div>
           <div class="selftest-kicker">browser ↔ python self-test</div>
           <h2>${pass === all ? `${all} of ${all} checks passed` : `${pass} of ${all} checks passed — see failures`}</h2>
-          <p>Rows are recomputed in the browser from <code>data/everest_data.js</code> and
-          <code>data/model.js</code> and <code>data/plan_data.js</code>; expected values were written by <code>pipeline/train_model.py</code> and <code>pipeline/build_plan_data.py</code>.</p>
+          <p>Rows are recomputed in the browser from <code>data/everest_data.js</code>,
+          <code>data/model.js</code>, <code>data/plan_data.js</code> and <code>data/events.json</code>;
+          expected values were written by <code>pipeline/train_model.py</code> and <code>pipeline/build_plan_data.py</code>.</p>
         </div>
         <button class="ghost" id="selftest-close">Close ✕</button>
       </div>

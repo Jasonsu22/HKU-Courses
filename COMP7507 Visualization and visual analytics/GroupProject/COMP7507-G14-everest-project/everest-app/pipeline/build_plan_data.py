@@ -5,6 +5,7 @@
   tuples     匿名化的队员聚合行（不含姓名），浏览器按任意条件重新汇总
   peakYears  各山峰逐年 expedition / 成功数（山峰对比图）
   expect     Python 端算好的期望值，供 ?selftest=1 对比
+同时把 events.json 同步为浏览器直接加载的 events.js。
 只读本地 CSV，不联网。
 """
 from __future__ import annotations
@@ -20,6 +21,9 @@ import train_model as T
 
 APP = Path(__file__).resolve().parent.parent
 OUT = APP / "data" / "plan_data.js"
+EVENTS_FILE = APP / "data" / "events.json"
+EVENTS_OUT = APP / "data" / "events.js"
+EVENTS = json.loads(EVENTS_FILE.read_text(encoding="utf-8"))
 
 AGE = ["u30", "30s", "40s", "50s", "60p"]
 SEX = ["M", "F"]
@@ -88,6 +92,10 @@ def main() -> None:
     bc_s = bc[spring.index]
     bins = [(0, 95), (96, 105), (106, 115), (116, 366)]
     no2 = d[(d.year.between(2005, 2024)) & (d.o2 == 0)]
+    def event_summary(window):
+        x = ee(*window["range"])
+        return {"n": int(len(x)), "k": int(x.success1.sum()),
+                "members": int(x.totmembers.sum()), "hired": int(x.tothired.sum())}
     expect = {
         "tuples": {"rows": int(len(d)), "k": int(d.y.sum()), "closure": int(d.closure.sum())},
         "closureExpeditions": int(e.closure.sum()),
@@ -100,10 +108,12 @@ def main() -> None:
                   "northEarly": reach("North", 1900, 1999, 8840), "northLate": reach("North", 2016, 2024, 8840)},
         "bcWindows": [{"lo": a, "hi": b, "n": int(bc_s.between(a, b).sum()), "k": int(spring[bc_s.between(a, b)].success1.sum())} for a, b in bins],
         "noOxygen": {"members": int(len(no2)), "summits": int(no2.y.sum()), "closure": int(no2.closure.sum())},
+        "events": {event["id"]: [event_summary(w) for w in event["windows"]] for event in EVENTS},
     }
     out = {"levels": {"age": AGE, "sex": SEX, "season": SEASON, "side": SIDE, "route": ROUTE, "team": TEAM, "support": SUPPORT},
            "columns": keys + ["n", "k"], "tuples": flat, "peaks": peaks, "expect": expect}
     OUT.write_text("window.EVEREST_PLAN = " + json.dumps(out, separators=(",", ":"), ensure_ascii=False) + ";\n", encoding="utf-8")
+    EVENTS_OUT.write_text("window.EVEREST_EVENTS = " + json.dumps(EVENTS, separators=(",", ":"), ensure_ascii=False) + ";\n", encoding="utf-8")
     print(f"tuples={len(g):,} rows={len(d):,} size={OUT.stat().st_size/1024:.0f} KB")
     print(json.dumps(expect, indent=0)[:3200])
 

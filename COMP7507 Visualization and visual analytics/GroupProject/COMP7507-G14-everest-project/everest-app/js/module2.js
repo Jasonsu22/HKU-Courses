@@ -18,10 +18,20 @@
     t2: [2015, 2019], t3: [2020, 2024], d20: [2005, 2024],
   }[p] || [1900, 2100]);
 
+  const DEFAULT_FILTERS = { side: "All", season: "Spring", period: "d20", route: "standard" };
+  const ALL_HISTORY = { side: "All", season: "All", period: "all", route: "All" };
   const state = {
-    side: "All", season: "All", period: "all", route: "All", campSide: "both", family: null, routesMode: "bars",
+    ...DEFAULT_FILTERS, campSide: "both", family: null, routesMode: "bars",
   };
   let hoverAlt = null;
+
+  function currentFilterLabel() {
+    const side = state.side === "All" ? "Both sides" : `${state.side} side`;
+    const season = state.season === "All" ? "all seasons" : state.season;
+    const period = PERIODS.find((p) => p.value === state.period).label;
+    const route = state.route === "All" ? "all routes" : state.route === "standard" ? "standard routes" : "other routes";
+    return `${side} · ${season} · ${period} · ${route}`;
+  }
 
   // Shareable filters: ?side=North&season=Spring&period=t3&route=standard&camp=north
   (function readQuery() {
@@ -79,8 +89,7 @@
       box.innerHTML = `<div class="kpi" style="grid-column:1/-1"><div class="kpi-label">No expeditions match these filters. Try a wider period or season.</div></div>`;
       return;
     }
-    const label = `${state.side === "All" ? "Both sides" : state.side + " side"} · ${state.season === "All" ? "all seasons" : state.season} · ${
-      PERIODS.find((p) => p.value === state.period).label}`;
+    const label = currentFilterLabel();
     box.append(
       statCard({
         value: fmt.int(s.n),
@@ -163,9 +172,13 @@
       if (state.route !== "All") patch.route = state.route;
       window.M3.setProfile(patch);
     });
+    const allHistory = el("button", { type: "button", class: "ghost" }, "All history");
+    allHistory.title = "Show all years, seasons and route groups";
+    allHistory.addEventListener("click", () => { Object.assign(state, ALL_HISTORY, { family: null }); renderAll(); });
     const reset = el("button", { type: "button", class: "ghost filter-reset" }, "Reset");
-    reset.addEventListener("click", () => { Object.assign(state, { side: "All", season: "All", period: "all", route: "All", family: null }); renderAll(); });
-    actions.append(toPlan, reset);
+    reset.title = "Return to the recent spring standard-route view";
+    reset.addEventListener("click", () => { Object.assign(state, DEFAULT_FILTERS, { family: null }); renderAll(); });
+    actions.append(toPlan, allHistory, reset);
     box.appendChild(actions);
   }
 
@@ -183,7 +196,7 @@
     const hint = document.getElementById("m2-compare-hint");
     const south = stats(rowsFiltered({ ignoreSide: true }).filter((r) => r.side === "South"));
     const north = stats(rowsFiltered({ ignoreSide: true }).filter((r) => r.side === "North"));
-    hint.textContent = `Season, period and route filters applied. South n = ${fmt.int(south.n)}, north n = ${fmt.int(north.n)}. Lines through the rate dots are 95% intervals.`;
+    hint.textContent = `Expedition-level · ${currentFilterLabel()}. South n = ${fmt.int(south.n)}, north n = ${fmt.int(north.n)}. Lines through the rate dots are 95% intervals.`;
 
     mount(document.getElementById("m2-compare"), 396, (svg, w, h) => {
       const cols = w < 460 ? 1 : 2;
@@ -239,8 +252,8 @@
     const S = series("South"), N = series("North");
     const gap = years.map((y, i) => ({ x: y, v: S[i].rate != null && N[i].rate != null ? S[i].rate - N[i].rate : null }));
     document.getElementById("m2-gap-hint").textContent =
-      "Three-year success on each side, with 95% bands, under the current filters. Points with fewer than 5 expeditions are left out. The strip shows which side leads; darker means over 20 points.";
-    mount(document.getElementById("m2-gap"), 420, (svg, w, h) => {
+      `Expedition-level · ${currentFilterLabel()}. Three-year success on each side, with 95% bands. Points with fewer than 5 expeditions are left out. The strip shows which side leads; darker means over 20 points.`;
+    mount(document.getElementById("m2-gap"), 396, (svg, w, h) => {
       if (years.length < 3 || !gap.some((d) => d.v != null)) { U.emptyNote(svg, w, h, "Too few expeditions on one side to compare through time."); return; }
       const m = { top: 28, right: 14, bottom: 24, left: 42 };
       const stripH = 26, gapH = 40;
@@ -273,8 +286,8 @@
   // ------------------------------------------------------------- routes
   function drawRoutes() {
     document.getElementById("m2-routes-hint").textContent = state.routesMode === "bars"
-      ? "Grouped by the leading route name, at least 20 expeditions, ranked by success with 95% intervals."
-      : "Area shows expeditions; colour shows success against the filtered average. Click a family to filter everything to it and see its raw route names.";
+      ? `Expedition-level · ${currentFilterLabel()}. Grouped by the leading route name, at least 20 expeditions, ranked by success with 95% intervals.`
+      : `Expedition-level · ${currentFilterLabel()}. Area shows expeditions; colour shows success against the filtered average. Click a family to filter everything to it and see its raw route names.`;
     if (state.routesMode === "tree") { drawTreemap(); return; }
     const rows = rowsFiltered();
     const byRoute = d3.rollups(rows, (v) => ({
@@ -575,7 +588,7 @@
     const nineties = (side) => PD.total(PD.rows.filter((q) => !q.closure && q.side === side && q.year >= 1990 && q.year <= 1999));
     U.findings("m2-findings", [
       {
-        id: "H4", title: "The south side is better", verdict: "Not stable",
+        id: "H4", title: "Is the south side better for members?", verdict: "Not stable",
         text: () => `Members in the 1990s: south ${r(nineties("South"))}, north ${r(nineties("North"))}. In 2020–24: south ${r(E.members2024.South)}, north ${r(E.members2024.North)}, but on only ${fmt.int(E.members2024.North.n)} north members.`,
         apply: () => { setFilters({ side: "All", season: "Spring", route: "standard", period: "all", family: null }); U.spotlight("m2-card-gap"); },
       },

@@ -126,6 +126,9 @@
       fields.appendChild(s);
       return s;
     }
+    function group(labelText) {
+      fields.appendChild(el("div", { class: "form-group-label" }, labelText));
+    }
     function pills(parent, options, key, format = (v) => v) {
       const wrap = el("div", { class: "pills" });
       options.forEach((o) => {
@@ -153,12 +156,14 @@
       parent.appendChild(row);
     }
 
+    group("Who");
     let s = section("Age band");
     pills(s, ["u30", "30s", "40s", "50s", "60p"].map((v) => ({ value: v })), "age", (v) => AGE_LABEL[v]);
 
     s = section("Recorded sex");
     pills(s, [{ value: "F" }, { value: "M" }], "sex", (v) => (v === "F" ? "Female" : "Male"));
 
+    group("Where and when");
     s = section("Target season");
     pills(s, [{ value: "Spring" }, { value: "Autumn" }, { value: "Winter" }, { value: "Summer" }], "season");
 
@@ -169,6 +174,7 @@
     pills(s, [{ value: "standard" }, { value: "other" }], "route",
       (v) => (v === "standard" ? "Standard route" : "Other route"));
 
+    group("How");
     s = section("Team size (members)");
     slider(s, "team", 2, 80, 1, (v) => v);
 
@@ -184,7 +190,7 @@
     document.getElementById("m3-see-route").addEventListener("click", () => {
       if (window.M2 && window.M2.setFilters) {
         Store.go("routes");
-        window.M2.setFilters({ side: profile.side, season: profile.season, route: profile.route, period: "all" });
+        window.M2.setFilters({ side: profile.side, season: profile.season, route: profile.route, period: "d20" });
       }
     });
   }
@@ -365,7 +371,7 @@
     box.innerHTML = `
       <div class="result-top">
         <div>
-          <div class="result-label">Chance of summiting, this profile</div>
+          <div class="result-label">Historical estimate for comparable members</div>
           <div class="big-prob">${pctSmart(pModel).replace("%", "")}<small>%</small></div>
           <div class="prob-ci">Model range ${pctSmart(lo)}–${pctSmart(hi)}, fitted on ${fmt.int(M.member.n)} members, 2005–2024</div>
         </div>

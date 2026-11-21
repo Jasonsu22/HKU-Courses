@@ -6,11 +6,12 @@ An offline, single-page application that follows the proposal's three-module str
 
 | Module | Question it answers |
 |---|---|
-| **01 History** | Did the mountain get easier? Scale, seasons, success compared with other peaks, duration, support, oxygen, risk under different denominators, how expeditions ended, and who climbs with whom. A timeline brush drives every chart. |
+| **01 History** | Did the mountain get easier? Scale, seasons, success compared with other peaks, duration, support, oxygen, risk under different denominators, how expeditions ended, and who climbs with whom. A timeline brush drives the page; an event explorer separates long-term change from the 2014, 2015 and 2020 interruptions. |
 | **02 Routes** | Do side, route and timing matter? Filters drive the comparison, gap through time, route treemap, altitude funnel, summit calendar, 2D map and 3D terrain together. |
 | **03 Your plan** | Does this apply to a given plan, and how far can it be trusted? An estimate with what-if ladder, the plan through time, factor heat map, index chart, factor network and matrix, decision-tree icicle, parallel coordinates of real expeditions, calibration. |
 
 Each page has hypothesis cards ("Findings"); **Show the evidence** sets the charts to the state that shows it.
+Core charts come first. Hypotheses and advanced analysis sit in native disclosure sections, and evidence links open the relevant section automatically.
 
 Everything is computed from the local CSV snapshot and re-computed in the browser. There are **no network requests at runtime**.
 
@@ -51,6 +52,7 @@ everest-app/
 │  ├─ util.js                 formatting, palette, axes, legends, timeline brush, horizon graph, findings
 │  ├─ store.js                URL state and navigation between pages
 │  ├─ module1.js              history view
+│  ├─ history_events.js       sourced event explorer and fixed-window comparisons
 │  ├─ network.js              page 1 nation and agency network, betweenness
 │  ├─ module2.js              route explorer, funnel, treemap, calendar, 2026 layer
 │  ├─ geo.js                  2D map with contours, 3D terrain, filter linking
@@ -67,6 +69,8 @@ everest-app/
 │  ├─ model.js                window.EVEREST_MODEL (generated)
 │  ├─ model.json              same content, for debugging
 │  ├─ plan_data.js            anonymous member table, peak comparison, expected values (generated)
+│  ├─ events.js               window.EVEREST_EVENTS (generated)
+│  ├─ events.json             historical context, sources and fixed comparison windows
 │  └─ terrain/                generated terrain layer
 │     ├─ terrain.js           heightfield grid (260×300, base64 int16)
 │     ├─ features.js          camps / cols / peaks from OpenStreetMap
@@ -77,7 +81,7 @@ everest-app/
 │  ├─ prepare.py              loading, cleaning, derived fields
 │  ├─ build_data.py           aggregates + camps + 2026 layer → data/
 │  ├─ train_model.py          two logistic regressions + evaluation + bootstrap → data/model.js
-│  ├─ build_plan_data.py      anonymous member table, peaks, expected values → data/plan_data.js
+│  ├─ build_plan_data.py      member table, peaks, event expectations → plan_data.js + events.js
 │  ├─ build_terrain.py        SRTM tiles → hillshade / texture / heightfield → data/terrain/
 │  ├─ build_features.py       OpenStreetMap camps & peaks → data/terrain/features.js
 │  └─ osm_features_raw.json   raw Overpass export (provenance)
@@ -204,8 +208,8 @@ comparable historical expeditions rather than forecasting a future one.
   (summit, both base camps, cols) before integrating it.
 - Module 03's model predictions were cross-checked in Python against the browser
   (default profile: 74.6% model vs 75.0% observed in the exact cohort). The same comparison is now
-  automated: open `?selftest=1` for 53 browser-vs-Python checks (counts, predictions, cohort sizes,
-  camp ordering, plan data, every finding's numbers).
+  automated: open `?selftest=1` for 59 browser-vs-Python checks (counts, predictions, cohort sizes,
+  camp ordering, plan data, every finding's numbers, and every event's fixed-window totals).
 - Insufficient-evidence path tested with a winter / north / non-standard / no-oxygen
   profile.
 - No console errors on any view; no network requests; D3 vendored locally. Palette checked with a colour-blind simulation; meaning never relies on hue alone.

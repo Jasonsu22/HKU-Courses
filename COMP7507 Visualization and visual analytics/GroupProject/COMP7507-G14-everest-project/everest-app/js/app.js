@@ -71,6 +71,11 @@
           expedition in 34.8% of rows (96% before 2000), so it is not used for filtering.</li>
       </ul>
 
+      <h3>Historical events</h3>
+      <p>The History event explorer combines cited historical context with fixed-window descriptive comparisons.
+      These windows show what was recorded before, during and after an event; they do not estimate a causal effect.
+      The 2014–15 closure flags come from the expedition notes, while the linked news sources provide the external context.</p>
+
       <h3>The estimate</h3>
       <p>Two regularised logistic regressions using age band, recorded sex, season, side, route group, team size,
       hired support and oxygen. Expeditions abandoned because of the 2014 strike and avalanche or the 2015 earthquake
@@ -156,6 +161,11 @@
   document.getElementById("close-methods").addEventListener("click", closeMethods);
   modal.addEventListener("click", (e) => { if (e.target === modal) closeMethods(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeMethods(); });
+  document.querySelectorAll("details.secondary").forEach((details) => {
+    details.addEventListener("toggle", () => {
+      if (details.open) setTimeout(() => window.dispatchEvent(new Event("resize")), 60);
+    });
+  });
 
   window.APP = { show };
 

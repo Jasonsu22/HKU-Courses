@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Everest · 布局整理预览</title>
+<link rel="stylesheet" href="../../css/app.css">
+<style>
+  body { background: #f4f1eb; }
+  .preview-banner {
+    margin-bottom: 20px; padding: 12px 16px; border: 1px solid #d6cfc3; border-radius: 10px;
+    background: #fffaf0; color: #3c4046; font-size: 13px;
+  }
+  .preview-banner strong { color: #1e4a5f; }
+  .preview-panel { display: none; scroll-margin-top: 90px; }
+  .tabs .tab { text-decoration: none; }
+  #preview-routes { display: block; }
+  .preview-panel:target { display: block; }
+  body:has(.preview-panel:target) #preview-routes:not(:target) { display: none; }
+  body:not(:has(.preview-panel:target)) [data-panel="routes"],
+  body:has(#preview-routes:target) [data-panel="routes"],
+  body:has(#preview-history:target) [data-panel="history"],
+  body:has(#preview-plan:target) [data-panel="plan"] { background: #1b1e22; color: #fff; }
+  .preview-panel .view-head { margin-bottom: 18px; }
+  .preview-panel .lede { max-width: 780px; }
+  .preview-kpis { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 18px; }
+  .preview-kpis .kpi { padding: 13px 16px; }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(300px, .75fr); gap: 18px; align-items: start; }
+  .hero-grid > * { min-inline-size: 0; }
+  .card--hero { border-color: #b8c8cf; box-shadow: 0 3px 18px rgba(30, 74, 95, .08); }
+  .level { display: inline-block; margin-bottom: 6px; color: #6f6a62; font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; }
+  .mock { margin-top: 14px; padding: 14px; border: 1px dashed #d6cfc3; border-radius: 9px; background: #fbfaf7; }
+  .mock-row { display: grid; grid-template-columns: 90px minmax(0, 1fr) 42px; align-items: center; gap: 10px; margin: 12px 0; font-size: 12px; color: #3c4046; }
+  .mock-line { height: 8px; border-radius: 99px; background: #e6e0d6; }
+  .mock-line > span { display: block; height: 100%; border-radius: inherit; background: #1e4a5f; }
+  .mock-line.south > span { background: #eb6834; }
+  .mock-line.north > span { background: #2a78d6; }
+  .w35 { inline-size: 35%; } .w48 { inline-size: 48%; } .w55 { inline-size: 55%; }
+  .w62 { inline-size: 62%; } .w68 { inline-size: 68%; } .w75 { inline-size: 75%; }
+  .mock-timeline { display: flex; align-items: end; gap: 5px; height: 145px; padding-top: 12px; border-bottom: 1px solid #d6cfc3; }
+  .mock-timeline span { flex: 1; background: #c6d0d5; border-radius: 2px 2px 0 0; }
+  .mock-timeline span:nth-child(3n) { background: #91a7b1; }
+  .mock-timeline span:nth-child(4n) { background: #d81b60; opacity: .65; }
+  .h10 { height: 10%; } .h20 { height: 20%; } .h30 { height: 30%; } .h40 { height: 40%; }
+  .h50 { height: 50%; } .h60 { height: 60%; } .h70 { height: 70%; } .h80 { height: 80%; }
+  .mock-caption { margin-top: 9px; color: #6f6a62; font-size: 11px; }
+  details.secondary { margin: 0 0 18px; border: 1px solid #e6e0d6; border-radius: 12px; background: #fbfaf7; }
+  details.secondary > summary { padding: 14px 18px; color: #1e4a5f; font-size: 13.5px; font-weight: 600; cursor: pointer; }
+  details.secondary > summary small { margin-left: 8px; color: #6f6a62; font-weight: 400; }
+  .secondary-body { padding: 0 18px 16px; color: #3c4046; font-size: 13px; }
+  .secondary-body p + p { margin-top: 7px; }
+  .section-label { margin: 26px 0 10px; color: #6f6a62; font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; }
+  .event-strip { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+  .event-strip span { padding: 4px 10px; border: 1px solid #d6cfc3; border-radius: 99px; background: #fff; font-size: 11.5px; color: #3c4046; }
+  .preview-plan { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 18px; align-items: start; }
+  .form-mock { display: grid; gap: 11px; margin-top: 12px; }
+  .form-mock div { padding-bottom: 9px; border-bottom: 1px solid #efeae2; font-size: 12px; color: #6f6a62; }
+  .form-mock b { display: block; color: #1b1e22; font-weight: 500; }
+  .estimate { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 20px; align-items: center; }
+  .estimate-number { color: #d81b60; font-family: Georgia, serif; font-size: 64px; line-height: 1; }
+  .estimate-number small { font-size: 25px; }
+  .core-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+  .core-tabs span { padding: 6px 12px; border: 1px solid #d6cfc3; border-radius: 8px; background: #fff; color: #6f6a62; font-size: 12px; }
+  .core-tabs .active { border-color: #1b1e22; background: #1b1e22; color: #fff; }
+  .preview-footer { margin-top: 28px; color: #857f75; font-size: 12px; }
+  @media (max-width: 900px) {
+    .hero-grid, .preview-plan { grid-template-columns: 1fr; }
+    .preview-kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 560px) {
+    .preview-kpis { grid-template-columns: 1fr; }
+    .estimate { grid-template-columns: 1fr; }
+    .mock-row { grid-template-columns: 68px minmax(0, 1fr) 32px; }
+  }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand"><span class="brand-mark">▲</span><span class="brand-name">Everest decision support</span><span class="brand-sub">Layout preview</span></div>
+  <nav class="tabs" aria-label="预览模块">
+    <a class="tab" data-panel="history" href="#preview-history"><span class="tab-num">01</span> History</a>
+    <a class="tab" data-panel="routes" href="#preview-routes"><span class="tab-num">02</span> Routes</a>
+    <a class="tab" data-panel="plan" href="#preview-plan"><span class="tab-num">03</span> Your plan</a>
+  </nav>
+</header>
+<main>
+  <div class="preview-banner"><strong>静态布局预览</strong> · 只展示信息层级和阅读顺序，不修改现有应用。图表为线框占位，点击上方标签可切换三个模块。</div>
+
+  <section class="preview-panel" id="preview-history" aria-labelledby="history-title">
+    <div class="view-head"><div><p class="eyebrow">Background · Module 01</p><h1 id="history-title">Historical context for planning</h1><p class="lede">先保留一条完整时间轴，再按需提供事件与其他历史证据。</p></div></div>
+    <div class="preview-kpis">
+      <div class="kpi"><div class="kpi-value">2,347</div><div class="kpi-label">expeditions</div></div>
+      <div class="kpi"><div class="kpi-value">25,274</div><div class="kpi-label">member records</div></div>
+      <div class="kpi kpi--accent"><div class="kpi-value">63.0%</div><div class="kpi-label">with a summit</div></div>
+      <div class="kpi"><div class="kpi-value">340</div><div class="kpi-label">recorded deaths</div></div>
+    </div>
+    <article class="card card--hero">
+      <span class="level">Main background view</span><h2>Expeditions and participants per year</h2>
+      <p class="hint">时间轴仍是历史页的主角，年份筛选保持不变。</p>
+      <div class="mock"><div class="mock-timeline" aria-hidden="true">
+        <span class="h20"></span><span class="h30"></span><span class="h20"></span><span class="h40"></span><span class="h30"></span><span class="h50"></span><span class="h40"></span><span class="h60"></span><span class="h50"></span><span class="h70"></span><span class="h60"></span><span class="h80"></span><span class="h70"></span><span class="h60"></span><span class="h80"></span><span class="h70"></span><span class="h80"></span><span class="h70"></span><span class="h60"></span><span class="h80"></span>
+      </div><div class="mock-caption">1921 ───────────────────────────────────────────── 2024</div></div>
+    </article>
+    <details class="secondary">
+      <summary>Historical events and turning points <small>历史背景，按需展开</small></summary>
+      <div class="secondary-body"><p>保留现有 5 个事件与前后窗口，但不再默认占据整张大卡。选择事件后再展开说明、对照表和来源。</p><div class="event-strip"><span>1953</span><span>1990s</span><span>2014</span><span>2015</span><span>2020</span></div></div>
+    </details>
+    <div class="section-label">Core historical evidence</div>
+    <div class="hero-grid">
+      <article class="card"><h2>Summit success</h2><p class="hint">长期趋势与置信区间。</p><div class="mock"><div class="mock-row"><span>Before 1990</span><div class="mock-line"><span class="w35"></span></div><b>30%</b></div><div class="mock-row"><span>2020–24</span><div class="mock-line"><span class="w80"></span></div><b>89%</b></div></div></article>
+      <article class="card"><h2>Support and oxygen</h2><p class="hint">攀登方式的历史背景。</p><div class="mock"><div class="mock-row"><span>1990s</span><div class="mock-line"><span class="w35"></span></div><b>0.60</b></div><div class="mock-row"><span>2020–24</span><div class="mock-line"><span class="w75"></span></div><b>1.47</b></div></div></article>
+    </div>
+    <details class="secondary">
+      <summary>Further historical analysis <small>H1–H3、风险分母、结束原因、机构网络</small></summary>
+      <div class="secondary-body"><p>现有图表全部保留。用户需要某个问题时，再展开对应证据，而不是一开始全部铺开。</p></div>
+    </details>
+  </section>
+
+  <section class="preview-panel" id="preview-routes" aria-labelledby="routes-title">
+    <div class="view-head"><div><p class="eyebrow">Core module · compare choices</p><h1 id="routes-title">Compare the two sides, like for like</h1><p class="lede">先看到当前对比，再检查差异是否稳定，最后进入路线与地形探索。</p></div></div>
+    <div class="filterbar">
+      <div class="filter-group"><span class="filter-label">Side</span><div class="seg"><button>All</button><button>South</button><button>North</button></div></div>
+      <div class="filter-group"><span class="filter-label">Season</span><div class="seg"><button>All</button><button class="is-active">Spring</button><button>Autumn</button></div></div>
+      <div class="filter-group"><span class="filter-label">Period</span><div class="seg"><button>All</button><button class="is-active">2005–2024</button></div></div>
+      <div class="filter-group"><span class="filter-label">Route</span><div class="seg"><button>All</button><button class="is-active">Standard</button><button>Other</button></div></div>
+    </div>
+    <div class="preview-kpis">
+      <div class="kpi"><div class="kpi-value">1,447</div><div class="kpi-label">expeditions in this filter</div></div>
+      <div class="kpi kpi--accent"><div class="kpi-value">72.8%</div><div class="kpi-label">with a summit</div></div>
+      <div class="kpi"><div class="kpi-value">34 d</div><div class="kpi-label">median days</div></div>
+      <div class="kpi"><div class="kpi-value">6</div><div class="kpi-label">median team size</div></div>
+    </div>
+    <div class="hero-grid">
+      <article class="card card--hero"><span class="level">Expedition-level · primary comparison</span><h2>Current south–north comparison</h2><p class="hint">当前筛选下，两侧分别是多少。</p><div class="mock">
+        <div class="mock-row"><span>Success</span><div class="mock-line south"><span class="w68"></span></div><b>S</b></div>
+        <div class="mock-row"><span></span><div class="mock-line north"><span class="w55"></span></div><b>N</b></div>
+        <div class="mock-row"><span>Days</span><div class="mock-line south"><span class="w48"></span></div><b>S</b></div>
+        <div class="mock-row"><span></span><div class="mock-line north"><span class="w62"></span></div><b>N</b></div>
+        <div class="mock-caption">保留数值、分子/分母、样本量与置信区间。</div>
+      </div></article>
+      <article class="card"><span class="level">Secondary check</span><h2>Is the south–north gap stable?</h2><p class="hint">当前差异能否跨时期成立。</p><div class="mock"><div class="mock-timeline" aria-hidden="true"><span class="h30"></span><span class="h50"></span><span class="h40"></span><span class="h70"></span><span class="h55"></span><span class="h62"></span><span class="h48"></span><span class="h75"></span><span class="h68"></span><span class="h55"></span></div><div class="mock-caption">South ─ North ─　三年窗口与 95% 区间</div></div></article>
+    </div>
+    <div class="section-label">Route choice</div>
+    <article class="card"><span class="level">Expedition-level</span><h2>Success by route family</h2><p class="hint">排名条形图优先；Treemap 作为切换视图保留。</p><div class="mock">
+      <div class="mock-row"><span>Route A</span><div class="mock-line south"><span class="w75"></span></div><b>n≥20</b></div>
+      <div class="mock-row"><span>Route B</span><div class="mock-line north"><span class="w62"></span></div><b>n≥20</b></div>
+      <div class="mock-row"><span>Route C</span><div class="mock-line"><span class="w48"></span></div><b>n≥20</b></div>
+    </div></article>
+    <details class="secondary">
+      <summary>Questions and evidence <small>H4–H6，移到核心图之后</small></summary>
+      <div class="secondary-body"><p><strong>H4</strong> 南侧是否对成员更好？——差异不稳定。</p><p><strong>H5</strong> 提前到大本营是否有帮助？——当前记录不支持。</p><p><strong>H6</strong> 现在是否更少停在高海拔？——数据支持。</p></div>
+    </details>
+    <details class="secondary">
+      <summary>Further exploration <small>海拔漏斗、2D/3D、登顶日历与 2026 图层</small></summary>
+      <div class="secondary-body"><p>不删除任何内容。用户提出“在哪里止步、路线长什么样、什么时候登顶”时，再展开对应区域。</p></div>
+    </details>
+  </section>
+
+  <section class="preview-panel" id="preview-plan" aria-labelledby="plan-title">
+    <div class="view-head"><div><p class="eyebrow">Core module · evaluate a plan</p><h1 id="plan-title">What would this plan have done?</h1><p class="lede">左侧保留计划输入，右侧首先展示历史估计与相似记录。</p></div></div>
+    <div class="core-tabs"><span class="active">Estimate</span><span>Over time</span><span>Records</span><span>Trust</span><span>Connections</span></div>
+    <div class="preview-plan">
+      <aside class="card"><h2>Describe the plan</h2><p class="hint">表单位置不变。</p><div class="form-mock">
+        <div>Age band <b>30–39</b></div><div>Recorded sex <b>Male</b></div><div>Target season <b>Spring</b></div><div>Climbing side <b>South</b></div><div>Route group <b>Standard</b></div><div>Team / support <b>12 / 20</b></div><div>Planned oxygen <b>Yes</b></div>
+      </div></aside>
+      <article class="card card--hero"><span class="level">Historical estimate for comparable members</span><h2>Your plan at a glance</h2><div class="estimate"><div class="estimate-number">75<small>%</small></div><div><p><strong>587 comparable members · 75.0%</strong></p><p class="hint">Model range 72–78% · historical association, not a forecast.</p></div></div><div class="mock"><div class="mock-row"><span>Model</span><div class="mock-line"><span class="w75"></span></div><b>75%</b></div><div class="mock-row"><span>2005–24</span><div class="mock-line"><span class="w75"></span></div><b>75%</b></div><div class="mock-row"><span>2020–24</span><div class="mock-line"><span class="w68"></span></div><b>71%</b></div></div><p class="hint">保留现有动态解读：估计来自哪里、近期为何不同、证据是否足够。</p></article>
+    </div>
+    <details class="secondary">
+      <summary>Questions and evidence <small>H7、H8、H3，放在计划结果之后</small></summary>
+      <div class="secondary-body"><p>时间变化、氧气效应和支持结构继续作为证据入口，不与主估计争夺首屏。</p></div>
+    </details>
+    <details class="secondary">
+      <summary>Connections and technical details <small>因素网络、矩阵、校准与模型卡</small></summary>
+      <div class="secondary-body"><p>保留高级探索和模型细节。需要解释因素关系或模型可信度时再展开。</p></div>
+    </details>
+  </section>
+  <footer class="preview-footer">Preview only · 现有 D3 图表、数据、交互与模型均未改动。</footer>
+</main>
+</body>
+</html>

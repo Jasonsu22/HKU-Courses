@@ -15,6 +15,7 @@ Everest climbing decision support: history, routes, and profile-based summit-suc
 | `everest-app/` | the offline application (`index.html`) + pipeline + README + screenshots |
 | `evaluation/` | 6-participant task test: moderator guide, participant sheet PDF, record sheet, analysis plan |
 | `discussion_1_prep.md` | Discussion 1 walkthrough, kept as a record of that session |
+| `docs/05-记录/模块1-3改动清单_2026-11-14_v1.md` | layout, interaction and terminology change log |
 | `report/outline.md` | outline of the final report |
 
 The submitted proposal is `../Proposal.pdf`.
@@ -36,7 +37,7 @@ Legend: ✅ done · 🟡 partial · ⬜ not started
 | Only pre-expedition variables | 🟡 | no post-expedition outcomes used; oxygen and hired staff are recorded during the expedition, stated openly |
 | Sample size, intervals, calibration, explanations | ✅ | page 3 Estimate and Trust |
 | Sparse profiles return insufficient evidence | ✅ | exact cell under 10 gives no number |
-| Data checks and browser-vs-Python | ✅ | 28-check audit, 53-check self-test (`?selftest=1`) |
+| Data checks and browser-vs-Python | ✅ | 28-check audit, 59-check self-test (`?selftest=1`) |
 | Train / validation / test split | ✅ | deployed coefficients refit on 2005–2024, closures excluded |
 | Visual analysis of similar groups | ✅ | hypotheses H1–H8, factor heat map, network |
 | About six external users | ⬜ | kit updated in `evaluation/`; sessions not yet run |

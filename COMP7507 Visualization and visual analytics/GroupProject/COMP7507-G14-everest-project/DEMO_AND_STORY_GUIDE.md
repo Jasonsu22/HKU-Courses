@@ -12,21 +12,23 @@ How to tell the story of the Everest project, what to click, and what to say.
 
 ## 1. The story in one minute
 
-The requirement says a walkthrough, not a formal talk, and to "wisely choose one or two main visualizations". So the demo follows one question, and spends the most time on two views: **Your plan through time** and the **Factor network**.
+The requirement says a walkthrough, not a formal talk, and to "wisely choose one or two main visualizations". The demo follows the original decision-support story rather than turning the event layer into a separate topic: **understand the historical context → compare the route and timing choices → evaluate a particular plan**.
 
-> **The question:** Everest success rose from about 30% to about 89%. Why, for whom, and does it apply to my plan?
+> **The question:** Everest planning is not one go / no-go decision. How can historical evidence help us compare side, season, route, support and oxygen without overclaiming what the records prove?
 
-| Act | Page | Question | Answer the data gives |
+| Act | Page | Story job | Evidence |
 |---|---|---|---|
-| 1 | History | Did the mountain get easier? | Not simply. Some peaks didn't improve, and safety depends on how you measure it. |
-| 2 | Routes | Do where and when matter? | The south-north gap isn't stable, base camp timing barely matters, and fewer expeditions stop high up. |
-| 3 | Your plan | Does this apply to me? | One number hides a lot: this plan moved from 54% to 82% to 71%. Choices also cluster, and one famous factor was inflated. |
+| 1 | History | Supporting role: establish the background a planner needs. | Scale, seasons, success, support, oxygen and risk have changed. Historical events explain interruptions in particular seasons; they are context, not a separate causal story. |
+| 2 | Routes | **Core module:** use that background to compare actual choices. | Filter side, season, period and route group; compare the sides like for like, inspect where expeditions stop, and connect the evidence to the terrain. |
+| 3 | Your plan | **Core module:** turn the choices into a bounded historical estimate. | Show comparable records, uncertainty and change through time. The 2014–15 background returns only where it helps explain a model limitation. |
+
+**The role of the new event content:** it strengthens the historical background. It helps viewers understand why individual seasons look different and why cancelled expeditions should not be treated as ordinary no-oxygen attempts. It does not replace the decision-support path.
 
 **The one sentence to remember:**
 
-> "We didn't build charts to show that success went up. We used them to test eight explanations, and several of them turned out to be wrong or weaker than they looked."
+> "We turn historical records into a planning path: understand the context, compare the choices, then inspect what comparable plans achieved—with uncertainty and limitations."
 
-That line matters because the rubric gives B+ and above for "mostly explorative visualizations with effective applications of visual analysis", and asks about hypothesis generation and verification.
+The hypotheses remain useful evidence inside this path, but they are not a list of eight separate presentations.
 
 ---
 
@@ -34,7 +36,7 @@ That line matters because the rubric gives B+ and above for "mostly explorative 
 
 **The day before**
 - [ ] Open `everest-app/index.html` on the presenting laptop by double-clicking it. It needs no internet.
-- [ ] Open `everest-app/index.html?selftest=1` and confirm **53 of 53 checks passed**.
+- [ ] Open `everest-app/index.html?selftest=1` and confirm **59 of 59 checks passed**.
 - [ ] Go to Routes and check the 3D terrain appears. If it shows a WebGL message, the map still works, so say "the 2D map shows the same data".
 - [ ] Record the full run as a backup video. The requirements allow video clips.
 - [ ] Rehearse with a timer at projector resolution, and check text is readable from the back. The rubric assesses this.
@@ -54,135 +56,140 @@ That line matters because the rubric gives B+ and above for "mostly explorative 
 
 ## 3. The 8-minute script
 
-Speakers follow the module owners in the proposal, as a suggestion. Swap as you like.
+Speakers follow the module owners in the proposal, as a suggestion. Swap as you like. Keep the original planner's path visible: **background → route choices → a particular plan**. The hypotheses support that path; they are not separate presentations.
 
-Each step has a **Do** (what to click) and a **Say** (what to say).
+Each step has a **Do** (what to click) and a **Say** (what to say). Expand **Further historical analysis** or **Questions and evidence** when you need a hypothesis card. Event and finding links open their target disclosure section automatically.
 
-### 0:00–0:40 · The question (Lin Huaizhong)
+### 0:00–0:40 · The planning problem (Lin Huaizhong)
 
-**Do:** Stay at the top of 01 History.
+**Do:** Stay at the top of 01 History with **All years** selected.
 
 **Say:**
-> "Everest success rose from about 30% before 1990 to about 89% today. The easy story is that the mountain got easier. We wanted to test that. So our app has three pages: did it really get easier, do route and timing matter, and what does this mean for one person's plan? Each page starts with hypotheses, and you can click to see the evidence."
+> "Everest planning is usually framed as one decision: go or do not go. The historical records instead let us explore several choices: which side, which season, which route, and how much support and oxygen. Our app follows that planning path. First we establish the historical background, then compare routes under comparable conditions, and finally ask what happened to historical plans resembling ours—always with sample sizes, uncertainty and limitations."
 
-### 0:40–1:40 · Was it everywhere? H1 (Wang Chenyu)
+### 0:40–1:25 · Historical background for a planner (Wang Chenyu)
 
 **Do:**
-1. Drag across the bars of the top chart, from about 2005 to the end. Let the charts update.
-2. Click **All years**.
-3. On card **H1**, click **Show the evidence**. The page scrolls to the peak comparison.
+1. Drag across the top chart from about 2005 to the end, then click **All years**.
+2. On card **H1**, click **Show the evidence**.
 
 **Say:**
-> "This top chart is overview plus detail. Drag a period, and every chart on the page follows.
-> Our first hypothesis: success rose everywhere, because of better gear and forecasting. This horizon graph compares eight peaks against their own averages. Green is above average, purple is below. Everest goes from purple to green. Lhotse does too, from 32% to 85%. But Baruntse went from 40% to 33%, on only 24 recent expeditions. So the rise is real, but it isn't universal. Better gear alone can't be the whole answer."
+> "Before comparing choices, we need to understand the historical baseline. Expedition success rose from about 30% before 1990 to about 89% recently, while support and oxygen also changed. But the rise is not universal across peaks: Lhotse improved from 32% to 85%, whereas Baruntse went from 40% to 33% on only 24 recent expeditions. So history is not one simple trend that can be applied uncritically to every plan."
 
 **Technique to name:** overview + detail, horizon graph.
 
-### 1:40–2:20 · Is it safer? H2 (Wang Chenyu)
+### 1:25–2:00 · Events as one part of the background (Wang Chenyu)
 
 **Do:**
-1. On card **H2**, click **Show the evidence**. It opens on **Per 100 summiters**.
+1. Scroll to **Events and turning points**.
+2. Select **2014**, point to the three fixed windows, then select **2015**.
+3. Click **See how expeditions ended** and point to **Season closure**.
+
+**Say:**
+> "One part of that background is the events behind unusual seasons. In 2014, 11 of 68 expeditions had a summit, compared with 206 of 282 in the previous three years. In 2015, none of 81 did. The cards link these records to the avalanche, strike and earthquake, and the black segments show the closures in our data. These comparisons help a viewer read particular seasons; they do not attempt to prove what caused the long-term rise."
+
+**Technique to name:** event annotation, fixed-window comparison, coordinated views.
+
+### 2:00–2:25 · Reading risk before comparing plans (Wang Chenyu)
+
+**Do:**
+1. Return to card **H2** and click **Show the evidence**. This restores all years and opens **Per 100 summiters**.
 2. Click **Per 1,000 members**.
 
 **Say:**
-> "Is it safer? Look at deaths per 100 summiters: before 1990 it was about 39, and now it's about 1. That looks like a huge success. Now change only the denominator. Member deaths per 1,000 members fell much less, from about 20 to about 12, and that's higher than the 2010s. Far more people reach the top, so 'per summit' flatters the trend. The same data gives a different story depending on the denominator, so we let you switch it."
+> "The historical background also includes risk, but its meaning depends on the denominator. Deaths per 100 summiters fell from about 39 to about 1, while member deaths per 1,000 members fell only from about 20 to about 12. Before using history in a plan, we need to know not just the trend, but exactly what each rate measures."
 
 **Technique to name:** data transformation.
 
-### 2:20–3:30 · Where do they stop? H6 and H4 (Su Chuanzhou)
+### 2:25–3:35 · Compare the route choices (Su Chuanzhou)
+
+**Transition:** "With that context in place, we can now compare the actual choices: side, season and route."
 
 **Do:**
-1. Click tab **02 Routes**.
-2. On card **H6**, click **Show the evidence**.
-3. Move the mouse slowly along the **How far up expeditions got** chart. Point at the camp profile line.
-4. Scroll to **Route and terrain**, and hover along the funnel again if it's visible.
-5. Click **Spring** or **All** in the Season filter and watch the percentages on the map change.
-6. On card **H4**, click **Show the evidence**.
+1. Click tab **02 Routes**, then **H6 → Show the evidence**.
+2. Move slowly along **How far up expeditions got**; point to the linked camp profile, map and 3D terrain.
+3. Change the season filter and watch the camp percentages.
+4. On card **H4**, click **Show the evidence**.
 
 **Say:**
-> "The filters now drive every view, including the terrain. This funnel shows how far expeditions got. Hover at an altitude, and it lights up in the camp profile, the map and the 3D view. That's coordinated multiple views.
-> On the map, route width and the percentages show the share reaching that camp, under the current filter. The contour lines come from the same elevation data as the 3D model. The line between camps is schematic, and we label it that way.
-> Fewer expeditions now stop high up: reaching 8,840 metres on the standard route went from 63% to 87% on the south, and from 44% to 91% on the north.
-> Is the south side better? It led in the 1990s, 26% to 18% of members. In 2020–24 the north looks far ahead, 85% to 61%, but that's only 103 members. This band shows that uncertainty. So we'd call that gap not stable, and we wouldn't recommend a side from it."
+> "This is the first core module: comparing the choices. One set of filters recomputes every view, including the terrain. Hovering an altitude links the funnel, camp profile, map and 3D view, so we can connect outcomes to the route rather than reading a table alone.
+> Fewer expeditions now stop high on the standard routes: reaching 8,840 metres went from 63% to 87% on the south, and from 44% to 91% on the north. But we should not turn a small recent north-side sample into a recommendation. The intervals and sample sizes stay visible precisely because this is a planning comparison, not a league table."
 
 **Technique to name:** coordinated multiple views, contour plot, horizon strip.
 
-### 3:30–4:00 · Does timing matter? H5 (Su Chuanzhou)
+### 3:35–3:55 · Add the timing choice (Su Chuanzhou)
 
-**Do:** On card **H5**, click **Show the evidence**. Point at the bars, then at the **Summit calendar** beside them.
+**Do:** On card **H5**, click **Show the evidence**. Point to the bars and the **Summit calendar**.
 
 **Say:**
-> "Does arriving early at base camp help? We expected yes. In spring on the standard route, success stays between 71% and 75% whichever window you arrive in. So this hypothesis wasn't supported. Meanwhile, the calendar shows summit days packed into a narrow window in mid to late May. When you summit looks far more concentrated than when you arrive."
+> "Timing is another choice in the plan. Arriving early at base camp shows little difference: success stays between 71% and 75% across arrival windows. But summit days cluster tightly in mid to late May. The comparison separates what a planner can choose from the environmental window visible in past records."
 
 **Technique to name:** heat map.
 
-### 4:00–5:30 · **Main view 1: Your plan through time. H7** (Cheng Jionghao)
+### 3:55–5:15 · **Turn the choices into a plan. H7** (Cheng Jionghao)
+
+**Transition:** "We have compared the choices. What would a combination of them have meant for people like us?"
 
 **Do:**
-1. Click **Use this as my plan →** in the filter bar. This opens 03 Your plan.
-2. Click **Reset** on the form.
-3. Point at the big number and the three rows under it.
-4. Click tab **Over time**.
-5. Point at the pink line, the dashed model line, and the last point.
-6. Change **Oxygen** to No, then back to Yes, or click rows in the heat map if time allows.
+1. Click **Use this as my plan →**, then **Reset** the form.
+2. Point to the estimate and the observed comparable group.
+3. Open **Over time**; point to the observed line, model line and recent period.
 
 **Say:**
-> "Page 2 passes its choices to page 3. Here's a default plan: 30s, male, spring, south, standard route, with oxygen. The model says 75%, with a range, next to what real members with this plan did.
-> The old version of our page stopped there, with one flat number. This chart is why we changed it. The same plan's group was 54% in the early 1990s, 82% in 2010–14, and 71% most recently. So 75% is an average across very different periods, and it's actually a little high for this plan today. The page calculates that sentence for each plan.
-> Hollow points and hatched cells mean too few records. If an exact plan has under 10 records, we refuse to give a number at all."
+> "Here is a default plan: 30s, male, spring, south, standard route, with oxygen. The model gives about 75%, next to what comparable historical members actually did. This is the point where the background and route comparison become a particular planning scenario.
+> But one number is not enough. The same plan's group moved from 54% in 1990–94 to 82% in 2010–14, then 71% in 2020–24. The estimate averages across different periods and is slightly high for the most recent one. Sparse evidence is marked, and an exact plan with fewer than ten records returns insufficient evidence instead of a confident number."
 
 **Technique to name:** time series with interval band, heat map with a diverging scale.
 
-### 5:30–6:45 · **Main view 2: Factor network. H8** (Cheng Jionghao)
+### 5:15–6:30 · **Understand the choices and the model's limits. H8** (Cheng Jionghao)
 
 **Do:**
-1. Click tab **Connections**.
-2. Hover **No oxygen** so its links stand out.
-3. Click **Matrix**, then back to **Network**.
-4. Drag the period on the timeline brush to about 1990–2004, then back to 2005–2024.
-5. Click tab **Trust**, and point at **Why the 2014–15 closures are excluded**.
+1. Open **Connections**, hover **No oxygen**, then toggle **Matrix** and back.
+2. Move the period between about 1990–2004 and 2005–2024.
+3. Open **Trust** and point to **Why the 2014–15 closures are excluded**.
 
 **Say:**
-> "These are the connections between choices, as a force-directed network. A link means two choices occur together more often than chance, and colour shows how those people did. See this purple cluster: autumn, non-standard routes, no oxygen. Autumn with a non-standard route is about 21 times as common as chance, and none of those 45 members summited.
-> The matrix shows the same data without edge clutter. We keep the layout fixed, so moving the period changes the links and not the picture. In 1990–2004 these links are much weaker, around 2 times chance. That style of climbing has since become a small, separate niche.
-> Looking closer at oxygen led to our most important finding. The old model said oxygen multiplied your odds by 69. But the dataset's own notes show that 794 of the 1,295 'no oxygen' members were on expeditions abandoned in 2014 and 2015, because of the Sherpa strike, an avalanche and the earthquake. Many stopped before anyone would use oxygen. So that wasn't a fair comparison. We removed them and retrained, and the factor fell to about 22. Accuracy on held-out data barely changed."
+> "The network shows which planning choices occur together more often than chance. Autumn, non-standard routes and no oxygen form one distinct cluster; the matrix provides the same evidence without edge clutter.
+> The historical events return here only because they affect interpretation. Of 1,295 no-oxygen members, 794 belonged to expeditions abandoned in 2014–15; many stopped before oxygen would have been used. Treating them as ordinary no-oxygen attempts inflated the apparent oxygen factor to about 69 times the odds. After excluding those closures, it is about 22, while held-out accuracy barely changes. Historical context therefore helps us avoid misreading one of the plan inputs."
 
 **Technique to name:** force-directed layout, filtering, ego network, adjacency matrix.
 
-> **Be accurate here:** the network didn't reveal the closures by itself. What pointed to them was the 'no oxygen' records clustering in 2014–15, and the notes then explained why. If asked, say that plainly.
+> **Be accurate here:** the network didn't reveal the closures by itself. The no-oxygen records clustered in 2014–15, and the expedition notes explained why. The event view supplies background, not causal proof.
 
-### 6:45–7:30 · Real expeditions (Lin Huaizhong)
+### 6:30–7:20 · Inspect the records behind the plan (Lin Huaizhong)
+
+**Transition:** "After the estimate and its caveats, we return to the actual historical cases."
 
 **Do:**
-1. Click tab **Records**.
-2. Drag on the **Team size** axis to select a range. Point at the count and table below.
+1. Open **Records**.
+2. Brush the **Team size** axis; point to the count and closest-matches table.
 
 **Say:**
-> "Each line is one real expedition. Drag on any axis to filter, and the summary and the closest matches update. Pink diamonds mark this plan on the two axes it sets. So at the end, you aren't just given a probability, you can inspect the actual expeditions behind it."
+> "Each line is one real expedition. Brushing an axis filters the records and updates the closest matches, while pink diamonds locate our plan. The user does not have to trust a black-box probability: they can inspect the historical cases behind it and judge whether the comparison is meaningful."
 
 **Technique to name:** parallel coordinates, brushing and linking.
 
-### 7:30–8:00 · Can you trust it? (Qin Yuhong)
+### 7:20–8:00 · Close the planning path (Qin Yuhong)
 
-**Do:** Switch to Tab 2, showing the self-test panel.
+**Do:** Switch to the self-test tab, then return to **Data & methods** if time allows.
 
 **Say:**
-> "We checked ourselves. This self-test recomputes numbers in the browser and compares them with Python: 53 checks, all passing. We also audited the dataset against the proposal. These are associations in historical records, not causes, and not a promise anyone will summit. Oxygen and hired staff are recorded during the expedition, not before it, so this describes comparable expeditions rather than forecasting yours. Thank you."
+> "Our story is therefore the original planning path: understand the historical background, compare route and timing choices, and examine a particular plan through comparable records and an uncertainty-aware estimate. The events strengthen the background; they do not turn the tool into a causal explanation. We checked the numbers with 59 browser-versus-Python tests and a 28-check data audit. The tool exposes evidence and its limits—it does not make the climbing decision for you."
 
 ---
 
 ## 4. If you have less time
 
-**5-minute version.** Keep these and skip the rest:
+**5-minute version.** Keep the same planning path and compress each step:
 
 | Time | Step |
 |---|---|
-| 0:00–0:30 | The question |
-| 0:30–1:15 | H1 peak comparison |
-| 1:15–2:15 | H6 funnel, linked to the map |
-| 2:15–3:30 | **H7 Your plan through time** |
-| 3:30–4:30 | **Factor network and H8** |
-| 4:30–5:00 | Limitations and self-test |
+| 0:00–0:30 | The planning problem: side, season, route, support and oxygen |
+| 0:30–1:10 | Historical background; use the 2014–15 events as one example |
+| 1:10–2:10 | **Routes:** compare choices and link the funnel to the map |
+| 2:10–3:25 | **Your plan:** estimate plus change through time |
+| 3:25–4:20 | Choices network; use the closure background to explain H8 |
+| 4:20–5:00 | Comparable records, limitations and self-test |
 
 **If something breaks**
 - **Chart looks wrong:** reload the page. Findings still set the state in one click.
@@ -208,7 +215,7 @@ Each step has a **Do** (what to click) and a **Say** (what to say).
 | Why these chart types? | Each answers a specific question. We also rejected some: spiral graphs because the season is already explicit, and Chernoff faces because they read poorly and are in bad taste with data on deaths. |
 | Why is the network layout fixed? | The slides raise predictability. A fixed layout means a change in the picture is a change in the data. |
 | Do well-connected agencies do better? | We show the association, but agencies differ in clients and routes, so it's not a quality ranking. |
-| How do you know numbers are right? | A 28-check audit against the proposal, and a 53-check browser-vs-Python self-test. |
+| How do you know numbers are right? | A 28-check audit against the proposal, and a 59-check browser-vs-Python self-test. |
 | What would you do next? | Run the user test, evaluate over rolling periods, and add new seasons as a separate layer. |
 
 **Avoid saying**
@@ -216,7 +223,8 @@ Each step has a **Do** (what to click) and a **Say** (what to say).
 - "Oxygen causes..." or "Better gear caused..." The data has no gear or forecast fields.
 - "The data proves..." Say "the records suggest" or "is consistent with".
 - "This agency is better." The chart shows association only.
-- "COVID caused 2020." The dataset only shows 3 expeditions, so say "only 3 expeditions recorded", or cite a source.
+- "The event caused the whole change." The event cards provide cited context and descriptive windows, not causal estimates.
+- "2020 had a low success rate." Only 3 expeditions were recorded and all 3 had a summit; the clear change is scale, and the sample is too small for a success-rate conclusion.
 - Any user-test results, until the sessions have really been run.
 
 ---
@@ -231,6 +239,7 @@ All of these are checked by the self-test or shown in the app.
 | Overall success | 1,479 of 2,347 = 63.0% |
 | Recorded deaths | 340 (208 members, 132 hired) |
 | **H1** before 1990 → 2020–24 | Everest 30% → 89%, Lhotse 32% → 85%, Manaslu 33% → 53%, Baruntse 40% → 33% (24 recent expeditions) |
+| **Events** | 2014: 11/68 with a summit; 2015: 0/81; 2016–18: 220/263. 2020: only 3 expeditions, 3/3 with a summit |
 | **H2** before 1990 → 2020–24 | Deaths per 100 summiters 38.7 → 1.2. Member deaths per 1,000 members 19.6 → 11.7 (2010s: 8.6) |
 | **H3** | Hired staff per member 0.60 (1990s) → 1.47 (2020–24). Mixed across support levels |
 | **H4** members | 1990s: south 26%, north 18%. 2020–24: south 61%, north 85% (103 north members) |
@@ -254,9 +263,10 @@ The requirements ask for 1–2 slides covering what's been done, difficulties, a
 
 - **Your feedback:** use the visualization techniques taught in class more fully, and make page 3 less plain.
 - **Before:** mostly descriptive charts, separate pages, and one flat estimate.
-- **Now:** one question across three pages, and eight hypotheses, each with one-click evidence.
+- **Now:** the original History → Routes → Your plan decision path is linked throughout, with one-click evidence for its claims.
+- **Historical background:** the event explorer explains unusual seasons such as 2014–15 without presenting events as causes of every long-term change.
 - **Techniques added:** horizon, index, stacked and contour plots, box plots, heat maps, force-directed networks, adjacency matrix, treemap, icicle, parallel coordinates, overview + detail, linking and brushing.
-- **Key finding:** abandoned 2014–15 expeditions inflated the oxygen factor to about 69×; without them it's about 22×.
+- **Key finding:** the historical closure background also matters to the model: abandoned 2014–15 expeditions inflated the oxygen factor to about 69×; without them it's about 22×.
 
 ### Suggested slide 2: Difficulties and next steps
 
@@ -265,13 +275,13 @@ The requirements ask for 1–2 slides covering what's been done, difficulties, a
 
 ### What to show (about 3 minutes)
 
-1. Open `version_comparison/compare.html` and show **page 3 side by side**. Click **Your plan through time** in the list.
-2. Open the app's **Connections** tab, since connections and time variation were what we set out to add.
-3. Show one finding, H8, as an example of visual analysis changing a result.
+1. Open History and select **2014** in **Events and turning points** to show the new historical background in its intended role.
+2. Open `version_comparison/compare.html` and show **page 3 side by side**. Click **Your plan through time**.
+3. Open the app's **Connections** tab and use H8 to show how the closure background changes interpretation of a plan input.
 
 ### How to explain it
 
-> "After the last discussion, you suggested we use more of the techniques from class. We looked at each lecture and asked which technique answers a real question in our data. Page 3 now shows time variation and connections rather than a pale bar chart. We also linked all the pages, and turned our claims into hypotheses people can check. We left some techniques out on purpose, and we can explain why."
+> "We kept our original decision-support story: historical background, route comparison, and a particular plan. After your feedback, we added more of the visualization techniques from class where they answer a real planning question. The new event explorer strengthens the historical background rather than becoming a separate story. It also helps explain why cancelled 2014–15 expeditions should not be treated as ordinary no-oxygen attempts in the model."
 
 ### Questions to ask the teacher
 
@@ -288,7 +298,7 @@ The requirements ask for 1–2 slides covering what's been done, difficulties, a
 | Member | Module in the proposal | Be ready to explain |
 |---|---|---|
 | Qin Yuhong | Data and provenance | Composite keys, the `myear` problem, the closure rule, the self-test |
-| Wang Chenyu | Historical evolution | Timeline brush, horizon graph, denominators, nation and agency network |
+| Wang Chenyu | Historical evolution | Timeline brush, event background and fixed windows, horizon graph, denominators, nation and agency network |
 | Su Chuanzhou | Routes and map | Filter linking, funnel, contours, treemap, why the route line is schematic |
 | Cheng Jionghao | Profile estimator | Baselines, calibration, the retrain, why time isn't a model term |
 | Lin Huaizhong | Integration and evaluation | User path, shared state between pages, offline packaging, user test |

@@ -38,8 +38,8 @@
         <p class="eyebrow">Module 01 · historical evolution</p>
         <h1>How Everest expeditions have changed</h1>
         <p class="lede">
-          Success rose from about 30% to about 89%. Did the mountain get easier? Drag the timeline,
-          switch denominators and test the hypotheses below. Every rate states its numerator, denominator and sample size.
+          Before comparing side, season, route, support and oxygen, understand the historical context: how climbing has changed,
+          which events interrupted individual seasons, and how different denominators change the risk story. Every rate states its numerator, denominator and sample size.
         </p>
       </div>
       <div class="view-note">
@@ -48,7 +48,6 @@
     </div>
 
     <div class="kpis" id="m1-kpis"></div>
-    <div class="findings" id="m1-findings"></div>
 
     <div class="card card--wide" id="m1-card-annual">
       <div class="card-head">
@@ -60,6 +59,45 @@
       </div>
       <div class="chart" id="m1-annual"></div>
     </div>
+
+    <details class="secondary" id="m1-events-details">
+      <summary>Historical events and turning points <small>Background · expand when needed</small></summary>
+      <div class="secondary-body">
+    <div class="card card--wide event-card" id="m1-card-events">
+      <div class="card-head">
+        <div>
+          <h2>Events and turning points</h2>
+          <p class="hint">What happened around the changes? Select an event for context, fixed-window comparisons and a link to the related evidence.</p>
+        </div>
+        <button class="ghost" id="m1-event-clear" type="button">Clear event</button>
+      </div>
+      <div class="event-layout">
+        <div class="event-list" id="m1-event-list" aria-label="Historical events"></div>
+        <div class="event-detail" id="m1-event-detail" aria-live="polite"></div>
+      </div>
+    </div>
+      </div>
+    </details>
+
+    <h2 class="section-title">Core historical evidence <small>What changed, and how did climbing change?</small></h2>
+    <div class="grid2">
+      <div class="card card--hero" id="m1-card-success">
+        <div class="card-head">
+          <div><h2>Summit success</h2><p class="hint" id="m1-success-hint"></p></div>
+          <div class="seg" id="m1-success-mode"><button data-mode="decade">Decade</button><button data-mode="year">Year</button></div>
+        </div>
+        <div class="chart" id="m1-success"></div>
+      </div>
+      <div class="card card--hero" id="m1-card-structure">
+        <div class="card-head"><div><h2>Members and hired staff</h2><p class="hint">Stacked people per year, and hired staff per member below on its own axis.</p></div></div>
+        <div class="chart" id="m1-structure"></div>
+      </div>
+    </div>
+
+    <details class="secondary">
+      <summary>Further historical analysis <small>H1–H3 · seasons, risk, outcomes and agency networks</small></summary>
+      <div class="secondary-body">
+        <div class="findings" id="m1-findings"></div>
 
     <h2 class="section-title">Scale and seasons <small>Which season drove the growth?</small></h2>
     <div class="grid2">
@@ -81,13 +119,6 @@
 
     <h2 class="section-title">Success <small>Did it really change, and is that special to Everest?</small></h2>
     <div class="grid2">
-      <div class="card" id="m1-card-success">
-        <div class="card-head">
-          <div><h2>Summit success</h2><p class="hint" id="m1-success-hint"></p></div>
-          <div class="seg" id="m1-success-mode"><button data-mode="decade">Decade</button><button data-mode="year">Year</button></div>
-        </div>
-        <div class="chart" id="m1-success"></div>
-      </div>
       <div class="card" id="m1-card-peaks">
         <div class="card-head">
           <div><h2>Everest compared with other peaks</h2><p class="hint" id="m1-peaks-hint"></p></div>
@@ -106,10 +137,6 @@
         </div>
         <div class="chart" id="m1-duration"></div>
       </div>
-      <div class="card" id="m1-card-structure">
-        <div class="card-head"><div><h2>Members and hired staff</h2><p class="hint">Stacked people per year, and hired staff per member below on its own axis.</p></div></div>
-        <div class="chart" id="m1-structure"></div>
-      </div>
     </div>
     <div class="card card--wide" id="m1-card-o2" style="margin-top:18px">
       <div class="card-head"><div><h2>Oxygen use</h2><p class="hint">Share of expeditions where at least one member used oxygen. Dots are single years (larger means more expeditions); lines are 5-year averages.</p></div></div>
@@ -121,8 +148,8 @@
       <div class="card" id="m1-card-deaths">
         <div class="card-head">
           <div><h2>Recorded deaths</h2><p class="hint" id="m1-deaths-hint"></p></div>
+          <div class="seg seg--wrap" id="m1-deaths-mode"><button data-mode="count">Count</button><button data-mode="members">Per 1,000 members</button><button data-mode="hired">Per 1,000 hired</button><button data-mode="summits">Per 100 summiters</button></div>
         </div>
-        <div class="seg seg--wrap" id="m1-deaths-mode" style="margin-bottom:8px"><button data-mode="count">Count</button><button data-mode="members">Per 1,000 members</button><button data-mode="hired">Per 1,000 hired</button><button data-mode="summits">Per 100 summiters</button></div>
         <div class="chart" id="m1-deaths"></div>
       </div>
       <div class="card" id="m1-card-ended">
@@ -147,6 +174,8 @@
         <div class="net-side" id="m1-net-side"></div>
       </div>
     </div>
+      </div>
+    </details>
   </section>
 
   <!-- ============================== 02 ROUTES ============================== -->
@@ -167,17 +196,16 @@
 
     <div class="filterbar" id="m2-filters"></div>
     <div class="kpis" id="m2-kpis"></div>
-    <div class="findings" id="m2-findings"></div>
 
     <h2 class="section-title">South vs north <small>How do the sides compare, and is the gap stable?</small></h2>
     <div class="grid2">
       <div class="card" id="m2-card-compare">
-        <div class="card-head"><div><h2>Six measures, like for like</h2>
+        <div class="card-head"><div><h2>Current south–north comparison</h2>
           <p class="hint" id="m2-compare-hint"></p></div></div>
         <div class="chart" id="m2-compare"></div>
       </div>
       <div class="card" id="m2-card-gap">
-        <div class="card-head"><div><h2>The gap through time</h2>
+        <div class="card-head"><div><h2>Is the south–north gap stable?</h2>
           <p class="hint" id="m2-gap-hint"></p></div></div>
         <div class="chart" id="m2-gap"></div>
       </div>
@@ -186,16 +214,24 @@
     <h2 class="section-title">Which route <small>Which of the 137 route names matter?</small></h2>
     <div class="card card--wide" id="m2-card-routes">
       <div class="card-head">
-        <div><h2>Route families</h2><p class="hint" id="m2-routes-hint"></p></div>
+        <div><h2>Success by route family</h2><p class="hint" id="m2-routes-hint"></p></div>
         <div class="seg" id="m2-routes-mode"><button data-mode="bars">Ranked bars</button><button data-mode="tree">Treemap</button></div>
       </div>
       <div class="chart" id="m2-routes"></div>
     </div>
 
+    <details class="secondary">
+      <summary>Questions and evidence <small>H4–H6 · after the core comparison</small></summary>
+      <div class="secondary-body"><div class="findings" id="m2-findings"></div></div>
+    </details>
+
+    <details class="secondary">
+      <summary>Further exploration <small>Altitude, 2D/3D terrain, summit timing and current season</small></summary>
+      <div class="secondary-body">
     <h2 class="section-title">Where on the mountain <small>Where do expeditions stop?</small></h2>
     <div class="grid2">
       <div class="card" id="m2-card-funnel">
-        <div class="card-head"><div><h2>How far up expeditions got</h2>
+        <div class="card-head"><div><h2>Where do expeditions stop?</h2>
           <p class="hint" id="m2-funnel-hint"></p></div></div>
         <div class="chart" id="m2-funnel"></div>
       </div>
@@ -255,6 +291,8 @@
 
     <h2 class="section-title">Current season <small>Kept separate from the historical records</small></h2>
     <div class="card card--wide current-card" id="m2-current"></div>
+      </div>
+    </details>
   </section>
 
   <!-- ============================== 03 PLAN ============================== -->
@@ -273,14 +311,12 @@
       </div>
     </div>
 
-    <div class="findings" id="m3-findings"></div>
-
     <div class="plan-grid">
       <aside class="card form-card" id="m3-form"></aside>
       <div class="plan-main">
         <div class="card plan-time-card" id="m3-timeline-card">
           <div class="tl-head">
-            <div><strong>Period for all views below</strong> <span id="m3-range-label" class="tl-range"></span></div>
+            <div><strong>Period for Over time, Connections and Records</strong> <span id="m3-range-label" class="tl-range"></span></div>
             <label class="tl-check"><input type="checkbox" id="m3-closure" checked> Exclude expeditions abandoned in the 2014–15 closures</label>
           </div>
           <div class="chart" id="m3-timeline"></div>
@@ -288,9 +324,9 @@
         <nav class="subtabs" id="m3-subtabs" role="tablist" aria-label="Plan sections">
           <button role="tab" data-tab="estimate">Estimate</button>
           <button role="tab" data-tab="time">Over time</button>
-          <button role="tab" data-tab="links">Connections</button>
           <button role="tab" data-tab="records">Records</button>
           <button role="tab" data-tab="trust">Trust</button>
+          <button role="tab" data-tab="links">Connections</button>
         </nav>
 
         <div class="plan-tab" data-tab="estimate">
@@ -375,6 +411,11 @@
         </div>
       </div>
     </div>
+
+    <details class="secondary">
+      <summary>Questions and evidence <small>H7, H8 and H3 · after your plan results</small></summary>
+      <div class="secondary-body"><div class="findings" id="m3-findings"></div></div>
+    </details>
   </section>
 </main>
 
@@ -405,6 +446,7 @@
 <script src="data/everest_data.js"></script>
 <script src="data/model.js"></script>
 <script src="data/plan_data.js"></script>
+<script src="data/events.js"></script>
 <script src="data/terrain/terrain.js"></script>
 <script src="data/terrain/terrain-texture.js"></script>
 <script src="data/terrain/features.js"></script>
@@ -412,6 +454,7 @@
 <script src="js/store.js"></script>
 <script src="js/network.js"></script>
 <script src="js/module1.js"></script>
+<script src="js/history_events.js"></script>
 <script src="js/module2.js"></script>
 <script src="js/geo.js"></script>
 <script src="js/plan_core.js"></script>
