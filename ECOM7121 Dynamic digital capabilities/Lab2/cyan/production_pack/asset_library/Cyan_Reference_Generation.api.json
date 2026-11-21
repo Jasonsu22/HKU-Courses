@@ -1,0 +1,300 @@
+{
+ "2": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/clip2/t000.3.jpg"
+  },
+  "_meta": {
+   "title": "Cyan_Asset_Library/clip2/t000.3.jpg"
+  }
+ },
+ "3": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/clip2/t009.6.jpg"
+  },
+  "_meta": {
+   "title": "Cyan_Asset_Library/clip2/t009.6.jpg"
+  }
+ },
+ "4": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/clip2/t007.5.jpg"
+  },
+  "_meta": {
+   "title": "Cyan_Asset_Library/clip2/t007.5.jpg"
+  }
+ },
+ "1": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "Character turnaround reference sheet on a plain warm off-white background. Four full-body views side by side at exactly the same scale, feet on one shared ground line, evenly spaced: front view, three-quarter view, side profile view facing right, back view. Relaxed A-pose in every view: standing straight, arms straight and angled about 30 degrees away from the body, open relaxed hands, feet slightly apart, calm neutral expression. Even soft studio lighting, identical clothing and proportions in all four views. Clothing uses flat, even, clean colour fills with only soft simple shading: no watercolour blotches, no mottled or stained patches on trousers, jeans, hoodie or apron. The character is Mei, the woman in the reference frames: a youthful 29-year-old Hong Kong woman, slim, average height, the same face, black hair tied in a low ponytail with a dark hair tie, a few loose strands at the temples, cream long-sleeved button-up blouse with the sleeves slightly rolled, grey straight trousers with a thin dark belt, simple dark flat shoes. Match the illustration style of the Clip 2 reference frames exactly: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, crisp clean fabric, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches, splatter or torn-paper border; the picture fills the whole frame edge to edge. No text, no labels, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 1000,
+   "ref_1": [
+    "2",
+    0
+   ],
+   "ref_2": [
+    "3",
+    0
+   ],
+   "ref_3": [
+    "4",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "01 Mei - A-pose turnaround"
+  }
+ },
+ "5": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_Refs/mei",
+   "images": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "01 Mei - A-pose turnaround"
+  }
+ },
+ "7": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/refs_clean/scene09.jpg"
+  },
+  "_meta": {
+   "title": "Cyan_Asset_Library/refs_clean/scene09.jpg"
+  }
+ },
+ "8": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/refs_clean/scene13.jpg"
+  },
+  "_meta": {
+   "title": "Cyan_Asset_Library/refs_clean/scene13.jpg"
+  }
+ },
+ "6": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "Character turnaround reference sheet on a plain warm off-white background. Four full-body views side by side at exactly the same scale, feet on one shared ground line, evenly spaced: front view, three-quarter view, side profile view facing right, back view. Relaxed A-pose in every view: standing straight, arms straight and angled about 30 degrees away from the body, open relaxed hands, feet slightly apart, calm neutral expression. Even soft studio lighting, identical clothing and proportions in all four views. Clothing uses flat, even, clean colour fills with only soft simple shading: no watercolour blotches, no mottled or stained patches on trousers, jeans, hoodie or apron. The character is Ka-ho, the man with thin round glasses in references 1 and 2: a 31-year-old Hong Kong man, the same face, short black hair, thin round wire glasses, light stubble, navy pullover hoodie with white drawstrings over a white crew-neck t-shirt, dark blue-grey jeans, white canvas sneakers. He is about 10 cm taller than Mei. Draw him at the same scale, framing and style as the Mei turnaround sheet in reference 3, so the two sheets match. Match the illustration style of the Clip 2 reference frames exactly: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, crisp clean fabric, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches, splatter or torn-paper border; the picture fills the whole frame edge to edge. No text, no labels, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 1001,
+   "ref_1": [
+    "7",
+    0
+   ],
+   "ref_2": [
+    "8",
+    0
+   ],
+   "ref_3": [
+    "1",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "02 Ka-ho - A-pose turnaround"
+  }
+ },
+ "9": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_Refs/kaho",
+   "images": [
+    "6",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "02 Ka-ho - A-pose turnaround"
+  }
+ },
+ "11": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/refs_clean/scene14.jpg"
+  },
+  "_meta": {
+   "title": "Cyan_Asset_Library/refs_clean/scene14.jpg"
+  }
+ },
+ "10": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "Character turnaround reference sheet on a plain warm off-white background. Four full-body views side by side at exactly the same scale, feet on one shared ground line, evenly spaced: front view, three-quarter view, side profile view facing right, back view. Relaxed A-pose in every view: standing straight, arms straight and angled about 30 degrees away from the body, open relaxed hands, feet slightly apart, calm neutral expression. Even soft studio lighting, identical clothing and proportions in all four views. Clothing uses flat, even, clean colour fills with only soft simple shading: no watercolour blotches, no mottled or stained patches on trousers, jeans, hoodie or apron. The character is a friendly community-centre cooking volunteer: a Hong Kong woman in her mid-forties, warm smile lines, shoulder-length black hair tucked behind her ears, mustard-yellow bib apron over a light blue button shirt, navy trousers, comfortable black shoes. Draw her at the same scale, framing and style as the Mei turnaround sheet in reference 1. Match the illustration style of the Clip 2 reference frames exactly: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, crisp clean fabric, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches, splatter or torn-paper border; the picture fills the whole frame edge to edge. No text, no labels, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 1002,
+   "ref_1": [
+    "1",
+    0
+   ],
+   "ref_2": [
+    "11",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "03 Community volunteer - A-pose turnaround (new design)"
+  }
+ },
+ "12": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_Refs/volunteer",
+   "images": [
+    "10",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "03 Community volunteer - A-pose turnaround (new design)"
+  }
+ },
+ "14": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/clip2/t000.3.jpg"
+  },
+  "_meta": {
+   "title": "Cyan_Asset_Library/clip2/t000.3.jpg"
+  }
+ },
+ "15": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/clip2/t009.6.jpg"
+  },
+  "_meta": {
+   "title": "Cyan_Asset_Library/clip2/t009.6.jpg"
+  }
+ },
+ "16": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/clip2/t003.5.jpg"
+  },
+  "_meta": {
+   "title": "Cyan_Asset_Library/clip2/t003.5.jpg"
+  }
+ },
+ "17": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/clip2/t005.0.jpg"
+  },
+  "_meta": {
+   "title": "Cyan_Asset_Library/clip2/t005.0.jpg"
+  }
+ },
+ "13": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "Empty establishing view of exactly this kitchen from the Clip 2 reference frames, with no people. Wide eye-level view from the kitchen doorway that shows the whole small galley kitchen in one image, keeping every object where it is in the references: on the left wall a square wooden wall clock and a hook rail with a blue checked tea towel; wooden upper cabinets with round knobs; a stainless range hood above a two-burner gas hob with a pot; white square wall tiles and a rail with a ladle and spatulas; a narrow silver two-door fridge with its long handle on the LEFT edge of the door (door hinged on the right), a few magnets, notes and a calendar on the door, storage boxes and a steel pot on top; to the right of the fridge a wooden counter with a wire dish rack holding sauce jars, a wooden utensil pot, a cutting board and a cabbage; a stainless sink with a tall faucet, dish soap and a sponge; a window on the right overlooking lit Hong Kong housing towers at dusk. A clean, tidy, well-kept middle-class home in warm evening light. Match the illustration style of the Clip 2 reference frames exactly: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, crisp clean fabric, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches, splatter or torn-paper border; the picture fills the whole frame edge to edge. No text, no labels, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 1003,
+   "ref_1": [
+    "14",
+    0
+   ],
+   "ref_2": [
+    "15",
+    0
+   ],
+   "ref_3": [
+    "16",
+    0
+   ],
+   "ref_4": [
+    "17",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "04 Kitchen - overview (empty)"
+  }
+ },
+ "18": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_Refs/kitchen",
+   "images": [
+    "13",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "04 Kitchen - overview (empty)"
+  }
+ },
+ "20": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/refs_clean/scene13.jpg"
+  },
+  "_meta": {
+   "title": "Cyan_Asset_Library/refs_clean/scene13.jpg"
+  }
+ },
+ "21": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/06_Flat_isometric_A.png"
+  },
+  "_meta": {
+   "title": "Cyan_Asset_Library/approved/06_Flat_isometric_A.png"
+  }
+ },
+ "19": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "Empty establishing view of the living and dining room of the apartment shown in the isometric layout in reference 3 (the approved floor plan), with no people. Keep exactly that layout: the kitchen is OPEN to the dining area, with no door and no doorway between them. Eye-level wide view standing near the front door and looking into the flat: on the left a compact beige fabric sofa with a mustard cushion against the wall, a tall floor lamp with a warm cream shade, a large monstera plant in a woven basket and a small wall shelf with books and a trailing plant; in the centre a small light-wood dining table for two with two wooden chairs, a cream table runner and a small potted plant; at the back a large window with sheer cream curtains looking out on lit Hong Kong housing towers at dusk; at the back right the open kitchen corner from reference 2, seen directly beyond the dining table: the silver two-door fridge with its handle on the left edge, the two-burner hob under the range hood, wooden cabinets, white wall tiles and the blue checked tea towel. Same light-wood flooring through both areas, warm evening light. A clean, tidy, comfortable middle-class home. Match the illustration style of the Clip 2 reference frames exactly: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, crisp clean fabric, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches, splatter or torn-paper border; the picture fills the whole frame edge to edge. No text, no labels, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 1004,
+   "ref_1": [
+    "20",
+    0
+   ],
+   "ref_2": [
+    "13",
+    0
+   ],
+   "ref_3": [
+    "21",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "05 Living and dining room - overview (empty), matches approved layout A"
+  }
+ },
+ "22": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_Refs/living",
+   "images": [
+    "19",
+    0
+   ]
+  },
+  "_meta": {
+   "title": "05 Living and dining room - overview (empty), matches approved layout A"
+  }
+ }
+}

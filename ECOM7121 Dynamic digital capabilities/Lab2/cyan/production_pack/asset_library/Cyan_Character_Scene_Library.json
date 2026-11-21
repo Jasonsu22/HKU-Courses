@@ -1,0 +1,980 @@
+{
+  "last_node_id": 27,
+  "last_link_id": 0,
+  "nodes": [
+    {
+      "id": 1,
+      "type": "LoadImage",
+      "pos": [
+        0,
+        240
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "ref_mei_scene1 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__style_refs__ref_mei_scene1.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        490,
+        240
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "ref_mei_scene6 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__style_refs__ref_mei_scene6.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "LoadImage",
+      "pos": [
+        980,
+        240
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene09 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene09.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "LoadImage",
+      "pos": [
+        1470,
+        240
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene13 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene13.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 5,
+      "type": "LoadImage",
+      "pos": [
+        0,
+        630
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene14 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene14.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "LoadImage",
+      "pos": [
+        0,
+        1190
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene02 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene02.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 7,
+      "type": "LoadImage",
+      "pos": [
+        490,
+        1190
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene03 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene03.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "LoadImage",
+      "pos": [
+        980,
+        1190
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene05 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene05.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "LoadImage",
+      "pos": [
+        1470,
+        1190
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene06 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene06.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "LoadImage",
+      "pos": [
+        0,
+        1580
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene07 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene07.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 11,
+      "type": "LoadImage",
+      "pos": [
+        490,
+        1580
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene10 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene10.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "LoadImage",
+      "pos": [
+        980,
+        1580
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene11 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene11.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "LoadImage",
+      "pos": [
+        1470,
+        1580
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene12 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene12.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "LoadImage",
+      "pos": [
+        0,
+        1970
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "ref_kitchen_scene7 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__style_refs__ref_kitchen_scene7.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "LoadImage",
+      "pos": [
+        0,
+        2530
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene04 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene04.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "LoadImage",
+      "pos": [
+        490,
+        2530
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene08 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene08.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "LoadImage",
+      "pos": [
+        980,
+        2530
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene15 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene15.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "LoadImage",
+      "pos": [
+        1470,
+        2530
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene17 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene17.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 19,
+      "type": "LoadImage",
+      "pos": [
+        0,
+        3090
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene01 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene01.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "LoadImage",
+      "pos": [
+        490,
+        3090
+      ],
+      "size": [
+        450,
+        340
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": null,
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null,
+          "slot_index": 1
+        }
+      ],
+      "title": "scene14 | ORIGINAL SOURCE",
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Cyan_source__scene_refs__scene14.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 21,
+      "type": "Note",
+      "pos": [
+        0,
+        0
+      ],
+      "size": [
+        1850,
+        150
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "properties": {},
+      "title": "CYAN ASSET LIBRARY - sources and original shot prompts",
+      "widgets_values": [
+        "Existing production_pack references. Target generation node: OpenAI GPT Image 2.6. Warm clean Clip 2 illustration style. Character identity + A-pose sheets, environment concepts + coherent plan/four wall views. Provider API compatibility is unverified. Original source overlays remain in these originals. Newly generated artwork should omit decorative stars and logos. See ASSET_BRIEF.md for confirmed details and gaps."
+      ]
+    },
+    {
+      "id": 22,
+      "type": "Note",
+      "pos": [
+        2110,
+        0
+      ],
+      "size": [
+        980,
+        610
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "properties": {},
+      "title": "shot01_pack_h3 | ORIGINAL VIDEO PROMPT",
+      "widgets_values": [
+        "Source: minimax/shots.json\nStart frame: ../production_pack/scene_refs/scene01.jpg\nReferences: ../production_pack/scene_refs/scene01.jpg, ../production_pack/style_refs/ref_mei_scene1.jpg\n\nUse the supplied production-pack images directly. Image 1 defines Shot 1's composition and MTR setting; image 2 defines Mei's identity and illustration style. Reproduce this same Mei and setting, with delicate hand-drawn ink outlines and light watercolour washes. Reduce excessive mottled paper grain and grey blotches on skin, blouse and carriage surfaces; keep surfaces tidy and colours even while retaining the illustrated style. Follow the production script: 6:40 pm inside a crowded Hong Kong MTR carriage heading home to Kwun Tong. Mei, a youthful 29-year-old Hong Kong woman with smooth face, black low ponytail, cream button blouse, grey trousers and canvas tote bag, holds the handrail and scrolls a food-delivery app on her single phone, looking tired. She glances out at passing city lights, gives a small sigh, then looks back at her phone. A slow gentle push-in on her face over one continuous 10-second shot. Preserve the phone and handrail positions shown in the reference. Gentle train sway, understated commuters. No cuts, no mirroring, no added objects, no readable signs or screen text, no titles, no dialogue, no narration, no music."
+      ]
+    },
+    {
+      "id": 23,
+      "type": "Note",
+      "pos": [
+        2110,
+        650
+      ],
+      "size": [
+        980,
+        610
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "properties": {},
+      "title": "shot02_h3b | ORIGINAL VIDEO PROMPT",
+      "widgets_values": [
+        "Source: minimax/shots.json\nStart frame: start_frames/shot02.jpg\nReferences: \n\nContinue exactly from this image in the same hand-drawn urban-sketch style: loose ink pen lines, rough pencil sketch lines, soft uneven watercolour washes, muted warm colours, textured paper grain; same young woman (Mei, low ponytail, cream blouse), same tidy kitchen, evening. One continuous 10-second shot with slow, calm, smooth camera movement and no sudden moves. (1) 0-2 s: Mei slowly opens the fridge door; it swings fully out of the way and stays open on the same side; warm fridge light falls on her face. (2) 2-6 s: the camera glides gently forward past her shoulder into the open fridge and holds steady at shelf height. Stacked glass containers of leftovers fill the middle shelf; the camera slowly drifts toward the back of that shelf and settles on a single small white yoghurt pot hidden behind the containers, which a soft beam of fridge light picks out so it is clearly noticed; hold on the yoghurt for about two seconds. (3) 6-10 s: the camera eases back out and slowly pans right to the wooden counter, where two identical flat, sealed, clear plastic produce bags of fresh spinach lie side by side (not carrier bags, no handles). Mei steps into frame, looks from the fridge to the two spinach bags, realises she bought spinach twice, lets out a small sigh and lightly touches her forehead. Hold on that moment. No cuts, no mirroring, no text, no other people, quiet, no dialogue."
+      ]
+    },
+    {
+      "id": 24,
+      "type": "Note",
+      "pos": [
+        2110,
+        1300
+      ],
+      "size": [
+        980,
+        610
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "properties": {},
+      "title": "shot03_pack_h3 | ORIGINAL VIDEO PROMPT",
+      "widgets_values": [
+        "Source: minimax/shots.json\nStart frame: ../production_pack/scene_refs/scene03.jpg\nReferences: ../production_pack/scene_refs/scene03.jpg, ../production_pack/style_refs/ref_mei_scene6.jpg, ../production_pack/style_refs/ref_mei_scene1.jpg\n\nUse the supplied production-pack images directly. Image 1 defines Shot 3's kitchen composition and the food Mei holds; image 2 defines her indoor appearance; image 3 defines her identity. Follow the production script: late evening in this same tidy middle-class Hong Kong kitchen. Mei, youthful late twenties, black low ponytail and cream button blouse, gives a small disappointed sigh and drops the wilted bag of spinach and the unopened yoghurt pot into a small pedal bin. Begin with the two food items visible in her hands as in image 1. Over one continuous 10-second shot, she looks at the spinach and yoghurt, sighs, lowers both into the bin and releases them, then pauses with a disappointed expression. Keep each item physically continuous as it is lowered and discarded. Through the window, lit housing towers at dusk. Gentle camera drift to keep her hands and the bin visible. Hand-drawn ink outlines, light muted watercolour washes, subtle paper texture. Reduce excessive blotches and mottling on skin, clothing and walls; the kitchen is clean and tidy. No cuts, no mirroring, no extra people, no added food, no text, no dialogue, no narration, no music."
+      ]
+    },
+    {
+      "id": 25,
+      "type": "Note",
+      "pos": [
+        2110,
+        1950
+      ],
+      "size": [
+        980,
+        610
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "properties": {},
+      "title": "shot04_pack_h3 | ORIGINAL VIDEO PROMPT",
+      "widgets_values": [
+        "Source: minimax/shots.json\nStart frame: ../production_pack/scene_refs/scene04.jpg\nReferences: ../production_pack/scene_refs/scene04.jpg, ../production_pack/style_refs/ref_kitchen_scene7.jpg\n\nUse the supplied production-pack images directly. Image 1 defines Shot 4's dining corner, table and window composition; image 2 is a style reference only for the kitchen illustration. Follow the production script: no people. One continuous 10-second slow pan around a clean tidy comfortable middle-class Hong Kong flat at dusk: begin at the small dining table with a handwritten shopping list and an open recipe book; move gently toward the window to a neat street where a small white food-bank van drives past; finish on a closed white fridge in a well-kept kitchen corner. The list has abstract pen strokes, not readable lettering. Preserve the spatial arrangement and illustration style of the supplied dining-room reference. The closed fridge and passing van are specified by the production script. Delicate loose ink lines, light muted watercolour washes, subtle paper texture. Clean painted walls, reduced grey mottling and blotches, no stains or damp. Smooth calm continuous camera movement, no cuts, no mirroring, no people, no logos, no readable lettering, no titles, no narration, no music."
+      ]
+    },
+    {
+      "id": 26,
+      "type": "Note",
+      "pos": [
+        2110,
+        2600
+      ],
+      "size": [
+        980,
+        610
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "properties": {},
+      "title": "shot05_pack_h3 | ORIGINAL VIDEO PROMPT",
+      "widgets_values": [
+        "Source: minimax/shots.json\nStart frame: ../production_pack/scene_refs/scene05.jpg\nReferences: ../production_pack/scene_refs/scene05.jpg, ../production_pack/style_refs/ref_mei_scene6.jpg, ../production_pack/style_refs/ref_mei_scene1.jpg\n\nUse the supplied production-pack images directly. Image 1 defines Shot 5's kitchen, counter, grocery bag and groceries; image 2 defines Mei's indoor appearance; image 3 defines her identity. Follow the production script: in the tidy kitchen, Mei unpacks fresh groceries and a paper receipt on the counter and photographs them with her single phone. As she takes the photo, a soft cyan-teal glow traces the outline of each grocery item one by one, like a magic pencil line. One continuous calm 10-second shot. Start in the composition of image 1, with Mei finishing the unpacking; she places the receipt beside the visible groceries, raises one phone above them and takes one photo. The cyan outline then traces the existing grocery items individually. Keep the same groceries and bag, preserve their positions after they are placed, keep her face and cream blouse consistent. A gentle camera push toward the counter so the photograph gesture and cyan outlines are clear. Light hand-drawn ink and muted watercolour, subtle paper texture, reduce excessive blotches and mottling, clean tidy kitchen. No cuts, no mirroring, no duplicate phones, no extra people, no readable text, no added titles, no dialogue, no narration, no music."
+      ]
+    },
+    {
+      "id": 27,
+      "type": "Note",
+      "pos": [
+        2110,
+        3300
+      ],
+      "size": [
+        980,
+        540
+      ],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "properties": {},
+      "title": "项目说明 / Scripts and review status",
+      "widgets_values": [
+        "这是新整理的参考图与提示词资源库。此前的 ComfyUI 工作流尚未找到。\nClip 2 原始提示词见上方 shot02_h3b。\n实际脚本目录\n/Users/jason/Projects/HKU-Courses/ECOM7121 Dynamic digital capabilities/Lab2/cyan/minimax\n\nshots.json — 每个镜头的参考图路径与完整提示词\ngenerate_clip.py — 读取镜头配置，提交 MiniMax 请求，保存任务信息\nfetch_v2.py — 轮询 H3 任务并下载视频\n\n新资产要求 — 温暖插画、干净墙面与肤色、减少水彩斑驳。角色形象与 A-pose，场景概念与布局图。\n生图接口及模型兼容性待验证。当前展示的是原始参考图。新图完成后等待用户确认，再进行视频生成。\n完整资产要求见 production_pack/asset_library/ASSET_BRIEF.md"
+      ]
+    }
+  ],
+  "links": [],
+  "groups": [
+    {
+      "title": "Characters - existing identity references",
+      "bounding": [
+        -30,
+        175,
+        2000,
+        850
+      ],
+      "color": "#4c8c80",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Kitchen - Clip 2 baseline",
+      "bounding": [
+        -30,
+        1125,
+        2000,
+        1240
+      ],
+      "color": "#4c8c80",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Living and dining - spatial relationships need approval",
+      "bounding": [
+        -30,
+        2465,
+        2000,
+        460
+      ],
+      "color": "#4c8c80",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "MTR and community classroom",
+      "bounding": [
+        -30,
+        3025,
+        2000,
+        460
+      ],
+      "color": "#4c8c80",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "title": "Clips 1-5 | ORIGINAL prompts from minimax/shots.json",
+      "bounding": [
+        2080,
+        -65,
+        1050,
+        3600
+      ],
+      "color": "#826b40",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.55,
+      "offset": [
+        80,
+        60
+      ]
+    }
+  },
+  "version": 0.4
+}

@@ -1,0 +1,1302 @@
+{
+ "last_node_id": 26,
+ "last_link_id": 21,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "CyanImageAPI",
+   "pos": [
+    700,
+    60
+   ],
+   "size": [
+    520,
+    600
+   ],
+   "flags": {},
+   "order": 100,
+   "mode": 0,
+   "title": "Generate \u00b7 Shot 1 start frame - MTR ride home",
+   "color": "#223",
+   "bgcolor": "#335",
+   "inputs": [
+    {
+     "name": "ref_1",
+     "type": "IMAGE",
+     "link": 1
+    },
+    {
+     "name": "ref_2",
+     "type": "IMAGE",
+     "link": 2
+    },
+    {
+     "name": "ref_3",
+     "type": "IMAGE",
+     "link": 3
+    },
+    {
+     "name": "ref_4",
+     "type": "IMAGE",
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      4
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CyanImageAPI"
+   },
+   "widgets_values": [
+    "Mei is exactly the woman on the character sheet in reference 1: same face, black hair in a low ponytail, cream long-sleeved button blouse with rolled sleeves, grey trousers with a thin dark belt. She is right-handed and holds only one phone when a phone is in the scene. 6:40 pm in a crowded Hong Kong MTR carriage, heading home to Kwun Tong. Follow the composition of reference 2: medium shot, Mei standing in the centre-right of frame, canvas tote bag on her left shoulder, her left hand gripping the yellow vertical pole, her right hand holding one smartphone at chest height, looking down at it, tired after work. The phone screen shows a grid of small colourful food pictures, no readable text. Behind her: blue overhead grab handles, other yellow poles, a few understated commuters looking at their own phones, and carriage windows with blurred dusk city lights. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+    "gpt-image-2.6-sunburst",
+    "1920x1080",
+    "high",
+    2000,
+    "fixed"
+   ]
+  },
+  {
+   "id": 2,
+   "type": "LoadImage",
+   "pos": [
+    0,
+    60
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "title": "01_Mei_Apose.png",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      1
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/approved/01_Mei_Apose.png",
+    "image"
+   ]
+  },
+  {
+   "id": 3,
+   "type": "LoadImage",
+   "pos": [
+    330,
+    60
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "title": "scene01.jpg",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      2
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/refs_clean/scene01.jpg",
+    "image"
+   ]
+  },
+  {
+   "id": 4,
+   "type": "LoadImage",
+   "pos": [
+    0,
+    400
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "title": "t007.5.jpg",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      3
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/clip2/t007.5.jpg",
+    "image"
+   ]
+  },
+  {
+   "id": 5,
+   "type": "SaveImage",
+   "pos": [
+    1260,
+    60
+   ],
+   "size": [
+    1200,
+    680
+   ],
+   "flags": {},
+   "order": 200,
+   "mode": 0,
+   "title": "Start frame \u00b7 Shot 1 start frame - MTR ride home",
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 4
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "SaveImage"
+   },
+   "widgets_values": [
+    "Cyan_StartFrames/shot01"
+   ]
+  },
+  {
+   "id": 6,
+   "type": "CyanImageAPI",
+   "pos": [
+    700,
+    820
+   ],
+   "size": [
+    520,
+    600
+   ],
+   "flags": {},
+   "order": 101,
+   "mode": 0,
+   "title": "Generate \u00b7 Shot 3 start frame - food goes in the bin",
+   "color": "#223",
+   "bgcolor": "#335",
+   "inputs": [
+    {
+     "name": "ref_1",
+     "type": "IMAGE",
+     "link": 5
+    },
+    {
+     "name": "ref_2",
+     "type": "IMAGE",
+     "link": 6
+    },
+    {
+     "name": "ref_3",
+     "type": "IMAGE",
+     "link": 7
+    },
+    {
+     "name": "ref_4",
+     "type": "IMAGE",
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      8
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CyanImageAPI"
+   },
+   "widgets_values": [
+    "Mei is exactly the woman on the character sheet in reference 1: same face, black hair in a low ponytail, cream long-sleeved button blouse with rolled sleeves, grey trousers with a thin dark belt. She is right-handed and holds only one phone when a phone is in the scene. Late evening, in exactly the kitchen of reference 2, standing at the wooden counter beside the sink with the window and housing towers behind. In her left hand she holds one of the flat sealed clear plastic produce bags of spinach from reference 3, now wilted, darker and slightly yellowing; in her right hand a small unopened white yoghurt pot. In front of her on the floor stands a small cream pedal bin with its lid open. She looks down at the food with a quiet, disappointed expression. Medium shot at chest height so her face, both hands, the spinach, the yoghurt and the open bin are all clearly visible. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+    "gpt-image-2.6-sunburst",
+    "1920x1080",
+    "high",
+    2001,
+    "fixed"
+   ]
+  },
+  {
+   "id": 7,
+   "type": "LoadImage",
+   "pos": [
+    0,
+    820
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "title": "01_Mei_Apose.png",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      5
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/approved/01_Mei_Apose.png",
+    "image"
+   ]
+  },
+  {
+   "id": 8,
+   "type": "LoadImage",
+   "pos": [
+    330,
+    820
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "title": "04_Kitchen_overview.png",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      6
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/approved/04_Kitchen_overview.png",
+    "image"
+   ]
+  },
+  {
+   "id": 9,
+   "type": "LoadImage",
+   "pos": [
+    0,
+    1160
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "title": "t009.6.jpg",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      7
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/clip2/t009.6.jpg",
+    "image"
+   ]
+  },
+  {
+   "id": 10,
+   "type": "SaveImage",
+   "pos": [
+    1260,
+    820
+   ],
+   "size": [
+    1200,
+    680
+   ],
+   "flags": {},
+   "order": 201,
+   "mode": 0,
+   "title": "Start frame \u00b7 Shot 3 start frame - food goes in the bin",
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 8
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "SaveImage"
+   },
+   "widgets_values": [
+    "Cyan_StartFrames/shot03"
+   ]
+  },
+  {
+   "id": 11,
+   "type": "CyanImageAPI",
+   "pos": [
+    700,
+    1580
+   ],
+   "size": [
+    520,
+    600
+   ],
+   "flags": {},
+   "order": 102,
+   "mode": 0,
+   "title": "Generate \u00b7 Shot 4 start frame - list, recipe book, no one knows the fridge",
+   "color": "#223",
+   "bgcolor": "#335",
+   "inputs": [
+    {
+     "name": "ref_1",
+     "type": "IMAGE",
+     "link": 9
+    },
+    {
+     "name": "ref_2",
+     "type": "IMAGE",
+     "link": 10
+    },
+    {
+     "name": "ref_3",
+     "type": "IMAGE",
+     "link": 11
+    },
+    {
+     "name": "ref_4",
+     "type": "IMAGE",
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      12
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CyanImageAPI"
+   },
+   "widgets_values": [
+    "No people. Dusk in exactly the living and dining room of reference 1, in the flat of layout reference 2. Close, slightly high view of the light-wood dining table for two: on the cream table runner next to the small potted plant lie a handwritten shopping list (abstract pen strokes only, no readable words) with a pen, and an open recipe book showing painted pictures of dishes. Beyond the table, slightly out of focus, the large window with sheer cream curtains and lit housing towers, and on the right the open kitchen corner with the closed silver fridge from reference 3. Warm lamp light. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+    "gpt-image-2.6-sunburst",
+    "1920x1080",
+    "high",
+    2002,
+    "fixed"
+   ]
+  },
+  {
+   "id": 12,
+   "type": "LoadImage",
+   "pos": [
+    0,
+    1580
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "title": "05_Living_dining_overview.png",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      9
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/approved/05_Living_dining_overview.png",
+    "image"
+   ]
+  },
+  {
+   "id": 13,
+   "type": "LoadImage",
+   "pos": [
+    330,
+    1580
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "title": "06_Flat_isometric_A.png",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      10
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/approved/06_Flat_isometric_A.png",
+    "image"
+   ]
+  },
+  {
+   "id": 14,
+   "type": "LoadImage",
+   "pos": [
+    0,
+    1920
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "title": "04_Kitchen_overview.png",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      11
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/approved/04_Kitchen_overview.png",
+    "image"
+   ]
+  },
+  {
+   "id": 15,
+   "type": "SaveImage",
+   "pos": [
+    1260,
+    1580
+   ],
+   "size": [
+    1200,
+    680
+   ],
+   "flags": {},
+   "order": 202,
+   "mode": 0,
+   "title": "Start frame \u00b7 Shot 4 start frame - list, recipe book, no one knows the fridge",
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 12
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "SaveImage"
+   },
+   "widgets_values": [
+    "Cyan_StartFrames/shot04"
+   ]
+  },
+  {
+   "id": 16,
+   "type": "CyanImageAPI",
+   "pos": [
+    700,
+    2340
+   ],
+   "size": [
+    520,
+    600
+   ],
+   "flags": {},
+   "order": 103,
+   "mode": 0,
+   "title": "Generate \u00b7 Shot 5 start frame - Mei photographs her shopping",
+   "color": "#223",
+   "bgcolor": "#335",
+   "inputs": [
+    {
+     "name": "ref_1",
+     "type": "IMAGE",
+     "link": 13
+    },
+    {
+     "name": "ref_2",
+     "type": "IMAGE",
+     "link": 14
+    },
+    {
+     "name": "ref_3",
+     "type": "IMAGE",
+     "link": 15
+    },
+    {
+     "name": "ref_4",
+     "type": "IMAGE",
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      16
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CyanImageAPI"
+   },
+   "widgets_values": [
+    "Mei is exactly the woman on the character sheet in reference 1: same face, black hair in a low ponytail, cream long-sleeved button blouse with rolled sleeves, grey trousers with a thin dark belt. She is right-handed and holds only one phone when a phone is in the scene. Evening, in exactly the kitchen of reference 2. Mei stands at the wooden counter beside the sink, facing the counter. Laid out neatly in a row on the counter directly in front of her: a carton of eggs, one flat sealed clear plastic produce bag of fresh spinach exactly like the bags in reference 3, three tomatoes, a small tray of chicken, a carton of soy milk and a folded paper receipt; an empty canvas tote bag beside them. She leans slightly over the groceries and holds one smartphone flat in her right hand directly above them, camera lens pointing down at the food, her eyes on the phone screen. Side three-quarter view from the left at chest height, so her face, the phone and every grocery item are clearly visible below the phone. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+    "gpt-image-2.6-sunburst",
+    "1920x1080",
+    "high",
+    2003,
+    "fixed"
+   ]
+  },
+  {
+   "id": 17,
+   "type": "LoadImage",
+   "pos": [
+    0,
+    2340
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 17,
+   "mode": 0,
+   "title": "01_Mei_Apose.png",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      13
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/approved/01_Mei_Apose.png",
+    "image"
+   ]
+  },
+  {
+   "id": 18,
+   "type": "LoadImage",
+   "pos": [
+    330,
+    2340
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 18,
+   "mode": 0,
+   "title": "04_Kitchen_overview.png",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      14
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/approved/04_Kitchen_overview.png",
+    "image"
+   ]
+  },
+  {
+   "id": 19,
+   "type": "LoadImage",
+   "pos": [
+    0,
+    2680
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 19,
+   "mode": 0,
+   "title": "t009.6.jpg",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      15
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/clip2/t009.6.jpg",
+    "image"
+   ]
+  },
+  {
+   "id": 20,
+   "type": "SaveImage",
+   "pos": [
+    1260,
+    2340
+   ],
+   "size": [
+    1200,
+    680
+   ],
+   "flags": {},
+   "order": 203,
+   "mode": 0,
+   "title": "Start frame \u00b7 Shot 5 start frame - Mei photographs her shopping",
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 16
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "SaveImage"
+   },
+   "widgets_values": [
+    "Cyan_StartFrames/shot05"
+   ]
+  },
+  {
+   "id": 21,
+   "type": "CyanImageAPI",
+   "pos": [
+    700,
+    3100
+   ],
+   "size": [
+    520,
+    600
+   ],
+   "flags": {},
+   "order": 104,
+   "mode": 0,
+   "title": "Generate \u00b7 Shot 2 start frame - Mei opens the fridge (colour-matched redo)",
+   "color": "#223",
+   "bgcolor": "#335",
+   "inputs": [
+    {
+     "name": "ref_1",
+     "type": "IMAGE",
+     "link": 17
+    },
+    {
+     "name": "ref_2",
+     "type": "IMAGE",
+     "link": 18
+    },
+    {
+     "name": "ref_3",
+     "type": "IMAGE",
+     "link": 19
+    },
+    {
+     "name": "ref_4",
+     "type": "IMAGE",
+     "link": 20
+    }
+   ],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      21
+     ]
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "CyanImageAPI"
+   },
+   "widgets_values": [
+    "Mei is exactly the woman on the character sheet in reference 1: same face, black hair in a low ponytail, cream long-sleeved button blouse with rolled sleeves, grey trousers with a thin dark belt. She is right-handed and holds only one phone when a phone is in the scene. Evening, just home, in exactly the kitchen of reference 2, with the same bright warm colours and lighting as reference 2. Follow the composition of reference 3: Mei stands on the left in profile facing right, her right hand reaching for the long handle on the LEFT edge of the closed silver fridge door (the door is hinged on its right side); magnets, notes and a calendar on the door; the wooden counter with the dish rack, the sink and the window with lit housing towers on the right. On the counter, two identical flat sealed clear plastic produce bags of fresh spinach lie side by side, like reference 3's later frame. Medium-wide shot. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+    "gpt-image-2.6-sunburst",
+    "1920x1080",
+    "high",
+    2004,
+    "fixed"
+   ]
+  },
+  {
+   "id": 22,
+   "type": "LoadImage",
+   "pos": [
+    0,
+    3100
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 22,
+   "mode": 0,
+   "title": "01_Mei_Apose.png",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      17
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/approved/01_Mei_Apose.png",
+    "image"
+   ]
+  },
+  {
+   "id": 23,
+   "type": "LoadImage",
+   "pos": [
+    330,
+    3100
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 23,
+   "mode": 0,
+   "title": "04_Kitchen_overview.png",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      18
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/approved/04_Kitchen_overview.png",
+    "image"
+   ]
+  },
+  {
+   "id": 24,
+   "type": "LoadImage",
+   "pos": [
+    0,
+    3440
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 24,
+   "mode": 0,
+   "title": "t000.3.jpg",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      19
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/clip2/t000.3.jpg",
+    "image"
+   ]
+  },
+  {
+   "id": 25,
+   "type": "LoadImage",
+   "pos": [
+    330,
+    3440
+   ],
+   "size": [
+    300,
+    320
+   ],
+   "flags": {},
+   "order": 25,
+   "mode": 0,
+   "title": "t009.6.jpg",
+   "inputs": [],
+   "outputs": [
+    {
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      20
+     ]
+    },
+    {
+     "name": "MASK",
+     "type": "MASK",
+     "links": []
+    }
+   ],
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "Cyan_Asset_Library/clip2/t009.6.jpg",
+    "image"
+   ]
+  },
+  {
+   "id": 26,
+   "type": "SaveImage",
+   "pos": [
+    1260,
+    3100
+   ],
+   "size": [
+    1200,
+    680
+   ],
+   "flags": {},
+   "order": 204,
+   "mode": 0,
+   "title": "Start frame \u00b7 Shot 2 start frame - Mei opens the fridge (colour-matched redo)",
+   "inputs": [
+    {
+     "name": "images",
+     "type": "IMAGE",
+     "link": 21
+    }
+   ],
+   "outputs": [],
+   "properties": {
+    "Node name for S&R": "SaveImage"
+   },
+   "widgets_values": [
+    "Cyan_StartFrames/shot02"
+   ]
+  }
+ ],
+ "links": [
+  [
+   1,
+   2,
+   0,
+   1,
+   0,
+   "IMAGE"
+  ],
+  [
+   2,
+   3,
+   0,
+   1,
+   1,
+   "IMAGE"
+  ],
+  [
+   3,
+   4,
+   0,
+   1,
+   2,
+   "IMAGE"
+  ],
+  [
+   4,
+   1,
+   0,
+   5,
+   0,
+   "IMAGE"
+  ],
+  [
+   5,
+   7,
+   0,
+   6,
+   0,
+   "IMAGE"
+  ],
+  [
+   6,
+   8,
+   0,
+   6,
+   1,
+   "IMAGE"
+  ],
+  [
+   7,
+   9,
+   0,
+   6,
+   2,
+   "IMAGE"
+  ],
+  [
+   8,
+   6,
+   0,
+   10,
+   0,
+   "IMAGE"
+  ],
+  [
+   9,
+   12,
+   0,
+   11,
+   0,
+   "IMAGE"
+  ],
+  [
+   10,
+   13,
+   0,
+   11,
+   1,
+   "IMAGE"
+  ],
+  [
+   11,
+   14,
+   0,
+   11,
+   2,
+   "IMAGE"
+  ],
+  [
+   12,
+   11,
+   0,
+   15,
+   0,
+   "IMAGE"
+  ],
+  [
+   13,
+   17,
+   0,
+   16,
+   0,
+   "IMAGE"
+  ],
+  [
+   14,
+   18,
+   0,
+   16,
+   1,
+   "IMAGE"
+  ],
+  [
+   15,
+   19,
+   0,
+   16,
+   2,
+   "IMAGE"
+  ],
+  [
+   16,
+   16,
+   0,
+   20,
+   0,
+   "IMAGE"
+  ],
+  [
+   17,
+   22,
+   0,
+   21,
+   0,
+   "IMAGE"
+  ],
+  [
+   18,
+   23,
+   0,
+   21,
+   1,
+   "IMAGE"
+  ],
+  [
+   19,
+   24,
+   0,
+   21,
+   2,
+   "IMAGE"
+  ],
+  [
+   20,
+   25,
+   0,
+   21,
+   3,
+   "IMAGE"
+  ],
+  [
+   21,
+   21,
+   0,
+   26,
+   0,
+   "IMAGE"
+  ]
+ ],
+ "groups": [
+  {
+   "title": "Shot 1 start frame - MTR ride home",
+   "bounding": [
+    -30,
+    0,
+    3000,
+    720
+   ],
+   "color": "#3f789e",
+   "font_size": 28
+  },
+  {
+   "title": "Shot 3 start frame - food goes in the bin",
+   "bounding": [
+    -30,
+    760,
+    3000,
+    720
+   ],
+   "color": "#3f789e",
+   "font_size": 28
+  },
+  {
+   "title": "Shot 4 start frame - list, recipe book, no one knows the fridge",
+   "bounding": [
+    -30,
+    1520,
+    3000,
+    720
+   ],
+   "color": "#3f789e",
+   "font_size": 28
+  },
+  {
+   "title": "Shot 5 start frame - Mei photographs her shopping",
+   "bounding": [
+    -30,
+    2280,
+    3000,
+    720
+   ],
+   "color": "#3f789e",
+   "font_size": 28
+  },
+  {
+   "title": "Shot 2 start frame - Mei opens the fridge (colour-matched redo)",
+   "bounding": [
+    -30,
+    3040,
+    3000,
+    720
+   ],
+   "color": "#3f789e",
+   "font_size": 28
+  }
+ ],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.35,
+   "offset": [
+    100,
+    100
+   ]
+  }
+ },
+ "version": 0.4
+}

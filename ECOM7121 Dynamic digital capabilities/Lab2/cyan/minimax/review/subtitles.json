@@ -1,0 +1,230 @@
+[
+ {
+  "scene": 1,
+  "start": 0.7000000000000001,
+  "end": 2.73,
+  "text": "Six-forty, on the MTR home to Kwun Tong."
+ },
+ {
+  "scene": 1,
+  "start": 3.6799999999999997,
+  "end": 7.61,
+  "text": "Mei can't remember what's in her fridge, so takeaway wins, again."
+ },
+ {
+  "scene": 2,
+  "start": 10.42,
+  "end": 14.11,
+  "text": "At home, the fridge tells the real story: a yoghurt hidden at the back,"
+ },
+ {
+  "scene": 2,
+  "start": 14.16,
+  "end": 16.91,
+  "text": "and a second bag of spinach she didn't need."
+ },
+ {
+  "scene": 3,
+  "start": 20.299999999999997,
+  "end": 22.31,
+  "text": "By Friday, both go in the bin."
+ },
+ {
+  "scene": 3,
+  "start": 22.47,
+  "end": 25.49,
+  "text": "Hong Kong throws away about three thousand tonnes of food a day,"
+ },
+ {
+  "scene": 3,
+  "start": 25.54,
+  "end": 28.79,
+  "text": "and two-thirds of it comes from homes like this one."
+ },
+ {
+  "scene": 4,
+  "start": 30.119999999999997,
+  "end": 31.849999999999998,
+  "text": "Shopping lists remember what to buy."
+ },
+ {
+  "scene": 4,
+  "start": 31.9,
+  "end": 34.15,
+  "text": "Food banks rescue surplus from shops."
+ },
+ {
+  "scene": 4,
+  "start": 34.199999999999996,
+  "end": 37.21,
+  "text": "None of them knows what's in Mei's fridge."
+ },
+ {
+  "scene": 5,
+  "start": 40.16,
+  "end": 42.01,
+  "text": "Meet Household Inventory."
+ },
+ {
+  "scene": 5,
+  "start": 42.379999999999995,
+  "end": 45.730000000000004,
+  "text": "Mei snaps her shopping, and the Sense Agent turns it into a list,"
+ },
+ {
+  "scene": 5,
+  "start": 45.78,
+  "end": 47.59,
+  "text": "flagging anything it isn't sure about."
+ },
+ {
+  "scene": 6,
+  "start": 50.33,
+  "end": 52.54,
+  "text": "Nothing is saved until Mei checks it."
+ },
+ {
+  "scene": 6,
+  "start": 52.61,
+  "end": 56.98,
+  "text": "The app never guesses an expiry date; if the label isn't clear, it asks."
+ },
+ {
+  "scene": 7,
+  "start": 60.42,
+  "end": 64.81,
+  "text": "The Steward Agent keeps track of every batch, and ranks what to use first."
+ },
+ {
+  "scene": 8,
+  "start": 70.48,
+  "end": 74.19,
+  "text": "The Kitchen Concierge drafts dinner from what she already has:"
+ },
+ {
+  "scene": 8,
+  "start": 75.52000000000001,
+  "end": 77.85,
+  "text": "a fifteen-minute spinach and egg skillet."
+ },
+ {
+  "scene": 9,
+  "start": 80.06,
+  "end": 81.87,
+  "text": "Then things change."
+ },
+ {
+  "scene": 9,
+  "start": 82.82000000000001,
+  "end": 87.61,
+  "text": "Ka-ho has started avoiding dairy, and the chicken was left out overnight."
+ },
+ {
+  "scene": 10,
+  "start": 90.57000000000001,
+  "end": 92.5,
+  "text": "The Guardrail blocks both."
+ },
+ {
+  "scene": 10,
+  "start": 92.83000000000001,
+  "end": 97.58,
+  "text": "It re-checks every ingredient, and no chat message can talk its way past it."
+ },
+ {
+  "scene": 11,
+  "start": 100.5,
+  "end": 105.09,
+  "text": "Even if an agent suggests the chicken again, the answer is: no safe meal."
+ },
+ {
+  "scene": 11,
+  "start": 105.30000000000001,
+  "end": 108.03,
+  "text": "The decision goes back to Mei, and she bins it."
+ },
+ {
+  "scene": 12,
+  "start": 109.82000000000001,
+  "end": 115.35,
+  "text": "Once Mei approves, she cooks, and only then does the app update the stock."
+ },
+ {
+  "scene": 13,
+  "start": 120.74,
+  "end": 123.89,
+  "text": "Two use-first items eaten, one takeaway skipped."
+ },
+ {
+  "scene": 13,
+  "start": 124.62,
+  "end": 128.49,
+  "text": "Every cooked or tossed tap feeds a weekly human review."
+ },
+ {
+  "scene": 14,
+  "start": 130.68,
+  "end": 133.15,
+  "text": "Households waste less and save money."
+ },
+ {
+  "scene": 14,
+  "start": 133.4,
+  "end": 136.15,
+  "text": "Community NGOs and estates reach families cheaply,"
+ },
+ {
+  "scene": 14,
+  "start": 136.74,
+  "end": 139.99,
+  "text": "and a small subscription plus partner licences pays the bills."
+ },
+ {
+  "scene": 14,
+  "start": 140.5,
+  "end": 141.85,
+  "text": "No ads, no data sales."
+ },
+ {
+  "scene": 15,
+  "start": 141.92,
+  "end": 145.63,
+  "text": "The app keeps only the data it needs under Hong Kong's privacy law,"
+ },
+ {
+  "scene": 15,
+  "start": 145.68,
+  "end": 150.13,
+  "text": "and a stop switch turns the AI off while the inventory stays readable."
+ },
+ {
+  "scene": 16,
+  "start": 152.62,
+  "end": 156.23,
+  "text": "A four-week pilot with thirty households will measure food wasted,"
+ },
+ {
+  "scene": 16,
+  "start": 156.62,
+  "end": 158.01,
+  "text": "use-first meals and accuracy."
+ },
+ {
+  "scene": 16,
+  "start": 158.36,
+  "end": 160.67,
+  "text": "If people stop logging, the idea fails."
+ },
+ {
+  "scene": 17,
+  "start": 162.73,
+  "end": 164.4,
+  "text": "Household Inventory."
+ },
+ {
+  "scene": 17,
+  "start": 164.45,
+  "end": 168.2,
+  "text": "Good food. Less waste. By design."
+ }
+]

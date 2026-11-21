@@ -1,0 +1,582 @@
+{
+ "2": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/01_Mei_Apose.png"
+  }
+ },
+ "3": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/04_Kitchen_overview.png"
+  }
+ },
+ "4": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/refs_clean/scene06.jpg"
+  }
+ },
+ "1": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "Mei is exactly the woman on the character sheet in reference 1: same face, black hair in a low ponytail, cream long-sleeved button blouse with rolled sleeves, grey trousers with a thin dark belt. She is right-handed and holds only one phone when a phone is in the scene. Evening, in exactly the kitchen of reference 2, at the wooden counter by the window. Medium close-up over her shoulder: in her right hand one smartphone showing a simple app list of food pictures where one row is softly highlighted in amber (no readable text); in her left hand the small white yoghurt pot, turned so she can read its lid. She compares the pot with the phone, attentive and calm. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 3000,
+   "ref_1": [
+    "2",
+    0
+   ],
+   "ref_2": [
+    "3",
+    0
+   ],
+   "ref_3": [
+    "4",
+    0
+   ]
+  }
+ },
+ "5": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_StartFrames/shot06",
+   "images": [
+    "1",
+    0
+   ]
+  }
+ },
+ "7": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/04_Kitchen_overview.png"
+  }
+ },
+ "8": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/clip2/t009.6.jpg"
+  }
+ },
+ "9": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/refs_clean/scene07.jpg"
+  }
+ },
+ "6": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "No people. Inside the open fridge of the kitchen in reference 1, seen straight on at shelf height, tidy and well lit by the warm fridge light. Top shelf: the flat clear produce bag of spinach (like reference 2) and an open carton of eggs, each traced by a soft glowing cyan-teal outline. Middle shelf: a bowl of tomatoes, a carton of soy milk, a tray of chicken and two jars, with no glow. Door shelves with sauces. Clean white interior, no clutter. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 3001,
+   "ref_1": [
+    "7",
+    0
+   ],
+   "ref_2": [
+    "8",
+    0
+   ],
+   "ref_3": [
+    "9",
+    0
+   ]
+  }
+ },
+ "10": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_StartFrames/shot07",
+   "images": [
+    "6",
+    0
+   ]
+  }
+ },
+ "12": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/01_Mei_Apose.png"
+  }
+ },
+ "13": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/05_Living_dining_overview.png"
+  }
+ },
+ "14": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/refs_clean/scene08.jpg"
+  }
+ },
+ "11": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "Mei is exactly the woman on the character sheet in reference 1: same face, black hair in a low ponytail, cream long-sleeved button blouse with rolled sleeves, grey trousers with a thin dark belt. She is right-handed and holds only one phone when a phone is in the scene. Evening in exactly the living room of reference 2, lamp on. Mei sits relaxed on the beige sofa, holding one smartphone in her right hand and looking at it with a small hopeful smile. Above the phone, a soft dreamy watercolour vision floats in the air like warm steam: a black skillet of spinach and fried eggs. Medium shot. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 3002,
+   "ref_1": [
+    "12",
+    0
+   ],
+   "ref_2": [
+    "13",
+    0
+   ],
+   "ref_3": [
+    "14",
+    0
+   ]
+  }
+ },
+ "15": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_StartFrames/shot08",
+   "images": [
+    "11",
+    0
+   ]
+  }
+ },
+ "17": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/01_Mei_Apose.png"
+  }
+ },
+ "18": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/02_Kaho_Apose.png"
+  }
+ },
+ "19": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/04_Kitchen_overview.png"
+  }
+ },
+ "16": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "Mei is exactly the woman on the character sheet in reference 1: same face, black hair in a low ponytail, cream long-sleeved button blouse with rolled sleeves, grey trousers with a thin dark belt. She is right-handed and holds only one phone when a phone is in the scene. Ka-ho is exactly the man on the character sheet in reference 2: same face, short black hair, thin round wire glasses, light stubble, navy pullover hoodie with white drawstrings over a white t-shirt, dark jeans. He is right-handed. Morning in exactly the kitchen of reference 3. Mei and Ka-ho stand facing each other near the counter, mid-conversation. Ka-ho holds a plain carton of milk in his right hand and a small yoghurt pot in his left, holding them slightly away with an apologetic smile, as if saying he is avoiding dairy now. Mei listens. On the counter beside the sink, a tray of raw chicken has been left out uncovered. Medium-wide shot, both characters fully in frame from the knees up, the chicken tray clearly visible. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 3003,
+   "ref_1": [
+    "17",
+    0
+   ],
+   "ref_2": [
+    "18",
+    0
+   ],
+   "ref_3": [
+    "19",
+    0
+   ]
+  }
+ },
+ "20": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_StartFrames/shot09",
+   "images": [
+    "16",
+    0
+   ]
+  }
+ },
+ "22": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/04_Kitchen_overview.png"
+  }
+ },
+ "23": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/refs_clean/scene10.jpg"
+  }
+ },
+ "24": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/shot11_start.png"
+  }
+ },
+ "21": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "No people. Close view along the wooden counter of the kitchen in reference 1: on the left a bowl of yoghurt topped with berries, on the right the same small plastic tray of raw chicken breast fillets as in reference 3 (fillets, not a whole bird), uncovered. A translucent cyan-teal shield of light, like a curved pane of glowing glass, stands in front of both dishes, softly glowing, the dishes slightly dimmed behind it. Clean tidy counter, wall tiles behind. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 3004,
+   "ref_1": [
+    "22",
+    0
+   ],
+   "ref_2": [
+    "23",
+    0
+   ],
+   "ref_3": [
+    "24",
+    0
+   ]
+  }
+ },
+ "25": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_StartFrames/shot10",
+   "images": [
+    "21",
+    0
+   ]
+  }
+ },
+ "27": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/01_Mei_Apose.png"
+  }
+ },
+ "28": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/04_Kitchen_overview.png"
+  }
+ },
+ "29": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/shot03_start.png"
+  }
+ },
+ "26": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "Mei is exactly the woman on the character sheet in reference 1: same face, black hair in a low ponytail, cream long-sleeved button blouse with rolled sleeves, grey trousers with a thin dark belt. She is right-handed and holds only one phone when a phone is in the scene. Evening in exactly the kitchen of reference 2, by the counter next to the cream pedal bin from reference 3. Mei holds one smartphone in her left hand, its screen showing a simple red warning symbol and a chicken picture (no readable text), and looks with a doubtful frown at the tray of raw chicken that she holds in her right hand. The pedal bin is on the floor in front of her with its lid closed. Medium shot. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 3005,
+   "ref_1": [
+    "27",
+    0
+   ],
+   "ref_2": [
+    "28",
+    0
+   ],
+   "ref_3": [
+    "29",
+    0
+   ]
+  }
+ },
+ "30": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_StartFrames/shot11",
+   "images": [
+    "26",
+    0
+   ]
+  }
+ },
+ "32": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/01_Mei_Apose.png"
+  }
+ },
+ "33": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/04_Kitchen_overview.png"
+  }
+ },
+ "34": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/refs_clean/scene12.jpg"
+  }
+ },
+ "31": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "Mei is exactly the woman on the character sheet in reference 1: same face, black hair in a low ponytail, cream long-sleeved button blouse with rolled sleeves, grey trousers with a thin dark belt. She is right-handed and holds only one phone when a phone is in the scene. Evening in exactly the kitchen of reference 2. Mei stands at the two-burner gas hob, cooking: a black cast-iron skillet on the lit burner with wilted spinach and three frying eggs, steam rising. Her right hand stirs with a wooden spatula, her left hand holds the skillet handle. She looks pleased and focused. Medium shot from beside the hob so the skillet, her hands and face are clear. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 3006,
+   "ref_1": [
+    "32",
+    0
+   ],
+   "ref_2": [
+    "33",
+    0
+   ],
+   "ref_3": [
+    "34",
+    0
+   ]
+  }
+ },
+ "35": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_StartFrames/shot12",
+   "images": [
+    "31",
+    0
+   ]
+  }
+ },
+ "37": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/01_Mei_Apose.png"
+  }
+ },
+ "38": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/02_Kaho_Apose.png"
+  }
+ },
+ "39": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/05_Living_dining_overview.png"
+  }
+ },
+ "36": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "Mei is exactly the woman on the character sheet in reference 1: same face, black hair in a low ponytail, cream long-sleeved button blouse with rolled sleeves, grey trousers with a thin dark belt. She is right-handed and holds only one phone when a phone is in the scene. Ka-ho is exactly the man on the character sheet in reference 2: same face, short black hair, thin round wire glasses, light stubble, navy pullover hoodie with white drawstrings over a white t-shirt, dark jeans. He is right-handed. Evening at the small dining table for two in exactly the living room of reference 3, lamp on, window with lit towers behind. Mei and Ka-ho sit opposite each other at the two chairs, eating the spinach and egg skillet from the middle of the table with bowls of rice. Each holds one pair of chopsticks in the right hand. They smile and chat. A small closed sketchbook lies at the corner of the table. Medium shot from the side of the table. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 3007,
+   "ref_1": [
+    "37",
+    0
+   ],
+   "ref_2": [
+    "38",
+    0
+   ],
+   "ref_3": [
+    "39",
+    0
+   ]
+  }
+ },
+ "40": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_StartFrames/shot13",
+   "images": [
+    "36",
+    0
+   ]
+  }
+ },
+ "42": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/03_Volunteer_Apose.png"
+  }
+ },
+ "43": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/refs_clean/scene14.jpg"
+  }
+ },
+ "41": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "Dusk outside a clean, well-kept Hong Kong public housing estate. A low community-centre building at the foot of the towers has a large bright window; inside, clearly visible, the volunteer from reference 1 (mustard apron, light blue shirt) leads a small cooking workshop at a long table with three residents: an elderly woman, a young father and a teenage girl, with bowls of vegetables. Lit tower windows above, a few trees, a tidy paved path. Wide shot centred on the bright window. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 3008,
+   "ref_1": [
+    "42",
+    0
+   ],
+   "ref_2": [
+    "43",
+    0
+   ]
+  }
+ },
+ "44": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_StartFrames/shot14",
+   "images": [
+    "41",
+    0
+   ]
+  }
+ },
+ "46": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/05_Living_dining_overview.png"
+  }
+ },
+ "47": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/refs_clean/scene15.jpg"
+  }
+ },
+ "48": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/01_Mei_Apose.png"
+  }
+ },
+ "45": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "Evening, close view of the light-wood dining table from reference 1. On the left lies a closed notebook held shut by a strap with exactly one small brass padlock; there is no key anywhere. On the right lies one smartphone face up, its screen showing a single large rounded toggle switch in the ON position glowing cyan-teal, and a few plain grey list lines below it (no readable text). Mei's right hand enters from the right edge, one finger about to touch the toggle. Warm lamp light. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 3009,
+   "ref_1": [
+    "46",
+    0
+   ],
+   "ref_2": [
+    "47",
+    0
+   ],
+   "ref_3": [
+    "48",
+    0
+   ]
+  }
+ },
+ "49": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_StartFrames/shot15",
+   "images": [
+    "45",
+    0
+   ]
+  }
+ },
+ "51": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/05_Living_dining_overview.png"
+  }
+ },
+ "52": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/refs_clean/scene16.jpg"
+  }
+ },
+ "50": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "No people. Top-down view of the light-wood dining table from reference 1. On it lies a large hand-painted watercolour map of a Hong Kong harbourside district with housing estates, roads and the waterfront, with no labels or words; about thirty tiny cyan dots are scattered over the housing estates, unlit. Beside it a small spiral desk calendar showing a simple grid of four weeks with no numbers, a cup of tea and a pencil. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 3010,
+   "ref_1": [
+    "51",
+    0
+   ],
+   "ref_2": [
+    "52",
+    0
+   ]
+  }
+ },
+ "53": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_StartFrames/shot16",
+   "images": [
+    "50",
+    0
+   ]
+  }
+ },
+ "55": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/01_Mei_Apose.png"
+  }
+ },
+ "56": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/approved/05_Living_dining_overview.png"
+  }
+ },
+ "57": {
+  "class_type": "LoadImage",
+  "inputs": {
+   "image": "Cyan_Asset_Library/refs_clean/scene17.jpg"
+  }
+ },
+ "54": {
+  "class_type": "CyanImageAPI",
+  "inputs": {
+   "prompt": "Mei is exactly the woman on the character sheet in reference 1: same face, black hair in a low ponytail, cream long-sleeved button blouse with rolled sleeves, grey trousers with a thin dark belt. She is right-handed and holds only one phone when a phone is in the scene. Dusk, in exactly the living room of reference 2. Mei stands at the large window beside the sheer cream curtains, holding a warm cup of tea in both hands, looking out at the lit housing towers with a calm, content smile. Medium shot from inside the room, slightly behind her shoulder, so both her face in profile and the view outside are visible. Draw it in exactly the illustration style of the approved references and Clip 2: clean hand-drawn ink contour lines, smooth even colour with soft transparent watercolour shading, warm muted palette, smooth clean skin, clean even clothing colour, very subtle paper texture only. Clean and tidy: no grime, stains, mottling, blotches or splatter, no torn-paper border; the picture fills the whole 16:9 frame edge to edge. A single film frame: no text, no readable writing, no captions, no logos, no watermark, no signature, no star or sparkle marks.",
+   "model": "gpt-image-2.6-sunburst",
+   "size": "1920x1080",
+   "quality": "high",
+   "seed": 3011,
+   "ref_1": [
+    "55",
+    0
+   ],
+   "ref_2": [
+    "56",
+    0
+   ],
+   "ref_3": [
+    "57",
+    0
+   ]
+  }
+ },
+ "58": {
+  "class_type": "SaveImage",
+  "inputs": {
+   "filename_prefix": "Cyan_StartFrames/shot17",
+   "images": [
+    "54",
+    0
+   ]
+  }
+ }
+}
